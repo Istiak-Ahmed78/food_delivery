@@ -1,0 +1,1 @@
+const kNotosans = 'NotoSans';

@@ -10,12 +10,13 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: kOrange,
         onPressed: () {
           setState(() {
             _currentIndex = 2;

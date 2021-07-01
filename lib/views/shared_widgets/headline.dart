@@ -19,7 +19,7 @@ class HeadLine extends StatelessWidget {
         flex: 1,
         child: Icon(
           Icons.stars,
-          color: kBueGrey,
+          color: kBlueGrey,
         ),
       ),
       Expanded(

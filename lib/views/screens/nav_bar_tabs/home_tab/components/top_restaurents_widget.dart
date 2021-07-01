@@ -86,7 +86,7 @@ class TopRestauarentListItem extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: kBueGrey),
+                                    color: kBlueGrey),
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                                 maxLines: 1,

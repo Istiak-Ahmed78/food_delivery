@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/views/shared_widgets/appbar.dart';
+import 'package:food_delivery/views/shared_widgets/drawer.dart';
+import 'package:food_delivery/views/shared_widgets/search_widget.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:food_delivery/views/styles/paddings.dart';
 import 'components/components.dart';
@@ -12,29 +13,11 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kWhite,
-        drawer: const HomeTabDrawer(),
+        drawer: const DefaultDrawer(),
         drawerScrimColor: kBlack,
-        appBar: AppBar(
-          title: const Text(
-            'Home',
-            style: TextStyle(
-                color: kOrange,
-                fontWeight: FontWeight.bold,
-                fontFamily: kNotosans),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  FontAwesomeIcons.shoppingCart,
-                )),
-          ],
-          iconTheme: const IconThemeData(
-            color: kBlueAccent,
-          ),
-          backgroundColor: kWhite,
-          elevation: 0.0,
-          centerTitle: true,
+        appBar: defaultAppBar(
+          title: 'Home',
+          cartItemNumber: 0,
         ),
         body: SingleChildScrollView(
           child: Padding(

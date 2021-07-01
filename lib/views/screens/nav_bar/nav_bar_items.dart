@@ -20,8 +20,6 @@ class BottomNavItem {
     BottomNavItem(
         screen: const FoodTab(), title: 'Food', icon: Icons.fastfood_sharp),
     BottomNavItem(
-        screen: const WishListTab(),
-        title: 'Wish List',
-        icon: FontAwesomeIcons.heart),
+        screen: const WishListTab(), title: 'Wish List', icon: Icons.favorite),
   ];
 }

@@ -83,7 +83,7 @@ class FoodItemTile extends StatelessWidget {
                               fontSize: 20)),
                     ),
                     Text(
-                      '${DateFormat.yMd().format(orderModel.orderTime!).toString()}',
+                      '${DateFormat.yMd().format(orderModel.orderTime!)}',
                       style:
                           const TextStyle(color: kGrey, fontFamily: kNotosans),
                     ),

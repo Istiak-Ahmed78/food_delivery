@@ -3,8 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import '../../constants.dart';
 
-PreferredSizeWidget defaultAppBar(
-        {required String title, int cartItemNumber = 0}) =>
+PreferredSizeWidget defaultAppBar({
+  required String title,
+  int cartItemNumber = 0,
+}) =>
     AppBar(
       title: Text(
         title,

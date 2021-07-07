@@ -31,7 +31,7 @@ class HomeTab extends StatelessWidget {
               SizedBox(
                 height: kPadding15,
               ),
-              TreddingFoods()
+              TreddingFoodListWidget()
             ]),
           ),
         ));

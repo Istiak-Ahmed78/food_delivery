@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/restaurant_model.dart';
+import 'package:food_delivery/views/screens/maps_explorer/maps_explorer.dart';
 import 'package:food_delivery/views/screens/nav_bar_tabs/home_tab/components/components.dart';
 import 'package:food_delivery/views/shared_widgets/headline.dart';
 import 'package:food_delivery/views/styles/colors.dart';
@@ -26,17 +27,27 @@ class TopRestaurentsWiget extends StatelessWidget {
           SizedBox(
             height: _size.height * 0.02,
           ),
-          Expanded(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: RestaurentListItemModel.topRestaurentList.length,
-                  itemBuilder: (context, index) => TopRestauarentListItem(
-                        restaurentListItemModel:
-                            RestaurentListItemModel.topRestaurentList[index],
-                      )))
+          const Expanded(child: RestaurentList())
         ],
       ),
+    );
+  }
+}
+
+class RestaurentList extends StatelessWidget {
+  const RestaurentList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: RestaurentListItemModel.topRestaurentList.length,
+          itemBuilder: (context, index) => TopRestauarentListItem(
+                restaurentListItemModel:
+                    RestaurentListItemModel.topRestaurentList[index],
+              )),
     );
   }
 }
@@ -52,10 +63,19 @@ class TopRestauarentListItem extends StatelessWidget {
     Size _size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(right: kPadding30),
-      child: Card(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MapsExplorer(
+                      initialPosition: restaurentListItemModel.position!)));
+        },
+        child: Card(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(50)),
+          ),
           child: Container(
             height: _size.height * 0.34,
             width: _size.width * 0.84,

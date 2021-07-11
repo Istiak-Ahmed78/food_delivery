@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
+import 'package:food_delivery/views/screens/checkout/check_out_screen.dart';
+import 'package:food_delivery/views/screens/order_details/order_details.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -132,7 +134,21 @@ class _CartState extends State<CartScreen> {
                       height: 50,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (Provider.of<CartList>(context, listen: false)
+                            .cartList
+                            .isNotEmpty) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderDetailsScreen(
+                                        checkOutvale: checkOutBalance(
+                                            subtotal(shoppingCartList)),
+                                      )));
+                        } else {
+                          showToast(context, 'Add at least one Item');
+                        }
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/models/food_model.dart';
 import 'package:food_delivery/models/nutrition.dart';
+import 'package:food_delivery/models/order_model.dart';
+import 'package:food_delivery/models/restaurant_model.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
-import 'package:food_delivery/views/screens/cart/cart_screen.dart';
+import 'package:food_delivery/state_management/favorite_list_state.dart';
 import 'package:food_delivery/views/screens/product_deatils_screen/components/components.dart';
+import 'package:food_delivery/views/screens/shopping_cart_list/shopping_cart_list.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -261,18 +263,43 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
         ),
         Row(
           children: [
-            Container(
-              height: 40,
-              width: 40,
-              margin: const EdgeInsets.only(right: 10),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: kOrange, width: 1),
-              ),
-              child: const Icon(
-                Icons.favorite,
-                color: kOrange,
+            InkWell(
+              onTap: () {
+                bool isAleadyInTheList =
+                    Provider.of<FavoriteFoodItems>(context, listen: false)
+                        .favList
+                        .where((element) =>
+                            element.restaurentListItemModel.title ==
+                            widget.foodModel.title)
+                        .toList()
+                        .isEmpty;
+                if (isAleadyInTheList) {
+                  Provider.of<FavoriteFoodItems>(context, listen: false).addFav(
+                      OrderModel(
+                          restaurentListItemModel: RestaurentListItemModel(
+                              title: widget.foodModel.title,
+                              price: widget.foodModel.price,
+                              imageAdress: widget.foodModel.imageUrl,
+                              rating: 4,
+                              subTitle: dummyText)));
+                  showToast('This item added to the wishlist');
+                } else {
+                  showToast('This Item already in the wishlist');
+                }
+              },
+              child: Container(
+                height: 40,
+                width: 40,
+                margin: const EdgeInsets.only(right: 10),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: kOrange, width: 1),
+                ),
+                child: const Icon(
+                  Icons.favorite,
+                  color: kOrange,
+                ),
               ),
             ),
             Expanded(

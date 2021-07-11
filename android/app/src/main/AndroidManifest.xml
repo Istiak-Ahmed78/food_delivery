@@ -1,8 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.food_delivery">
+     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="food_delivery"
         android:icon="@mipmap/ic_launcher">
+         <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCSCsBK35nPCeXKNROxFkFbwdlpIB9F57w"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -27,8 +31,7 @@
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
               />
-               <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyBRzY2-SBH3eRF0YOoKjSyAv5qEzv_Sk0I"/>
+              
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

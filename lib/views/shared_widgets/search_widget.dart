@@ -25,10 +25,9 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 50,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
         controller: editingCintroller,
         decoration: inputDecoration,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/views/shared_widgets/appbar.dart';
+import 'package:food_delivery/state_management/cart_list_state.dart';
 import 'package:food_delivery/views/shared_widgets/expension.dart';
+import 'package:food_delivery/views/shared_widgets/shared_widgets.dart';
 import 'package:food_delivery/views/styles/colors.dart';
-
+import 'package:provider/provider.dart';
 import '../../../../constants.dart';
 import 'components/componets.dart';
 import 'components/section_title.dart';
@@ -13,8 +14,11 @@ class AccountTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppBar(title: 'Profile'),
-      drawer: Drawer(),
+      appBar: defaultAppBar(
+          title: 'Profile',
+          context: context,
+          cartItemNumber: Provider.of<CartList>(context).cartList.length),
+      drawer: const DefaultDrawer(),
       body: Padding(
         padding: const EdgeInsets.only(
             left: 10, right: 10, bottom: kToolbarHeight + 10),
@@ -38,7 +42,7 @@ class AccountTab extends StatelessWidget {
               child: SectionTitle(
                   title: 'Recent Orders', icon: Icons.shopping_bag),
             ),
-            ExpensionList()
+            const ExpensionList()
           ],
         ),
       ),

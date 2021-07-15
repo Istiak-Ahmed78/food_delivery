@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/order_model.dart';
+import 'package:food_delivery/state_management/recent_orders.dart';
 import 'package:food_delivery/views/styles/colors.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
 import 'product_list_item.dart';
 
@@ -11,7 +13,7 @@ class ExpensionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       leading: const Text(
-        'Expention List',
+        'Last Orders',
         style: TextStyle(
             color: kOrange,
             fontFamily: kNotosans,

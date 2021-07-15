@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/state_management/tab_index.dart';
 import 'package:food_delivery/views/styles/colors.dart';
+import 'package:provider/provider.dart';
 import 'nav_bar_items.dart';
 
-class NavBar extends StatefulWidget {
+class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
 
-  @override
-  State<NavBar> createState() => _NavBarState();
-}
-
-class _NavBarState extends State<NavBar> {
-  int _currentIndex = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,16 +14,14 @@ class _NavBarState extends State<NavBar> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: kOrange,
         onPressed: () {
-          setState(() {
-            _currentIndex = 2;
-          });
+          Provider.of<TabIndex>(context, listen: false).setIndex(2);
         },
         child: const Icon(Icons.home),
       ),
       body: Stack(
         children: [
           IndexedStack(
-            index: _currentIndex,
+            index: Provider.of<TabIndex>(context).currentIndex,
             children: [
               for (final navItem in BottomNavItem.bottomNavItemList)
                 navItem.screen,
@@ -41,11 +35,9 @@ class _NavBarState extends State<NavBar> {
               showSelectedLabels: false,
               showUnselectedLabels: false,
               type: BottomNavigationBarType.fixed,
-              currentIndex: _currentIndex,
+              currentIndex: Provider.of<TabIndex>(context).currentIndex,
               onTap: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
+                Provider.of<TabIndex>(context, listen: false).setIndex(index);
               },
               items: [
                 for (final item in BottomNavItem.bottomNavItemList)

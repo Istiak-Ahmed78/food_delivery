@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/views/screens/nav_bar_tabs/tabs.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavItem {
   final Widget screen;
@@ -11,9 +10,9 @@ class BottomNavItem {
       {required this.screen, required this.title, required this.icon});
   static List<BottomNavItem> bottomNavItemList = [
     BottomNavItem(
-        screen: const NotificationTab(),
-        title: 'Notifications',
-        icon: Icons.notifications),
+        screen: const TracOrders(),
+        title: 'Shopping',
+        icon: Icons.local_shipping),
     BottomNavItem(
         screen: const AccountTab(), title: 'Account', icon: Icons.person),
     BottomNavItem(screen: const HomeTab(), title: 'Home', icon: Icons.home),

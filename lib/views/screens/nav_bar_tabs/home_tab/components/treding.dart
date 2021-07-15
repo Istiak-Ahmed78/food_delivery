@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/models/trending_food_model.dart';
+import 'package:food_delivery/models/food_model.dart';
+import 'package:food_delivery/views/screens/product_deatils_screen/product_details_screen.dart';
 import 'package:food_delivery/views/shared_widgets/headline.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:food_delivery/views/styles/paddings.dart';
 
-class TreddingFoods extends StatelessWidget {
-  const TreddingFoods({Key? key}) : super(key: key);
+class TreddingFoodListWidget extends StatelessWidget {
+  const TreddingFoodListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +29,11 @@ class TreddingFoods extends StatelessWidget {
           Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
+                  padding: const EdgeInsets.only(right: kPadding20),
                   scrollDirection: Axis.horizontal,
-                  itemCount: TrendingFoodModel.trendinFoodList.length,
+                  itemCount: FoodModel.trendinFoodList.length,
                   itemBuilder: (context, index) => TrendingFoods(
-                        trendingFoods: TrendingFoodModel.trendinFoodList[index],
+                        trendingFoods: FoodModel.trendinFoodList[index],
                       )))
         ],
       ),
@@ -40,19 +42,25 @@ class TreddingFoods extends StatelessWidget {
 }
 
 class TrendingFoods extends StatelessWidget {
-  final TrendingFoodModel trendingFoods;
+  final FoodModel trendingFoods;
   const TrendingFoods({Key? key, required this.trendingFoods})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.only(right: kPadding20),
-      child: Card(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+    return Card(
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProductDetailsScreen(
+                          trendingFoodModel: trendingFoods,
+                        )));
+          },
           child: Stack(
             children: [
               SizedBox(
@@ -75,7 +83,7 @@ class TrendingFoods extends StatelessWidget {
                         trendingFoods.title,
                         overflow: TextOverflow.fade,
                         maxLines: 2,
-                        style: TextStyle(color: kGrey),
+                        style: const TextStyle(color: kGrey),
                       ),
                     )
                   ],

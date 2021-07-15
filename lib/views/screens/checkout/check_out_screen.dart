@@ -17,6 +17,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   double checkOutAmount = 0.0;
+  bool isPressed = false;
   @override
   void initState() {
     super.initState();
@@ -70,7 +71,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     height: 40,
                   ),
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed: isPressed ? null : () {},
                     height: 50,
                     minWidth: double.infinity,
                     color: kWhite,
@@ -92,20 +93,26 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     height: 50,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    onPressed: () {
-                      setState(() {
-                        checkOutAmount = 0.0;
-                      });
-                      showToast(context, 'Succesfully checked out');
-                      Provider.of<CartList>(context, listen: false)
-                          .chechedOut();
-                      Future.delayed(const Duration(seconds: 2), () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const NavBar()));
-                      });
-                    },
+                    onPressed: isPressed
+                        ? null
+                        : () {
+                            setState(() {
+                              isPressed = true;
+                              checkOutAmount = 0.0;
+                            });
+                            showToast(context, 'Succesfully checked out');
+                            Provider.of<CartList>(context, listen: false)
+                                .chechedOut();
+                            Future.delayed(const Duration(seconds: 2), () {
+                              setState(() {
+                                isPressed = false;
+                              });
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const NavBar()));
+                            });
+                          },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

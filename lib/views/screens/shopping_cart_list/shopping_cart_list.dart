@@ -38,20 +38,17 @@ class _CartState extends State<CartScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: kBlack,
-          ),
+          icon: const Icon(Icons.arrow_back, color: ColorResources.black),
         ),
         title: const Text(
           'Cart',
-          style: TextStyle(color: kOrange),
+          style: TextStyle(color: ColorResources.orange),
         ),
         centerTitle: true,
-        backgroundColor: kWhite,
+        backgroundColor: ColorResources.white,
         elevation: 0.0,
       ),
-      backgroundColor: kWhite,
+      backgroundColor: ColorResources.white,
       body: Container(
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -66,7 +63,7 @@ class _CartState extends State<CartScreen> {
                     children: [
                       const Icon(
                         Icons.shopping_bag,
-                        color: kBlueGrey,
+                        color: ColorResources.blueGrey,
                       ),
                       const SizedBox(
                         width: 30,
@@ -77,14 +74,16 @@ class _CartState extends State<CartScreen> {
                           const Text(
                             'Shopping Card',
                             style: TextStyle(
-                                color: kBlueGrey,
+                                color: ColorResources.blueGrey,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: kNotosans),
+                                fontFamily: Strings.notosansFontFamilly),
                           ),
                           Text(
                             'Verify your quantity and click checkout',
-                            style: TextStyle(color: kBlueGrey.withOpacity(0.6)),
+                            style: TextStyle(
+                                color:
+                                    ColorResources.blueGrey.withOpacity(0.6)),
                           )
                         ],
                       )
@@ -98,7 +97,7 @@ class _CartState extends State<CartScreen> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 112,
-                color: kWhite,
+                color: ColorResources.white,
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: [
@@ -107,7 +106,8 @@ class _CartState extends State<CartScreen> {
                       children: [
                         const Text(
                           'Subtotal',
-                          style: TextStyle(fontFamily: kNotosans),
+                          style: TextStyle(
+                              fontFamily: Strings.notosansFontFamilly),
                         ),
                         Text('${subtotal(shoppingCartList)}')
                       ],
@@ -120,7 +120,8 @@ class _CartState extends State<CartScreen> {
                       children: [
                         const Text(
                           'TAX(10.0%)',
-                          style: TextStyle(fontFamily: kNotosans),
+                          style: TextStyle(
+                              fontFamily: Strings.notosansFontFamilly),
                         ),
                         Text('${tax(subtotal(shoppingCartList))}')
                       ],
@@ -129,7 +130,7 @@ class _CartState extends State<CartScreen> {
                       height: 10,
                     ),
                     MaterialButton(
-                      color: kOrange,
+                      color: ColorResources.orange,
                       minWidth: double.infinity,
                       height: 50,
                       shape: const RoundedRectangleBorder(
@@ -156,12 +157,14 @@ class _CartState extends State<CartScreen> {
                           const Text(
                             'Checkout',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: kWhite),
+                                fontWeight: FontWeight.bold,
+                                color: ColorResources.white),
                           ),
                           Text(
                             '\$${checkOutBalance(subtotal(shoppingCartList))}',
                             style: const TextStyle(
-                                color: kWhite, fontWeight: FontWeight.bold),
+                                color: ColorResources.white,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -252,7 +255,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                         softWrap: false,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: kBlueGrey,
+                            color: ColorResources.blueGrey,
                             fontSize: 15),
                       ),
                       Text(
@@ -260,7 +263,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                         style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            fontFamily: kNotosans),
+                            fontFamily: Strings.notosansFontFamilly),
                       )
                     ],
                   )

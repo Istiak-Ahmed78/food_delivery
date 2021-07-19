@@ -13,15 +13,15 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
 
   InputDecoration inputDecoration = InputDecoration(
       hintText: 'Search for restaurant or foods',
-      hintStyle: const TextStyle(color: kGrey),
+      hintStyle: const TextStyle(color: ColorResources.grey),
       prefixIcon: const Icon(
         Icons.search,
-        color: kOrange,
+        color: ColorResources.orange,
       ),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kGrey.withOpacity(0.6))),
+          borderSide: BorderSide(color: ColorResources.grey.withOpacity(0.6))),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kGrey.withOpacity(0.2))));
+          borderSide: BorderSide(color: ColorResources.grey.withOpacity(0.2))));
 
   @override
   Widget build(BuildContext context) {

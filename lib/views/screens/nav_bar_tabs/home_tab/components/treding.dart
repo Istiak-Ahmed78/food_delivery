@@ -29,7 +29,8 @@ class TreddingFoodListWidget extends StatelessWidget {
           Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
-                  padding: const EdgeInsets.only(right: kPadding20),
+                  padding: const EdgeInsets.only(
+                      right: Dimentions.soSmallDinmention),
                   scrollDirection: Axis.horizontal,
                   itemCount: FoodModel.trendinFoodList.length,
                   itemBuilder: (context, index) => TrendingFoods(
@@ -83,7 +84,7 @@ class TrendingFoods extends StatelessWidget {
                         trendingFoods.title,
                         overflow: TextOverflow.fade,
                         maxLines: 2,
-                        style: const TextStyle(color: kGrey),
+                        style: const TextStyle(color: ColorResources.grey),
                       ),
                     )
                   ],
@@ -94,13 +95,13 @@ class TrendingFoods extends StatelessWidget {
                 right: 14,
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: kOrange,
+                    color: ColorResources.orange,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   padding: const EdgeInsets.all(5),
                   child: Text(
                     '\$${trendingFoods.price.toString()}',
-                    style: const TextStyle(color: kWhite),
+                    style: const TextStyle(color: ColorResources.white),
                   ),
                 ),
               )

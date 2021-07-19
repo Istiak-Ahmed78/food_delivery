@@ -4,11 +4,11 @@ import '../constants.dart';
 class SharedPre {
   void setIntroBoolTrue() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool(isFirstLaunchKey, true);
+    sharedPreferences.setBool(Sectrets.isFirstLaunchKey, true);
   }
 
   Future<bool?> getIntroBool() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(isFirstLaunchKey);
+    return sharedPreferences.getBool(Sectrets.isFirstLaunchKey);
   }
 }

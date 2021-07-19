@@ -11,14 +11,14 @@ class Ratting extends StatelessWidget {
         (_) => const Icon(
               Icons.star,
               size: 17,
-              color: kOrangeAccent,
+              color: ColorResources.orangeAccent,
             ));
     var nonRatedStarsList = List.generate(
         5 - rattinIconList.length,
         (_) => const Icon(
               Icons.star_border_outlined,
               size: 17,
-              color: kOrangeAccent,
+              color: ColorResources.orangeAccent,
             ));
     return List.from(rattinIconList)..addAll(nonRatedStarsList);
   }

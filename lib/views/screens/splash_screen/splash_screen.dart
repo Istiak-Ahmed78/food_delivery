@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/utils/shared_prefer.dart';
-import 'package:food_delivery/views/screens/intro_page/intro_screen.dart';
 import 'package:food_delivery/views/screens/nav_bar/nav_bar.dart';
 import 'package:lottie/lottie.dart';
 
@@ -17,7 +16,7 @@ class _SpleshScreenState extends State<SpleshScreen> {
   void initState() {
     super.initState();
     getFirstLauchData();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

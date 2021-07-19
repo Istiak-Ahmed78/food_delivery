@@ -15,8 +15,8 @@ class FoodTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
-      drawerScrimColor: kBlueGrey,
+      backgroundColor: ColorResources.white,
+      drawerScrimColor: ColorResources.blueGrey,
       drawer: const DefaultDrawer(),
       appBar: defaultAppBar(
           title: 'My Orders',

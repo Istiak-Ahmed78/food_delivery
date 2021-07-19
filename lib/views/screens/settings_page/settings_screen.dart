@@ -12,19 +12,19 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Settings',
-          style: TextStyle(color: kRed),
+          style: TextStyle(color: ColorResources.red),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: kBlack,
+            color: ColorResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         centerTitle: true,
-        backgroundColor: kWhite,
+        backgroundColor: ColorResources.white,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -47,27 +47,29 @@ class SettingsPage extends StatelessWidget {
                         Text(
                           'Istiak Ahmed',
                           style: TextStyle(
-                              color: kBlueGrey,
+                              color: ColorResources.blueGrey,
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
-                              fontFamily: kNotosans),
+                              fontFamily: Strings.notosansFontFamilly),
                         ),
                         Text(
                           'aistiak6@gamil.com',
-                          style: TextStyle(color: kGrey, fontFamily: kNotosans),
+                          style: TextStyle(
+                              color: ColorResources.grey,
+                              fontFamily: Strings.notosansFontFamilly),
                         )
                       ],
                     ),
                     const CircleAvatar(
                       radius: 25,
-                      backgroundImage: NetworkImage(avaterImageLink),
+                      backgroundImage: NetworkImage(Images.avaterImageLink),
                     )
                   ],
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(5),
-                color: kWhite,
+                color: ColorResources.white,
                 child: Column(
                   children: const [
                     ItemHeadline(
@@ -86,7 +88,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               Container(
-                color: kWhite,
+                color: ColorResources.white,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
@@ -124,14 +126,18 @@ class ItemTile extends StatelessWidget {
         children: [
           Text(
             leading,
-            style: const TextStyle(color: kGrey, fontFamily: kNotosans),
+            style: const TextStyle(
+                color: ColorResources.grey,
+                fontFamily: Strings.notosansFontFamilly),
           ),
           ConstrainedBox(
             constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width * 0.6),
             child: Text(
               trailing,
-              style: const TextStyle(color: kGrey, fontFamily: kNotosans),
+              style: const TextStyle(
+                  color: ColorResources.grey,
+                  fontFamily: Strings.notosansFontFamilly),
             ),
           )
         ],
@@ -157,20 +163,22 @@ class ItemHeadline extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Icon(
               leadingIcon,
-              color: kGrey,
+              color: ColorResources.grey,
             ),
           ),
           Expanded(
               child: Text(
             title,
             style: const TextStyle(
-                color: kGrey,
-                fontFamily: kNotosans,
+                color: ColorResources.grey,
+                fontFamily: Strings.notosansFontFamilly,
                 fontWeight: FontWeight.bold,
                 fontSize: 20),
           )),
           const Text('Edit',
-              style: TextStyle(color: kGrey, fontFamily: kNotosans))
+              style: TextStyle(
+                  color: ColorResources.grey,
+                  fontFamily: Strings.notosansFontFamilly))
         ],
       ),
     );

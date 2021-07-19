@@ -107,7 +107,8 @@ class _MapsExplorerState extends State<MapsExplorer> {
                     scrollDirection: Axis.horizontal,
                     itemCount: RestaurentListItemModel.topRestaurentList.length,
                     itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.only(right: kPadding30),
+                          padding: const EdgeInsets.only(
+                              right: Dimentions.soLargeDimention),
                           child: GestureDetector(
                             onTap: () {
                               animateCamera(RestaurentListItemModel
@@ -134,7 +135,8 @@ class _MapsExplorerState extends State<MapsExplorer> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(kPadding10),
+                                      padding: const EdgeInsets.all(
+                                          Dimentions.smallDimention),
                                       child: Row(
                                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -150,10 +152,12 @@ class _MapsExplorerState extends State<MapsExplorer> {
                                                             index]
                                                         .title,
                                                     style: const TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: kBlueGrey),
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: ColorResources
+                                                          .blueGrey,
+                                                    ),
                                                     overflow: TextOverflow.fade,
                                                     softWrap: false,
                                                     maxLines: 1,
@@ -169,7 +173,8 @@ class _MapsExplorerState extends State<MapsExplorer> {
                                                     overflow: TextOverflow.fade,
                                                     maxLines: 1,
                                                     style: TextStyle(
-                                                        color: kGrey
+                                                        color: ColorResources
+                                                            .grey
                                                             .withOpacity(0.7)),
                                                     softWrap: false,
                                                   ),
@@ -192,7 +197,8 @@ class _MapsExplorerState extends State<MapsExplorer> {
                                             margin:
                                                 const EdgeInsets.only(left: 10),
                                             decoration: const BoxDecoration(
-                                                color: kOrangeAccent,
+                                                color:
+                                                    ColorResources.orangeAccent,
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(5))),
                                             alignment: Alignment.center,
@@ -213,15 +219,17 @@ class _MapsExplorerState extends State<MapsExplorer> {
       appBar: AppBar(
         title: const Text(
           'Maps Explorer',
-          style: TextStyle(color: kRed, fontFamily: kNotosans),
+          style: TextStyle(
+              color: ColorResources.red,
+              fontFamily: Strings.notosansFontFamilly),
         ),
-        backgroundColor: kWhite,
+        backgroundColor: ColorResources.white,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: kBlack,
+            color: ColorResources.black,
           ),
           onPressed: () {},
         ),
@@ -232,7 +240,7 @@ class _MapsExplorerState extends State<MapsExplorer> {
               },
               icon: const Icon(
                 Icons.location_on,
-                color: kBlack,
+                color: ColorResources.black,
               ))
         ],
       ),

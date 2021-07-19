@@ -14,9 +14,9 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kWhite,
+        backgroundColor: ColorResources.white,
         drawer: const DefaultDrawer(),
-        drawerScrimColor: kBlack,
+        drawerScrimColor: ColorResources.black,
         appBar: defaultAppBar(
           title: 'Home',
           context: context,
@@ -30,11 +30,11 @@ class HomeTab extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: SearchRestaurant()),
               SizedBox(
-                height: kPadding10,
+                height: Dimentions.soSmallDinmention,
               ),
               TopRestaurentsWiget(),
               SizedBox(
-                height: kPadding15,
+                height: Dimentions.smallDimention,
               ),
               TreddingFoodListWidget()
             ]),

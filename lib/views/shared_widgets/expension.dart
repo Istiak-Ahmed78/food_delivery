@@ -15,14 +15,14 @@ class ExpensionList extends StatelessWidget {
       leading: const Text(
         'Last Orders',
         style: TextStyle(
-            color: kOrange,
-            fontFamily: kNotosans,
+            color: ColorResources.orange,
+            fontFamily: Strings.notosansFontFamilly,
             fontSize: 18,
             fontWeight: FontWeight.bold),
       ),
       title: const Text(
         'Order Received',
-        style: TextStyle(color: kGrey),
+        style: TextStyle(color: ColorResources.grey),
       ),
       children: [
         for (final singleItem in OrderModel.orderModelList)

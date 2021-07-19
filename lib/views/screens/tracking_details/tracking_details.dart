@@ -13,19 +13,21 @@ class ShowcaseTimelineTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
+      backgroundColor: ColorResources.white,
       appBar: AppBar(
         title: const Text(
           'Order tracking',
-          style: TextStyle(color: kBlueGrey, fontFamily: kNotosans),
+          style: TextStyle(
+              color: ColorResources.blueGrey,
+              fontFamily: Strings.notosansFontFamilly),
         ),
-        backgroundColor: kWhite,
+        backgroundColor: ColorResources.white,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: kBlack,
+            color: ColorResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -51,14 +53,14 @@ class ShowcaseTimelineTile extends StatelessWidget {
                           decoration: const BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color: kBlueGrey,
+                                  color: ColorResources.blueGrey,
                                   offset: Offset(0, 3),
                                   blurRadius: 7,
                                   spreadRadius: 4),
                             ],
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
-                                image: NetworkImage(breadImageLink)),
+                                image: NetworkImage(Images.breadImage)),
                           )),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,15 +68,15 @@ class ShowcaseTimelineTile extends StatelessWidget {
                           Text(
                             'Round bread',
                             style: TextStyle(
-                                color: kBlueGrey,
+                                color: ColorResources.blueGrey,
                                 fontSize: 20,
-                                fontFamily: kNotosans),
+                                fontFamily: Strings.notosansFontFamilly),
                           ),
-                          Text(
-                            '৳ 30',
-                            style:
-                                TextStyle(fontFamily: kNotosans, color: kRed),
-                          )
+                          Text('৳ 30',
+                              style: TextStyle(
+                                fontFamily: Strings.notosansFontFamilly,
+                                color: ColorResources.red,
+                              ))
                         ],
                       ),
                     ],
@@ -123,7 +125,7 @@ class OrderStatusListWidget extends StatelessWidget {
           drawGap: true,
         ),
         beforeLineStyle: const LineStyle(
-          color: kGrey,
+          color: ColorResources.grey,
         ),
         endChild: GestureDetector(
           child: Padding(
@@ -136,13 +138,16 @@ class OrderStatusListWidget extends StatelessWidget {
                     OrderStatusModel.getOrderSatatusList(delivertyStatus)[index]
                         .title,
                     style: const TextStyle(
-                        color: kBlueGrey, fontSize: 17, fontFamily: kNotosans),
+                        color: ColorResources.blueGrey,
+                        fontSize: 17,
+                        fontFamily: Strings.notosansFontFamilly),
                   ),
                   subtitle: Text(
                     OrderStatusModel.getOrderSatatusList(delivertyStatus)[index]
                         .subTitle,
                     style: const TextStyle(
-                        color: kBlueGrey, fontFamily: kNotosans),
+                        color: ColorResources.blueGrey,
+                        fontFamily: Strings.notosansFontFamilly),
                   ),
                 ),
                 delivertyStatus == DelivertyStatus.onTheWay &&
@@ -174,10 +179,12 @@ class Indicator extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isDone ? kBlueGrey : null,
+        color: isDone ? ColorResources.blueGrey : null,
         border: Border.fromBorderSide(
           BorderSide(
-            color: isDone ? kWhite.withOpacity(0.4) : kGrey,
+            color: isDone
+                ? ColorResources.white.withOpacity(0.4)
+                : ColorResources.grey,
             width: 4,
           ),
         ),
@@ -186,11 +193,11 @@ class Indicator extends StatelessWidget {
           ? const Center(
               child: Icon(
               Icons.check,
-              color: kWhite,
+              color: ColorResources.white,
             ))
           : Icon(
               undoneIcon,
-              color: kBlueGrey,
+              color: ColorResources.blueGrey,
               size: 18,
             ),
     );
@@ -274,7 +281,7 @@ class _TrackingOnTheMapWidgetState extends State<TrackingOnTheMapWidget> {
 
   void setPoliense(PointLatLng startingpoint, PointLatLng destination) async {
     PolylineResult polies = await polylinePoints.getRouteBetweenCoordinates(
-        googleMapApiKey, startingpoint, destination,
+        Sectrets.googleMapApiKey, startingpoint, destination,
         travelMode: TravelMode.driving);
     if (polies.points.isNotEmpty) {
       polies.points.forEach((element) {
@@ -285,7 +292,7 @@ class _TrackingOnTheMapWidgetState extends State<TrackingOnTheMapWidget> {
         Polyline polyline = Polyline(
             polylineId: const PolylineId('Poly'),
             points: poliliensCordinates,
-            color: kBlueGrey);
+            color: ColorResources.blueGrey);
         polilines.add(polyline);
       });
     } else {
@@ -307,7 +314,7 @@ class _TrackingOnTheMapWidgetState extends State<TrackingOnTheMapWidget> {
     return Container(
       height: 300,
       width: MediaQuery.of(context).size.width * 0.7,
-      color: kGreen,
+      color: ColorResources.green,
       child: Center(
         child: GoogleMap(
           onMapCreated: onMapCreated,

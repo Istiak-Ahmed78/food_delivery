@@ -16,7 +16,7 @@ class Headline extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: Icon(
               FontAwesomeIcons.addressCard,
-              color: kBlueGrey,
+              color: ColorResources.blueGrey,
             ),
           ),
           SizedBox(
@@ -26,13 +26,15 @@ class Headline extends StatelessWidget {
                   Text(
                     'Payment Mode',
                     style: TextStyle(
-                        color: kBlueGrey,
+                        color: ColorResources.blueGrey,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        fontFamily: kNotosans),
+                        fontFamily: Strings.notosansFontFamilly),
                   ),
                   Text('Select your prefered payment mode',
-                      style: TextStyle(fontFamily: kNotosans, color: kGrey)),
+                      style: TextStyle(
+                          fontFamily: Strings.notosansFontFamilly,
+                          color: ColorResources.grey)),
                 ]),
           )
         ],

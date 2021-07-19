@@ -62,7 +62,7 @@ class TopRestauarentListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.only(right: kPadding30),
+      padding: const EdgeInsets.only(right: Dimentions.soLargeDimention),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -92,7 +92,7 @@ class TopRestauarentListItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(kPadding10),
+                  padding: const EdgeInsets.all(Dimentions.soSmallDinmention),
                   child: Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -106,7 +106,7 @@ class TopRestauarentListItem extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: kBlueGrey),
+                                    color: ColorResources.blueGrey),
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                                 maxLines: 1,
@@ -118,7 +118,9 @@ class TopRestauarentListItem extends StatelessWidget {
                                 restaurentListItemModel.subTitle,
                                 overflow: TextOverflow.fade,
                                 maxLines: 1,
-                                style: TextStyle(color: kGrey.withOpacity(0.7)),
+                                style: TextStyle(
+                                    color:
+                                        ColorResources.grey.withOpacity(0.7)),
                                 softWrap: false,
                               ),
                               const SizedBox(
@@ -134,7 +136,7 @@ class TopRestauarentListItem extends StatelessWidget {
                         width: 50,
                         margin: const EdgeInsets.only(left: 10),
                         decoration: const BoxDecoration(
-                            color: kOrangeAccent,
+                            color: ColorResources.orangeAccent,
                             borderRadius: BorderRadius.all(Radius.circular(5))),
                         alignment: Alignment.center,
                         child: const Icon(Icons.directions),

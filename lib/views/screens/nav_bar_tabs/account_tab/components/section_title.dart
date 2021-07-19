@@ -20,7 +20,7 @@ class SectionTitle extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: kBlueGrey,
+              color: ColorResources.blueGrey,
               size: 26,
             ),
             const SizedBox(
@@ -29,7 +29,7 @@ class SectionTitle extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                color: kBlueGrey,
+                color: ColorResources.blueGrey,
                 fontSize: 26,
               ),
             )

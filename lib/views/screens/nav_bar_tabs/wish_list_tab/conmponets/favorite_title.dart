@@ -14,7 +14,7 @@ class FavoriteTitle extends StatelessWidget {
           Expanded(
               child: Icon(
             Icons.favorite,
-            color: kBlueGrey,
+            color: ColorResources.blueGrey,
           )),
           Expanded(
             child: Text(
@@ -22,7 +22,7 @@ class FavoriteTitle extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                color: kBlueGrey,
+                color: ColorResources.blueGrey,
               ),
             ),
             flex: 3,
@@ -30,7 +30,7 @@ class FavoriteTitle extends StatelessWidget {
           Expanded(
               child: Icon(
             Icons.menu,
-            color: kOrange,
+            color: ColorResources.orange,
           )),
           Expanded(child: Icon(Icons.read_more))
         ],

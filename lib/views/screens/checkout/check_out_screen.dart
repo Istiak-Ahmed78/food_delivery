@@ -28,17 +28,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kWhite,
+        backgroundColor: ColorResources.white,
         elevation: 0.0,
         title: const Text(
           'Checkout',
-          style: TextStyle(color: kRed, fontFamily: kNotosans),
+          style: TextStyle(
+              color: ColorResources.red,
+              fontFamily: Strings.notosansFontFamilly),
         ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: kBlack,
+            color: ColorResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -58,7 +60,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
             const Text(
               'Or Checkout With',
-              style: TextStyle(color: kGrey, fontFamily: kNotosans),
+              style: TextStyle(
+                  color: ColorResources.grey,
+                  fontFamily: Strings.notosansFontFamilly),
             ),
             const SizedBox(
               height: 20,
@@ -74,7 +78,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     onPressed: isPressed ? null : () {},
                     height: 50,
                     minWidth: double.infinity,
-                    color: kWhite,
+                    color: ColorResources.white,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: Container(
@@ -88,7 +92,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     height: 40,
                   ),
                   MaterialButton(
-                    color: kOrange,
+                    color: ColorResources.orange,
                     minWidth: double.infinity,
                     height: 50,
                     shape: const RoundedRectangleBorder(
@@ -119,13 +123,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         Container(),
                         const Text(
                           'Pay',
-                          style:
-                              TextStyle(color: kWhite, fontFamily: kNotosans),
+                          style: TextStyle(
+                              color: ColorResources.white,
+                              fontFamily: Strings.notosansFontFamilly),
                         ),
                         Text(
                           '\$$checkOutAmount',
                           style: const TextStyle(
-                              color: kWhite, fontFamily: kNotosans),
+                              color: ColorResources.white,
+                              fontFamily: Strings.notosansFontFamilly),
                         )
                       ],
                     ),

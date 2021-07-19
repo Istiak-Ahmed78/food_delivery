@@ -12,7 +12,9 @@ PreferredSizeWidget defaultAppBar(
       title: Text(
         title,
         style: const TextStyle(
-            color: kOrange, fontWeight: FontWeight.bold, fontFamily: kNotosans),
+            color: ColorResources.orange,
+            fontWeight: FontWeight.bold,
+            fontFamily: Strings.notosansFontFamilly),
       ),
       actions: [
         Padding(
@@ -34,10 +36,10 @@ PreferredSizeWidget defaultAppBar(
                 top: 25,
                 child: CircleAvatar(
                   radius: 8,
-                  backgroundColor: kRed,
+                  backgroundColor: ColorResources.orange,
                   child: Text(
                     '0',
-                    style: TextStyle(color: kWhite, fontSize: 10),
+                    style: TextStyle(color: ColorResources.white, fontSize: 10),
                   ),
                 ),
               )
@@ -46,9 +48,9 @@ PreferredSizeWidget defaultAppBar(
         ),
       ],
       iconTheme: const IconThemeData(
-        color: kBlueAccent,
+        color: ColorResources.blueAccent,
       ),
-      backgroundColor: kWhite,
+      backgroundColor: ColorResources.white,
       elevation: 0.0,
       centerTitle: true,
     );

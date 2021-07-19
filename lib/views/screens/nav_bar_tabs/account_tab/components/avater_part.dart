@@ -17,18 +17,18 @@ class AvaterPart extends StatelessWidget {
           children: [
             FloatingActionButton(
               mini: true,
-              backgroundColor: kOrange,
+              backgroundColor: ColorResources.orange,
               onPressed: () {},
               child: const Icon(Icons.add),
             ),
             const CircleAvatar(
-              backgroundImage: NetworkImage(avaterImageLink),
+              backgroundImage: NetworkImage(Images.avaterImageLink),
               radius: 50,
             ),
             FloatingActionButton(
               mini: true,
               onPressed: () {},
-              backgroundColor: kOrange,
+              backgroundColor: ColorResources.orange,
               child: const Icon(Icons.message),
             )
           ],
@@ -38,15 +38,19 @@ class AvaterPart extends StatelessWidget {
         ),
         const Text(
           'Istiak Ahmed',
-          style:
-              TextStyle(fontSize: 25, color: kBlueGrey, fontFamily: kNotosans),
+          style: TextStyle(
+              fontSize: 25,
+              color: ColorResources.blueGrey,
+              fontFamily: Strings.notosansFontFamilly),
         ),
         const SizedBox(
           height: 5,
         ),
         const Text(
           'Seen Braxson Street Cortland, It 600112',
-          style: TextStyle(color: kGrey, fontFamily: kNotosans),
+          style: TextStyle(
+              color: ColorResources.grey,
+              fontFamily: Strings.notosansFontFamilly),
         )
       ],
     );

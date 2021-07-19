@@ -13,7 +13,7 @@ class NavBar extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         heroTag: 'l1',
-        backgroundColor: kOrange,
+        backgroundColor: ColorResources.orange,
         onPressed: () {
           Provider.of<TabIndex>(context, listen: false).setIndex(2);
         },
@@ -31,8 +31,8 @@ class NavBar extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: BottomNavigationBar(
-              selectedItemColor: kRedAccent,
-              unselectedItemColor: kGrey,
+              selectedItemColor: ColorResources.redAccent,
+              unselectedItemColor: ColorResources.grey,
               showSelectedLabels: false,
               showUnselectedLabels: false,
               type: BottomNavigationBarType.fixed,

@@ -28,7 +28,8 @@ class FoodItemTile extends StatelessWidget {
                     )));
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: kPadding10),
+        margin: const EdgeInsets.symmetric(
+            horizontal: Dimentions.soSmallDinmention),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -59,14 +60,14 @@ class FoodItemTile extends StatelessWidget {
                       softWrap: false,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: kBlueGrey.withOpacity(0.7)),
+                          color: ColorResources.blueGrey.withOpacity(0.7)),
                     ),
                     const SizedBox(
-                      height: kPadding10,
+                      height: Dimentions.smallDimention,
                     ),
                     Text(
                       orderModel.restaurentListItemModel.subTitle,
-                      style: const TextStyle(color: kGrey),
+                      style: const TextStyle(color: ColorResources.grey),
                       maxLines: 1,
                       overflow: TextOverflow.fade,
                       softWrap: false,
@@ -77,35 +78,39 @@ class FoodItemTile extends StatelessWidget {
             ),
             orderModel.orderTime == null
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: kPadding10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Dimentions.soSmallDinmention),
                     child: Text('\$${orderModel.restaurentListItemModel.price}',
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: kBlueGrey)),
+                            fontWeight: FontWeight.bold,
+                            color: ColorResources.blueGrey)),
                   )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: kPadding10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Dimentions.soSmallDinmention),
                         child: Text(
                             '\$${orderModel.restaurentListItemModel.price}',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontFamily: kNotosans,
-                                color: kBlueGrey,
+                                fontFamily: Strings.notosansFontFamilly,
+                                color: ColorResources.blueGrey,
                                 fontSize: 20)),
                       ),
                       Text(
                         '${DateFormat.yMd().format(orderModel.orderTime!)}',
                         style: const TextStyle(
-                            color: kGrey, fontFamily: kNotosans),
+                            color: ColorResources.grey,
+                            fontFamily: Strings.notosansFontFamilly),
                       ),
                       Text(
                         '${DateFormat.jm().format(orderModel.orderTime!).toString()}',
                         style: const TextStyle(
-                            color: kGrey, fontFamily: kNotosans),
+                            color: ColorResources.grey,
+                            fontFamily: Strings.notosansFontFamilly),
                       )
                     ],
                   ),

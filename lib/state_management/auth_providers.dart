@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/auth_respoce.dart';
 import 'package:food_delivery/utils/repos/auth_repo.dart';
 
@@ -17,9 +18,9 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> logInwithEmailAndPassword(String email, String password) async {
     isLoadingLocal = true;
+    notifyListeners();
     AuthRespoce authRespoce =
         await authRepos.logInWithEmailAndPassword(email, password);
-    notifyListeners();
     if (authRespoce.authCredential != null) {
       currentUser = authRespoce.authCredential!.user;
       isLoadingLocal = false;
@@ -33,8 +34,29 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  bool isLoggedIn() =>
+      authRepos.getCurrentUser() != null &&
+      authRepos.getCurrentUser()!.emailVerified;
+  bool isEmailVarified(User user) => authRepos.isEmailVarified(user);
+
+  Future<void> sendVerificationEmail(User user) =>
+      authRepos.sendEmailVerificationLink(user);
+
+  Future<bool> sendForgetPasswordMail(email) async {
+    try {
+      await authRepos.sendForgetPassEmail(email);
+      return true;
+    } on FirebaseException catch (e) {
+      firebaseLocalErrorMessage =
+          e.message ?? FirebaseErrorMessage.defaultMessage;
+      notifyListeners();
+      return false;
+    }
+  }
+
   Future<bool> createUser(String email, String password) async {
     isLoadingLocal = true;
+    notifyListeners();
     AuthRespoce authRespoce = await authRepos.createNewUser(email, password);
     if (authRespoce.authCredential != null) {
       currentUser = authRespoce.authCredential!.user;
@@ -49,27 +71,39 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     isLoadingLocal = true;
+    notifyListeners();
     AuthRespoce _authRespoce = await authRepos.signInWithGooglleAccount();
     if (_authRespoce.authCredential != null) {
       currentUser = _authRespoce.authCredential!.user;
       isLoadingLocal = false;
       notifyListeners();
-      return true;
     } else {
       firebaseLocalErrorMessage = _authRespoce.authErrorMessage ?? '';
       isLoadingLocal = false;
       notifyListeners();
-      return false;
+    }
+  }
+
+  Future<void> singnInWithFacebook() async {
+    isLoadingLocal = true;
+    notifyListeners();
+    AuthRespoce _authRespoce = await authRepos.signInWithFacebook();
+    if (_authRespoce.authCredential != null) {
+      currentUser = _authRespoce.authCredential!.user;
+      isLoadingLocal = false;
+      notifyListeners();
+    } else {
+      firebaseLocalErrorMessage = _authRespoce.authErrorMessage ?? '';
+      isLoadingLocal = false;
+      notifyListeners();
     }
   }
 
   void logOut() async {
-    isLoadingLocal = true;
     await authRepos.logout();
     currentUser = null;
-    isLoadingLocal = false;
     notifyListeners();
   }
 }

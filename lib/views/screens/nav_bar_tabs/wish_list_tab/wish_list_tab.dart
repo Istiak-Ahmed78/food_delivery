@@ -15,7 +15,7 @@ class WishListTab extends StatelessWidget {
       appBar: defaultAppBar(
           title: 'Favorites',
           context: context,
-          cartItemNumber: Provider.of<CartList>(context).cartList.length),
+          cartItemNumber: Provider.of<CartListState>(context).cartList.length),
       drawer: const DefaultDrawer(),
       drawerScrimColor: ColorResources.black,
       body: Container(

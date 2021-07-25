@@ -231,7 +231,9 @@ class _MapsExplorerState extends State<MapsExplorer> {
             Icons.arrow_back,
             color: ColorResources.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(

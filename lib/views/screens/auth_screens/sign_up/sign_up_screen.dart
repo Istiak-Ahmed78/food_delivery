@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/state_management/auth_providers.dart';
 import 'package:food_delivery/utils/form_validation.dart';
-import 'package:food_delivery/utils/mathods.dart';
+import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/views/screens/auth_screens/login/login_screen.dart';
-import 'package:food_delivery/views/screens/nav_bar/nav_bar.dart';
+import 'package:food_delivery/views/screens/email_verification_asking.dart/email_verification.dart';
 import 'package:food_delivery/views/shared_widgets/shared_widgets.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:food_delivery/views/styles/paddings.dart';
@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onChanged: (value) {
                             setState(() {
                               passwordStrenth =
-                                  Mathods.getStrenthOfPassword(value);
+                                  Methods.getStrenthOfPassword(value);
                             });
                           },
                           validator: FormValidation.validatePassword),
@@ -95,22 +95,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   vertical: Dimentions.soLargeDimention),
               child: DefaultButton(
                 buttonColor: ColorResources.orange,
-                onPressed: () async {
-                  if (signUpFormKey.currentState!.validate()) {
-                    if (await authProvider.createUser(
-                        emailController.text, passwordController.text)) {
-                      print('User created');
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (_) => const NavBar()),
-                          (route) => false);
-                    } else {
-                      Mathods.showToast(
-                          toastMessage: authProvider.firebaseErrorMessgase,
-                          backGroundColor: ColorResources.grey);
-                    }
-                  }
-                },
+                onPressed: Provider.of<AuthProvider>(context).isLoading
+                    ? null
+                    : () async {
+                        if (signUpFormKey.currentState!.validate()) {
+                          if (await authProvider.createUser(
+                              emailController.text, passwordController.text)) {
+                            authProvider.sendVerificationEmail(
+                                authProvider.currentUser!);
+                            signUpFormKey.currentState!.dispose();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const VerifyUserEmail()),
+                            );
+                          } else {
+                            Methods.showToast(
+                                toastMessage:
+                                    authProvider.firebaseErrorMessgase,
+                                backGroundColor: ColorResources.grey);
+                          }
+                        }
+                      },
                 child: const Text(
                   'SignUp',
                   style: TextStyle(

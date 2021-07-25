@@ -21,6 +21,8 @@ class FoodItemTile extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => ProductDetailsScreen(
                       trendingFoodModel: FoodModel(
+                          weight: '300 g',
+                          productId: 's',
                           imageUrl:
                               orderModel.restaurentListItemModel.imageAdress,
                           title: orderModel.restaurentListItemModel.title,

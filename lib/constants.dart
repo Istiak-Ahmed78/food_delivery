@@ -28,10 +28,27 @@ class Strings {
   static const strongPassword = 'Strong password';
   static const mediumPassword = 'Medium';
   static const weakPassword = 'Your password is weak';
+
+  //Model keys
+  static const productImage = 'Image Address';
+  static const productPrice = 'Price';
+  static const weight = 'Weight';
+  static const productTitle = 'Title';
+}
+
+class FiresoreKeys {
+  static const productCollectionKey = 'Products';
+  static const homeProducts = 'Home Products';
+  static const sectionKey = 'sections';
+  static const sectionFoodKey = 'Sections Food';
+  static const foodHeaderListDetailsKey = 'Food list header details';
+  static const shoppingCartListKey = 'Shopping Cart List';
+  static const cartListKey = 'Cart List';
 }
 
 class FirebaseErrorMessage {
-  static const String defaultMessage = 'Something went wrong';
+  static const defaultMessage = 'Something went wrong';
+  static const emailIsNotVerified = 'Your email is not verified';
 }
 
 class Images {
@@ -40,6 +57,7 @@ class Images {
   static const googleLogo = 'assets/images/google.png';
   static const facebookLogo = 'assets/images/facebook.png';
   static const cooking = 'assets/images/cooking.png';
+  static const verifyEmail = 'assets/images/verify_email.png';
 
   //Network Images
   static const avaterImageLink =

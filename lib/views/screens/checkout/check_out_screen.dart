@@ -105,7 +105,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               checkOutAmount = 0.0;
                             });
                             showToast(context, 'Succesfully checked out');
-                            Provider.of<CartList>(context, listen: false)
+                            Provider.of<CartListState>(context, listen: false)
                                 .chechedOut();
                             Future.delayed(const Duration(seconds: 2), () {
                               setState(() {

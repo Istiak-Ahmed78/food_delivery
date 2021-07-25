@@ -4,6 +4,7 @@ import '../../constants.dart';
 
 class DefaultFormFlield extends StatefulWidget {
   final TextEditingController controller;
+  final Key? formKey;
   final String hintText;
   final int? maxLenth;
   final TextInputType inputType;
@@ -13,6 +14,7 @@ class DefaultFormFlield extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   const DefaultFormFlield(
       {Key? key,
+      this.formKey,
       required this.controller,
       required this.hintText,
       this.onChanged,
@@ -32,6 +34,7 @@ class _DefaultFormFlieldState extends State<DefaultFormFlield> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: widget.formKey,
       controller: widget.controller,
       maxLength: widget.maxLenth,
       maxLines: widget.maxLine,

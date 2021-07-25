@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery/state_management/auth_providers.dart';
 import 'package:food_delivery/utils/form_validation.dart';
-import 'package:food_delivery/utils/mathods.dart';
+import 'package:food_delivery/utils/methods.dart';
+import 'package:food_delivery/utils/repos/auth_repo.dart';
+import 'package:food_delivery/views/screens/auth_screens/sign_up/sign_up_screen.dart';
 import 'package:food_delivery/views/screens/nav_bar/nav_bar.dart';
 import 'package:food_delivery/views/shared_widgets/shared_widgets.dart';
 import 'package:food_delivery/views/styles/colors.dart';
@@ -18,7 +21,8 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  final loginFormKey = GlobalKey<FormState>();
+  final logInKey = GlobalKey<FormState>();
+  final emailFormKey = GlobalKey<FormFieldState>();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -31,20 +35,23 @@ class _LogInScreenState extends State<LogInScreen> {
       body: SafeArea(
         child: SizedBox(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: _size.width * 0.1),
+            padding: EdgeInsets.symmetric(
+                horizontal: _size.width * 0.1,
+                vertical: Dimentions.largeDimention),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: _size.height * 0.35,
+                    height: _size.height * 0.3,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(Images.logInDeliveryMan))),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.symmetric(
+                        vertical: Dimentions.soSmallDinmention),
                     child: Text(
                       'Login',
                       style: TextStyle(
@@ -55,48 +62,83 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ),
                   Form(
-                      key: loginFormKey,
+                      key: logInKey,
                       child: Column(
                         children: [
                           DefaultFormFlield(
+                            key: emailFormKey,
                             controller: emailController,
                             hintText: 'Your email',
                             validator: FormValidation.validateEmail,
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: Dimentions.mediamDimention),
+                                vertical: Dimentions.soSmallDinmention),
                             child: DefaultFormFlield(
                                 controller: passwordController,
                                 hintText: 'Password',
                                 isPassword: true,
                                 validator: FormValidation.validatePassword),
                           ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                                onPressed: () async {
+                                  if (emailController.text.isEmpty ||
+                                      FormValidation.validateEmail(
+                                              emailController.text) !=
+                                          null) {
+                                    Methods.emtyEmailWarning(context);
+                                  } else {
+                                    if (await authProvider
+                                        .sendForgetPasswordMail(
+                                            emailController.text)) {
+                                      Methods.showToast(
+                                          toastMessage: 'Email sent');
+                                    } else {
+                                      Methods.showToast(
+                                          toastMessage: authProvider
+                                              .firebaseErrorMessgase,
+                                          duration: Toast.LENGTH_LONG);
+                                    }
+                                  }
+                                },
+                                child: const Text(
+                                  'Forgot your password?',
+                                  style: TextStyle(
+                                      color: ColorResources.grey,
+                                      fontStyle: FontStyle.italic),
+                                )),
+                          ),
                           const SizedBox(
                             height: Dimentions.smallDimention,
                           ),
                           DefaultButton(
-                            onPressed: authProvider.isLoading
+                            onPressed: Provider.of<AuthProvider>(context)
+                                    .isLoading
                                 ? null
                                 : () async {
-                                    if (loginFormKey.currentState!.validate()) {
+                                    if (logInKey.currentState!.validate()) {
                                       if (await authProvider
                                           .logInwithEmailAndPassword(
                                               emailController.text,
                                               passwordController.text)) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) =>
-                                                    const NavBar()));
+                                        print('Logging In');
+                                        if (!authProvider.isEmailVarified(
+                                            authProvider.currentUser!)) {
+                                          Methods.showVerificationAskingDialog(
+                                              context,
+                                              authProvider.currentUser!);
+                                        }
                                       } else {
-                                        Mathods.showToast(
-                                            toastMessage: 'Wrong credtial');
+                                        Methods.showToast(
+                                            toastMessage: authProvider
+                                                .firebaseErrorMessgase);
                                       }
                                     }
                                   },
                             child: const Text(
-                              'Sign Up',
+                              'Sign In',
                               style: TextStyle(color: ColorResources.white),
                             ),
                             buttonColor: ColorResources.orange,
@@ -142,11 +184,12 @@ class _LogInScreenState extends State<LogInScreen> {
                                   child: const SocilLogInAvater(
                                       backGroundColor: Colors.pinkAccent,
                                       backGroundImage: Images.googleLogo),
-                                  onTap: () async {
-                                    if (await authProvider.signInWithGoogle()) {
-                                      print('User authenicated');
-                                    }
-                                  },
+                                  onTap: Provider.of<AuthProvider>(context)
+                                          .isLoading
+                                      ? null
+                                      : () async {
+                                          await authProvider.signInWithGoogle();
+                                        },
                                 ),
                                 const SizedBox(
                                   width: 20,
@@ -155,7 +198,13 @@ class _LogInScreenState extends State<LogInScreen> {
                                   child: const SocilLogInAvater(
                                       backGroundColor: ColorResources.blue,
                                       backGroundImage: Images.facebookLogo),
-                                  onTap: () {},
+                                  onTap: Provider.of<AuthProvider>(context)
+                                          .isLoading
+                                      ? null
+                                      : () async {
+                                          await authProvider
+                                              .singnInWithFacebook();
+                                        },
                                 )
                               ]),
                           const SizedBox(
@@ -176,7 +225,11 @@ class _LogInScreenState extends State<LogInScreen> {
                                     color: ColorResources.blueAccent),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    print('Let me sign up');
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SignUpScreen()));
                                   },
                               ),
                             ]),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/food_model.dart';
 import 'package:food_delivery/models/nutrition.dart';
 import 'package:food_delivery/models/order_model.dart';
@@ -7,6 +8,9 @@ import 'package:food_delivery/models/restaurant_model.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
 import 'package:food_delivery/state_management/favorite_list_state.dart';
+import 'package:food_delivery/utils/methods.dart';
+import 'package:food_delivery/utils/repos/auth_repo.dart';
+import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/screens/product_deatils_screen/components/components.dart';
 import 'package:food_delivery/views/screens/shopping_cart_list/shopping_cart_list.dart';
 import 'package:food_delivery/views/styles/colors.dart';
@@ -167,7 +171,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           radius: 8,
                           backgroundColor: ColorResources.red,
                           child: Text(
-                            Provider.of<CartList>(context)
+                            Provider.of<CartListState>(context)
                                 .cartList
                                 .length
                                 .toString(),
@@ -217,6 +221,8 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
   }
 
   int productQuantity = 1;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     double checkOutBalance =
@@ -271,27 +277,28 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
           children: [
             InkWell(
               onTap: () {
-                bool isAleadyInTheList =
-                    Provider.of<FavoriteFoodItems>(context, listen: false)
-                        .favList
-                        .where((element) =>
-                            element.restaurentListItemModel.title ==
-                            widget.foodModel.title)
-                        .toList()
-                        .isEmpty;
-                if (isAleadyInTheList) {
-                  Provider.of<FavoriteFoodItems>(context, listen: false).addFav(
-                      OrderModel(
-                          restaurentListItemModel: RestaurentListItemModel(
-                              title: widget.foodModel.title,
-                              price: widget.foodModel.price,
-                              imageAdress: widget.foodModel.imageUrl,
-                              rating: 4,
-                              subTitle: dummyText)));
-                  showToast('This item added to the wishlist');
-                } else {
-                  showToast('This Item already in the wishlist');
-                }
+                Methods.showLoadingIndicator(context, 'Checking your data');
+                // bool isAleadyInTheList =
+                //     Provider.of<FavoriteFoodItems>(context, listen: false)
+                //         .favList
+                //         .where((element) =>
+                //             element.restaurentListItemModel.title ==
+                //             widget.foodModel.title)
+                //         .toList()
+                //         .isEmpty;
+                // if (isAleadyInTheList) {
+                //   Provider.of<FavoriteFoodItems>(context, listen: false).addFav(
+                //       OrderModel(
+                //           restaurentListItemModel: RestaurentListItemModel(
+                //               title: widget.foodModel.title,
+                //               price: widget.foodModel.price,
+                //               imageAdress: widget.foodModel.imageUrl,
+                //               rating: 4,
+                //               subTitle: dummyText)));
+                //   showToast('This item added to the wishlist');
+                // } else {
+                //   showToast('This Item already in the wishlist');
+                // }
               },
               child: Container(
                 height: 40,
@@ -318,22 +325,38 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(24)))),
-                    onPressed: () {
-                      bool isAleadyInTheList =
-                          Provider.of<CartList>(context, listen: false)
-                              .cartList
-                              .where((element) =>
-                                  element.trendingFoodModel == widget.foodModel)
-                              .toList()
-                              .isEmpty;
-                      if (isAleadyInTheList) {
-                        Provider.of<CartList>(context, listen: false)
-                            .addCartItem(ShoppingCardModel(
-                                widget.foodModel, productQuantity));
-                        showToast('Added');
+                    onPressed: () async {
+                      final user = services<AuthRepos>().getCurrentUser();
+                      setState(() {
+                        isLoading = true;
+                      });
+                      if (user != null) {
+                        var cartListStateProvider =
+                            Provider.of<CartListState>(context, listen: false);
+                        if (!await cartListStateProvider.aleadyInTheList(
+                            user.uid, widget.foodModel.productId)) {
+                          cartListStateProvider.addCartItem(
+                              ShoppingCardModel(
+                                  trendingFoodModel: widget.foodModel,
+                                  quantity: productQuantity),
+                              user.uid,
+                              widget.foodModel.productId);
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showToast('Added');
+                        } else {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showToast('The Item already extists');
+                          print('The Item already extists');
+                        }
                       } else {
-                        showToast('The Item already extists');
-                        print('The Item already extists');
+                        setState(() {
+                          isLoading = false;
+                        });
+                        print('Null user');
                       }
                     },
                     child: Row(

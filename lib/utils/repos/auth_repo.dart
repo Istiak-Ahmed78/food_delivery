@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_delivery/models/auth_respoce.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../constants.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class AuthRepos {
   AuthRepos() {
@@ -35,6 +36,18 @@ class AuthRepos {
 
   Future<void> logout() => authInstance.signOut();
 
+  User? getCurrentUser() {
+    return authInstance.currentUser;
+  }
+
+  bool isEmailVarified(User user) => user.emailVerified;
+
+  Future<void> sendEmailVerificationLink(User user) =>
+      user.sendEmailVerification();
+
+  Future<void> sendForgetPassEmail(email) =>
+      authInstance.sendPasswordResetEmail(email: email);
+
   Future<AuthRespoce> signInWithGooglleAccount() async {
     try {
       GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
@@ -49,6 +62,26 @@ class AuthRepos {
       return AuthRespoce.matchedCredential(
           await authInstance.signInWithCredential(credential));
     } on FirebaseException catch (error) {
+      return AuthRespoce.authError(
+          error.message ?? FirebaseErrorMessage.defaultMessage);
+    }
+  }
+
+  Future<AuthRespoce> signInWithFacebook() async {
+    try {
+      // Trigger the sign-in flow
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      // Create a credential from the access token
+      final facebookAuthCredential =
+          FacebookAuthProvider.credential(result.accessToken!.token);
+
+      // Once signed in, return the UserCredential
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
+      return AuthRespoce.matchedCredential(userCredential);
+    } on FirebaseAuthException catch (error) {
+      print('Facebook login error');
       return AuthRespoce.authError(
           error.message ?? FirebaseErrorMessage.defaultMessage);
     }

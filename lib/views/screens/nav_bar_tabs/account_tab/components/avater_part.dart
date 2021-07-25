@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/state_management/auth_providers.dart';
 import 'package:food_delivery/views/styles/colors.dart';
+import 'package:provider/provider.dart';
 
 class AvaterPart extends StatelessWidget {
   const AvaterPart({Key? key}) : super(key: key);
@@ -27,9 +29,11 @@ class AvaterPart extends StatelessWidget {
             ),
             FloatingActionButton(
               mini: true,
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<AuthProvider>(context, listen: false).logOut();
+              },
               backgroundColor: ColorResources.orange,
-              child: const Icon(Icons.message),
+              child: const Icon(Icons.exit_to_app),
             )
           ],
         ),

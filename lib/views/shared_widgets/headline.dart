@@ -35,8 +35,8 @@ class HeadLine extends StatelessWidget {
                   color: ColorResources.blueAccent,
                   fontFamily: Strings.notosansFontFamilly),
             ),
-            const Text('Ordered by Nearby first',
-                style: TextStyle(fontFamily: Strings.notosansFontFamilly))
+            Text(subTitle,
+                style: const TextStyle(fontFamily: Strings.notosansFontFamilly))
           ],
         ),
       )

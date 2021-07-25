@@ -14,7 +14,7 @@ class TracOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<ShoppingCardModel> orderList =
-        Provider.of<CartList>(context).checkOutList;
+        Provider.of<CartListState>(context).checkOutList;
     return Scaffold(
       drawer: const DefaultDrawer(),
       appBar: defaultAppBar(context: context, title: 'Track your order'),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/utils/shared_prefer.dart';
-import 'package:food_delivery/views/screens/nav_bar/nav_bar.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -26,12 +26,6 @@ class _IntroPageState extends State<IntroPage> {
         body: 'Get your order fast. No delay',
         image: Center(child: Lottie.asset('assets/lottie/fast_delivery.json')))
   ];
-  @override
-  void initState() {
-    super.initState();
-    SharedPre sharedPre = SharedPre();
-    sharedPre.setIntroBoolTrue();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +39,9 @@ class _IntroPageState extends State<IntroPage> {
         skip: const Text('Skip'),
         next: const Text('Next'),
         onDone: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const NavBar()));
+          print('Done');
+          Provider.of<SharedPreProvider>(context, listen: false)
+              .setIntroBoolTrue();
         },
       ),
     );

@@ -1,11 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
-import 'package:food_delivery/views/screens/checkout/check_out_screen.dart';
+import 'package:food_delivery/utils/methods.dart';
+import 'package:food_delivery/utils/repos/auth_repo.dart';
 import 'package:food_delivery/views/screens/order_details/order_details.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
+import '../../../di_containers.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -30,7 +33,7 @@ class _CartState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     List<ShoppingCardModel> shoppingCartList =
-        Provider.of<CartList>(context).cartList;
+        Provider.of<CartListState>(context).cartList;
 
     return Scaffold(
       appBar: AppBar(
@@ -136,7 +139,7 @@ class _CartState extends State<CartScreen> {
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       onPressed: () {
-                        if (Provider.of<CartList>(context, listen: false)
+                        if (Provider.of<CartListState>(context, listen: false)
                             .cartList
                             .isNotEmpty) {
                           Navigator.push(
@@ -186,13 +189,32 @@ class ShoppingCardListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) => ShoppingCartItem(
-          shoppingCartModel: Provider.of<CartList>(context).cartList[index],
-        ),
-        itemCount: Provider.of<CartList>(context).cartList.length,
-        shrinkWrap: true,
+      child: FutureBuilder(
+        future: Provider.of<CartListState>(context)
+            .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid),
+        builder:
+            (_, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (!snapshot.hasData || snapshot.data?.docs == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            var cartList =
+                Methods.decodeCartListDquerySnap(snapshot.data!.docs);
+            if (cartList.isNotEmpty) {
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => ShoppingCartItem(
+                  shoppingCartModel: cartList[index],
+                ),
+                itemCount: cartList.length,
+                shrinkWrap: true,
+              );
+            } else {
+              return const Text('The list is emty');
+            }
+          }
+        },
       ),
     );
   }
@@ -278,7 +300,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                         setState(() {
                           quantityOfProduct++;
                         });
-                        Provider.of<CartList>(context, listen: false)
+                        Provider.of<CartListState>(context, listen: false)
                             .changeProductQuantity(
                                 widget.shoppingCartModel, quantityOfProduct);
                       },
@@ -288,7 +310,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                       onTap: () {
                         if (quantityOfProduct > 1) {
                           quantityOfProduct--;
-                          Provider.of<CartList>(context, listen: false)
+                          Provider.of<CartListState>(context, listen: false)
                               .changeProductQuantity(
                                   widget.shoppingCartModel, quantityOfProduct);
                         }

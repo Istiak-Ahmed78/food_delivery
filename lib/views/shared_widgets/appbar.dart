@@ -5,6 +5,7 @@ import 'package:food_delivery/state_management/cart_list_state.dart';
 import 'package:food_delivery/utils/repos/auth_repo.dart';
 import 'package:food_delivery/views/screens/shopping_cart_list/shopping_cart_list.dart';
 import 'package:food_delivery/views/styles/colors.dart';
+import 'package:food_delivery/views/styles/paddings.dart';
 import 'package:provider/provider.dart';
 import '../../constants.dart';
 
@@ -29,27 +30,14 @@ PreferredSizeWidget defaultAppBar(
       centerTitle: true,
     );
 
-class AppBarAction extends StatefulWidget {
+class AppBarAction extends StatelessWidget {
   const AppBarAction({Key? key}) : super(key: key);
 
   @override
-  State<AppBarAction> createState() => _AppBarActionState();
-}
-
-class _AppBarActionState extends State<AppBarAction> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addPersistentFrameCallback((timeStamp) {});
-  }
-
-  void inits() async {
-    Provider.of<CartListState>(context)
-        .cartListLength(services<AuthRepos>().getCurrentUser()!.uid);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var cartListProvider = Provider.of<CartListState>(context, listen: false)
+        .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid);
+
     return Padding(
       padding: const EdgeInsets.only(right: 5),
       child: Stack(
@@ -68,14 +56,18 @@ class _AppBarActionState extends State<AppBarAction> {
             right: 2,
             top: 25,
             child: CircleAvatar(
-              radius: 8,
-              backgroundColor: ColorResources.orange,
-              child: Text(
-                Provider.of<CartListState>(context).cartListLegnth.toString(),
-                style:
-                    const TextStyle(color: ColorResources.white, fontSize: 10),
-              ),
-            ),
+                radius: 8,
+                backgroundColor: ColorResources.orange,
+                child: Consumer<CartListState>(
+                  builder: (context, data, _) {
+                    return Text(
+                      data.cartList.length.toString(),
+                      style: const TextStyle(
+                          color: ColorResources.white,
+                          fontSize: Dimentions.soSmallDinmention),
+                    );
+                  },
+                )),
           )
         ],
       ),

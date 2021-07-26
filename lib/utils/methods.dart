@@ -96,10 +96,11 @@ class Methods {
     return foodHeadigList;
   }
 
-  static List<ShoppingCardModel> decodeCartListDquerySnap(
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> querySnapshot) {
+  static Future<List<ShoppingCardModel>> decodeCartListDquerySnap(
+      Future<QuerySnapshot<Map<String, dynamic>>> querySnapshot) async {
     List<ShoppingCardModel> shoppingCartList = [];
-    for (final item in querySnapshot) {
+
+    for (final item in (await querySnapshot).docs) {
       shoppingCartList.add(ShoppingCardModel.fromMap(item.data()));
     }
     return shoppingCartList;

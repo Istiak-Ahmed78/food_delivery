@@ -40,12 +40,12 @@ class FirestoreRepos {
         'Quantity': shoppingCardModel.quantity
       });
 
-  Future<bool> isAlreadyInTheList(userId, productIdToTest) async =>
-      (await getShoppingCartList(userId))
-          .docs
-          .any((element) => element.id == productIdToTest);
+  Future<bool> isAlreadyInTheList(userId, productIdToTest) async {
+    return (await getShoppingCartList(userId)).docs.contains(productIdToTest);
+  }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> getShoppingCartList(userId) {
+  Future<QuerySnapshot<Map<String, dynamic>>> getShoppingCartList(
+      userId) async {
     return firestoreInstance
         .collection(FiresoreKeys.shoppingCartListKey)
         .doc(userId)

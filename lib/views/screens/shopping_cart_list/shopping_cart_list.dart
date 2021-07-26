@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
-import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/utils/repos/auth_repo.dart';
 import 'package:food_delivery/views/screens/order_details/order_details.dart';
 import 'package:food_delivery/views/styles/colors.dart';
@@ -18,23 +16,21 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartState extends State<CartScreen> {
-  double subtotal(List<ShoppingCardModel> shoppingCartModelList) {
-    double value = 0.0;
-    for (final i in shoppingCartModelList) {
-      value = value + i.trendingFoodModel.price * i.quantity;
-    }
-    return value.roundToDouble();
+  double checkOutAmount = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPersistentFrameCallback((timeStamp) {
+      Provider.of<CartListState>(context, listen: false)
+          .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid);
+    });
   }
 
-  double tax(double subtotal) => (subtotal * 0.1).roundToDouble();
-  double checkOutBalance(double subtotal) => (subtotal * 0.9).roundToDouble();
-
-  double checkOutAmount = 0.0;
   @override
   Widget build(BuildContext context) {
     List<ShoppingCardModel> shoppingCartList =
         Provider.of<CartListState>(context).cartList;
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -181,6 +177,17 @@ class _CartState extends State<CartScreen> {
       ),
     );
   }
+
+  double subtotal(List<ShoppingCardModel> shoppingCartModelList) {
+    double value = 0.0;
+    for (final i in shoppingCartModelList) {
+      value = value + i.trendingFoodModel.price * i.quantity;
+    }
+    return value.roundToDouble();
+  }
+
+  double tax(double subtotal) => (subtotal * 0.1).roundToDouble();
+  double checkOutBalance(double subtotal) => (subtotal * 0.9).roundToDouble();
 }
 
 class ShoppingCardListWidget extends StatelessWidget {
@@ -188,35 +195,22 @@ class ShoppingCardListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cartListProvider = Provider.of<CartListState>(context, listen: false);
+    cartListProvider
+        .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid);
     return SizedBox(
-      child: FutureBuilder(
-        future: Provider.of<CartListState>(context)
-            .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid),
-        builder:
-            (_, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (!snapshot.hasData || snapshot.data?.docs == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            var cartList =
-                Methods.decodeCartListDquerySnap(snapshot.data!.docs);
-            if (cartList.isNotEmpty) {
-              return ListView.builder(
+        child: cartListProvider.cartList.isEmpty
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => ShoppingCartItem(
-                  shoppingCartModel: cartList[index],
+                  shoppingCartModel: cartListProvider.cartList[index],
                 ),
-                itemCount: cartList.length,
+                itemCount: cartListProvider.cartList.length,
                 shrinkWrap: true,
-              );
-            } else {
-              return const Text('The list is emty');
-            }
-          }
-        },
-      ),
-    );
+              ));
   }
 }
 

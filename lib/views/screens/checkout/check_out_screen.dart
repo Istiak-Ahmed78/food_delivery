@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/state_management/cart_list_state.dart';
+import 'package:food_delivery/state_management/order_process_state.dart';
+import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/views/screens/nav_bar/nav_bar.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
@@ -103,10 +104,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             setState(() {
                               isPressed = true;
                               checkOutAmount = 0.0;
-                            });
+                            });t
+                            Methods.showLoadingIndicator(
+                                context: context, workTodo: pay());
                             showToast(context, 'Succesfully checked out');
-                            Provider.of<CartListState>(context, listen: false)
-                                .chechedOut();
+
                             Future.delayed(const Duration(seconds: 2), () {
                               setState(() {
                                 isPressed = false;
@@ -114,7 +116,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const NavBar()));
+                                      builder: (_) => const NavBar()));
                             });
                           },
                     child: Row(
@@ -146,5 +148,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> pay() async {
+    await Provider.of<OrderProcessState>(context)
+        .compleOrderingProccess(context);
   }
 }

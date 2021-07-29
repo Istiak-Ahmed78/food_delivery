@@ -25,6 +25,7 @@ class Sectrets {
 class Strings {
   static const notosansFontFamilly = 'NotoSans';
 
+  //Password Strenth
   static const strongPassword = 'Strong password';
   static const mediumPassword = 'Medium';
   static const weakPassword = 'Your password is weak';
@@ -37,6 +38,7 @@ class Strings {
 }
 
 class FiresoreKeys {
+  //Firestore map keys
   static const productCollectionKey = 'Products';
   static const homeProducts = 'Home Products';
   static const sectionKey = 'sections';
@@ -44,6 +46,9 @@ class FiresoreKeys {
   static const foodHeaderListDetailsKey = 'Food list header details';
   static const shoppingCartListKey = 'Shopping Cart List';
   static const cartListKey = 'Cart List';
+  static const orderedListKey = 'Ordered list';
+  static const indivitualOrderedListKey = 'ordered list';
+  static const orderInfoKey = 'Order Informations';
 }
 
 class FirebaseErrorMessage {
@@ -58,6 +63,7 @@ class Images {
   static const facebookLogo = 'assets/images/facebook.png';
   static const cooking = 'assets/images/cooking.png';
   static const verifyEmail = 'assets/images/verify_email.png';
+  static const avaterImageLogo = 'assets/images/avater.png';
 
   //Network Images
   static const avaterImageLink =

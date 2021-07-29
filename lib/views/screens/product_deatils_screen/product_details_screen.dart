@@ -3,14 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/food_model.dart';
 import 'package:food_delivery/models/nutrition.dart';
-import 'package:food_delivery/models/order_model.dart';
-import 'package:food_delivery/models/restaurant_model.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
-import 'package:food_delivery/state_management/favorite_list_state.dart';
 import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/utils/repos/auth_repo.dart';
-import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/screens/product_deatils_screen/components/components.dart';
 import 'package:food_delivery/views/screens/shopping_cart_list/shopping_cart_list.dart';
 import 'package:food_delivery/views/styles/colors.dart';
@@ -277,7 +273,8 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
           children: [
             InkWell(
               onTap: () {
-                Methods.showLoadingIndicator(context, 'Checking your data');
+                Methods.showLoadingIndicator(
+                    context: context, text: 'Checking your data');
                 // bool isAleadyInTheList =
                 //     Provider.of<FavoriteFoodItems>(context, listen: false)
                 //         .favList
@@ -337,7 +334,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                             user.uid, widget.foodModel.productId)) {
                           cartListStateProvider.addCartItem(
                               ShoppingCardModel(
-                                  trendingFoodModel: widget.foodModel,
+                                  foodModel: widget.foodModel,
                                   quantity: productQuantity),
                               user.uid,
                               widget.foodModel.productId);

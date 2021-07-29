@@ -5,49 +5,73 @@ import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/utils/repos/firestore_repo.dart';
 
 class CartListState extends ChangeNotifier {
+  CartListState() {
+    storeInstance = services<FirestoreRepos>();
+  }
   bool isLoadingLocal = false;
-  int get cartListLegnth => shoppingCartList.length;
+  String? repoErrorMessageLocal;
+  late FirestoreRepos storeInstance;
 
   List<ShoppingCardModel> shoppingCartList = [];
-  List<ShoppingCardModel> checkOutList = [];
 
   List<ShoppingCardModel> get cartList => shoppingCartList;
-  List<ShoppingCardModel> get globalCheckedOutList => checkOutList;
+  List<ShoppingCardModel> get globalCheckedOutList => shoppingCartList;
+  bool get isLoading => isLoadingLocal;
+  int get cartListLegnth => shoppingCartList.length;
+
+  String? get repoErrorMessage => repoErrorMessageLocal;
 
   addCartItem(
       ShoppingCardModel shoppingCardModel, String userId, String productId) {
     isLoadingLocal = true;
     notifyListeners();
     shoppingCartList.add(shoppingCardModel);
-    services<FirestoreRepos>()
-        .addFoodItemToShoppingList(shoppingCardModel, userId, productId);
+
+    storeInstance.addFoodItemToShoppingList(shoppingCardModel, productId);
     isLoadingLocal = false;
     notifyListeners();
   }
 
   Future<bool> aleadyInTheList(String userId, String productIdToTest) {
-    return services<FirestoreRepos>()
-        .isAlreadyInTheList(userId, productIdToTest);
+    return storeInstance.isAlreadyInTheList(productIdToTest);
   }
 
-  void chechedOut() {
-    checkOutList.addAll(shoppingCartList);
-    shoppingCartList.clear();
-    notifyListeners();
-  }
-
-  Future<List<ShoppingCardModel>> getCartListProducts(String userId) async {
+  Future<List<ShoppingCardModel>> getCartListProducts() async {
     List<ShoppingCardModel> list = [];
-    list = await Methods.decodeCartListDquerySnap(
-        services<FirestoreRepos>().getShoppingCartList(userId));
+    list = Methods.decodeCartListDquerySnap(
+        await storeInstance.getShoppingCartList());
     shoppingCartList = list;
     notifyListeners();
     return list;
+  }
+
+  Future<void> deleteShoppingCartListItems(userId) async {
+    services<FirestoreRepos>().removedShoppingCartItems(userId).then((_) {
+      shoppingCartList.clear();
+      print('Items removed');
+      notifyListeners();
+    });
   }
 
   changeProductQuantity(ShoppingCardModel shoppingCardModel, int newQuintity) {
     shoppingCartList[shoppingCartList.indexOf(shoppingCardModel)].quantity =
         newQuintity;
     notifyListeners();
+  }
+
+  Future<bool> deleteACartItem(String itemId) async {
+    isLoadingLocal = true;
+    notifyListeners();
+    String responce = await storeInstance.removeACertItem(itemId);
+    if (responce == 'OK') {
+      isLoadingLocal = false;
+      notifyListeners();
+      return true;
+    } else {
+      repoErrorMessageLocal = responce;
+      isLoadingLocal = false;
+      notifyListeners();
+      return false;
+    }
   }
 }

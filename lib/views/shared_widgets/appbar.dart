@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
-import 'package:food_delivery/utils/repos/auth_repo.dart';
 import 'package:food_delivery/views/screens/shopping_cart_list/shopping_cart_list.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:food_delivery/views/styles/paddings.dart';
@@ -35,9 +33,6 @@ class AppBarAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cartListProvider = Provider.of<CartListState>(context, listen: false)
-        .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid);
-
     return Padding(
       padding: const EdgeInsets.only(right: 5),
       child: Stack(

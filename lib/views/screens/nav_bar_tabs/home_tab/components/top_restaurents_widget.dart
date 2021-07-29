@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/restaurant_model.dart';
+import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/screens/maps_explorer/maps_explorer.dart';
 import 'package:food_delivery/views/screens/nav_bar_tabs/home_tab/components/components.dart';
 import 'package:food_delivery/views/shared_widgets/headline.dart';
@@ -131,15 +133,24 @@ class TopRestauarentListItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: 50,
-                        margin: const EdgeInsets.only(left: 10),
-                        decoration: const BoxDecoration(
-                            color: ColorResources.orangeAccent,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        alignment: Alignment.center,
-                        child: const Icon(Icons.directions),
+                      GestureDetector(
+                        onTap: () async {
+                          // var data = (await services<FirestoreRepos>()
+                          //     .completeOrderProcess());
+
+                          // print(data.data());
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 50,
+                          margin: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                              color: ColorResources.orangeAccent,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          alignment: Alignment.center,
+                          child: const Icon(Icons.directions),
+                        ),
                       )
                     ],
                   ),

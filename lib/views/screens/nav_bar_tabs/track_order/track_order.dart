@@ -14,7 +14,7 @@ class TracOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<ShoppingCardModel> orderList =
-        Provider.of<CartListState>(context).checkOutList;
+        Provider.of<CartListState>(context).globalCheckedOutList;
     return Scaffold(
       drawer: const DefaultDrawer(),
       appBar: defaultAppBar(context: context, title: 'Track your order'),
@@ -29,7 +29,7 @@ class TracOrders extends StatelessWidget {
                         builder: (context) => const ShowcaseTimelineTile()));
               },
               title: Text(
-                orderList[index].trendingFoodModel.title,
+                orderList[index].foodModel.title,
                 style: const TextStyle(
                     color: ColorResources.blueGrey,
                     fontFamily: Strings.notosansFontFamilly),
@@ -40,8 +40,8 @@ class TracOrders extends StatelessWidget {
                 width: 60,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(
-                            orderList[index].trendingFoodModel.imageUrl))),
+                        image:
+                            NetworkImage(orderList[index].foodModel.imageUrl))),
               ),
             ),
             shrinkWrap: true,

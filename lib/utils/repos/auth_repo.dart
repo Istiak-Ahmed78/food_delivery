@@ -41,6 +41,7 @@ class AuthRepos {
   }
 
   bool isEmailVarified(User user) => user.emailVerified;
+  String get userId => getCurrentUser()!.uid;
 
   Future<void> sendEmailVerificationLink(User user) =>
       user.sendEmailVerification();

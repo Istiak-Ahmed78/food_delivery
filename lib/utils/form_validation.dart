@@ -29,4 +29,22 @@ class FormValidation {
       return null;
     }
   }
+
+  static String? validateAdress(value) {
+    if (value == null || value == '') {
+      return 'Full name field requred';
+    } else {
+      return null;
+    }
+  }
+
+  static String? valofateFullName(value) {
+    if (value == null || value == '') {
+      return 'Full name field requred';
+    } else if (value.length < 7) {
+      return 'Enter your full name';
+    } else {
+      return null;
+    }
+  }
 }

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -72,7 +71,10 @@ class Methods {
         });
   }
 
-  static void showLoadingIndicator(BuildContext context, [String? text]) {
+  static Future<void> showLoadingIndicator(
+      {required BuildContext context,
+      String? text,
+      Future<void>? workTodo}) async {
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -85,6 +87,13 @@ class Methods {
         );
       },
     );
+    if (workTodo != null) {
+      await Future.delayed(Duration.zero, () {
+        workTodo.then((_) {
+          Navigator.pop(context);
+        });
+      });
+    }
   }
 
   static List<FoodHeadingModel> decodeFoodHeadignDQsnapshot(
@@ -96,11 +105,11 @@ class Methods {
     return foodHeadigList;
   }
 
-  static Future<List<ShoppingCardModel>> decodeCartListDquerySnap(
-      Future<QuerySnapshot<Map<String, dynamic>>> querySnapshot) async {
+  static List<ShoppingCardModel> decodeCartListDquerySnap(
+      QuerySnapshot<Map<String, dynamic>> querySnapshot) {
     List<ShoppingCardModel> shoppingCartList = [];
 
-    for (final item in (await querySnapshot).docs) {
+    for (final item in (querySnapshot).docs) {
       shoppingCartList.add(ShoppingCardModel.fromMap(item.data()));
     }
     return shoppingCartList;

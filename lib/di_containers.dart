@@ -5,6 +5,7 @@ import 'package:food_delivery/utils/shared_prefer.dart';
 import 'package:get_it/get_it.dart';
 import 'state_management/cart_list_state.dart';
 import 'state_management/favorite_list_state.dart';
+import 'state_management/order_process_state.dart';
 import 'utils/repos/firestore_repo.dart';
 
 final services = GetIt.I;
@@ -19,6 +20,7 @@ void init() {
   services.registerLazySingleton(() => SharedPreProvider());
   services.registerLazySingleton(() => FavoriteFoodItems());
   services.registerLazySingleton(() => CartListState());
+  services.registerLazySingleton(() => OrderProcessState());
   services.registerLazySingleton<AuthProvider>(
       () => AuthProvider(authRepos: services()));
 }

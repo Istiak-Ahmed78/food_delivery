@@ -7,6 +7,7 @@ import 'package:food_delivery/state_management/tab_index.dart';
 import 'package:food_delivery/utils/shared_prefer.dart';
 import 'package:provider/provider.dart';
 import 'di_containers.dart' as di;
+import 'state_management/order_process_state.dart';
 import 'views/screens/splash_screen/splash_screen.dart';
 
 void main() async {
@@ -22,6 +23,7 @@ void main() async {
           create: (context) => di.services<FavoriteFoodItems>()),
       ChangeNotifierProvider(create: (context) => di.services<TabIndex>()),
       ChangeNotifierProvider(create: (context) => di.services<AuthProvider>()),
+      ChangeNotifierProvider(create: (context) => OrderProcessState()),
       ChangeNotifierProvider(create: (context) => SharedPreProvider()),
     ],
     child: const MyApp(),

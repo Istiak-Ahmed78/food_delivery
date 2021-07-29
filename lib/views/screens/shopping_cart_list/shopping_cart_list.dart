@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
-import 'package:food_delivery/utils/repos/auth_repo.dart';
+import 'package:food_delivery/utils/methods.dart';
+import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/screens/order_details/order_details.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
-import '../../../di_containers.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -16,21 +18,20 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartState extends State<CartScreen> {
-  double checkOutAmount = 0.0;
+  // double checkOutAmount = 0.0;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPersistentFrameCallback((timeStamp) {
-      Provider.of<CartListState>(context, listen: false)
-          .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid);
+      Provider.of<CartListState>(context, listen: false).getCartListProducts();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     List<ShoppingCardModel> shoppingCartList =
-        Provider.of<CartListState>(context).cartList;
+        Provider.of<CartListState>(context, listen: false).cartList;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -181,13 +182,13 @@ class _CartState extends State<CartScreen> {
   double subtotal(List<ShoppingCardModel> shoppingCartModelList) {
     double value = 0.0;
     for (final i in shoppingCartModelList) {
-      value = value + i.trendingFoodModel.price * i.quantity;
+      value = value + i.foodModel.price * i.quantity;
     }
     return value.roundToDouble();
   }
 
   double tax(double subtotal) => (subtotal * 0.1).roundToDouble();
-  double checkOutBalance(double subtotal) => (subtotal * 0.9).roundToDouble();
+  double checkOutBalance(double subtotal) => (subtotal * 1.1).roundToDouble();
 }
 
 class ShoppingCardListWidget extends StatelessWidget {
@@ -195,22 +196,30 @@ class ShoppingCardListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cartListProvider = Provider.of<CartListState>(context, listen: false);
-    cartListProvider
-        .getCartListProducts(services<AuthRepos>().getCurrentUser()!.uid);
     return SizedBox(
-        child: cartListProvider.cartList.isEmpty
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => ShoppingCartItem(
-                  shoppingCartModel: cartListProvider.cartList[index],
-                ),
-                itemCount: cartListProvider.cartList.length,
-                shrinkWrap: true,
-              ));
+        child: FutureBuilder(
+      future: services<FirestoreRepos>().getShoppingCartList(),
+      builder:
+          (_, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
+            return const Text('The list is emty');
+          } else {
+            var data = Methods.decodeCartListDquerySnap(snapshot.data!);
+            return ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => ShoppingCartItem(
+                shoppingCartModel: data[index],
+              ),
+              itemCount: data.length,
+              shrinkWrap: true,
+            );
+          }
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    ));
   }
 }
 
@@ -233,86 +242,106 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(widget
-                                .shoppingCartModel.trendingFoodModel.imageUrl),
-                            fit: BoxFit.cover),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5))),
-                    height: 70,
-                    width: 70,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.shoppingCartModel.trendingFoodModel.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: ColorResources.blueGrey,
-                            fontSize: 15),
-                      ),
-                      Text(
-                        '\$${widget.shoppingCartModel.trendingFoodModel.price.toString()}',
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: Strings.notosansFontFamilly),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          quantityOfProduct++;
-                        });
-                        Provider.of<CartListState>(context, listen: false)
-                            .changeProductQuantity(
-                                widget.shoppingCartModel, quantityOfProduct);
-                      },
-                      child: const Icon(Icons.control_point)),
-                  Text(quantityOfProduct.toString()),
-                  GestureDetector(
-                      onTap: () {
-                        if (quantityOfProduct > 1) {
-                          quantityOfProduct--;
+    return Dismissible(
+      key: Key(widget.shoppingCartModel.foodModel.productId),
+      onDismissed: (_) async {
+        var tempcartProvider =
+            Provider.of<CartListState>(context, listen: false);
+        Methods.showLoadingIndicator(
+            context: context,
+            workTodo: tempcartProvider
+                .deleteACartItem(widget.shoppingCartModel.foodModel.productId));
+
+        if (await tempcartProvider
+            .deleteACartItem(widget.shoppingCartModel.foodModel.productId)) {
+          Methods.showToast(toastMessage: 'Successfully removed');
+        } else {
+          Methods.showToast(
+              toastMessage: tempcartProvider.repoErrorMessage ??
+                  FirebaseErrorMessage.defaultMessage);
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        height: 100,
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  widget.shoppingCartModel.foodModel.imageUrl),
+                              fit: BoxFit.cover),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5))),
+                      height: 70,
+                      width: 70,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.shoppingCartModel.foodModel.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: ColorResources.blueGrey,
+                              fontSize: 15),
+                        ),
+                        Text(
+                          '\$${widget.shoppingCartModel.foodModel.price.toString()}',
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: Strings.notosansFontFamilly),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            quantityOfProduct++;
+                          });
                           Provider.of<CartListState>(context, listen: false)
                               .changeProductQuantity(
                                   widget.shoppingCartModel, quantityOfProduct);
-                        }
-                      },
-                      child: const Icon(Icons.remove_circle_outline)),
-                ],
-              )
-            ],
+                        },
+                        child: const Icon(Icons.control_point)),
+                    Text(quantityOfProduct.toString()),
+                    GestureDetector(
+                        onTap: () {
+                          if (quantityOfProduct > 1) {
+                            quantityOfProduct--;
+                            Provider.of<CartListState>(context, listen: false)
+                                .changeProductQuantity(widget.shoppingCartModel,
+                                    quantityOfProduct);
+                          }
+                        },
+                        child: const Icon(Icons.remove_circle_outline)),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

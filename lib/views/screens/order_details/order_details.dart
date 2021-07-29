@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/order_information_model.dart';
+import 'package:food_delivery/state_management/cart_list_state.dart';
+import 'package:food_delivery/state_management/order_process_state.dart';
 import 'package:food_delivery/utils/form_validation.dart';
 import 'package:food_delivery/views/screens/checkout/check_out_screen.dart';
 import 'package:food_delivery/views/shared_widgets/shared_widgets.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -21,6 +25,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController adressController = TextEditingController();
   TextEditingController emailAdressController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    fullNameController.dispose();
+    phoneController.dispose();
+    adressController.dispose();
+    emailAdressController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,28 +74,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   controller: fullNameController,
                   hintText: 'Full name',
                   maxLenth: 25,
-                  validator: (value) {
-                    if (value == null || value == '') {
-                      return 'Full name field requred';
-                    } else if (value.length < 7) {
-                      return 'Enter your full name';
-                    } else {
-                      return null;
-                    }
-                  },
+                  validator: FormValidation.valofateFullName,
                 ),
                 DefaultFormFlield(
                     controller: adressController,
                     hintText: 'Your Full Adress',
                     maxLenth: 50,
                     maxLine: 2,
-                    validator: (value) {
-                      if (value == null || value == '') {
-                        return 'Full name field requred';
-                      } else {
-                        return null;
-                      }
-                    }),
+                    validator: FormValidation.validateAdress),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: DefaultFormFlield(
@@ -126,6 +125,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       buttonColor: ColorResources.orange,
                       onPressed: () {
                         if (orderFormKey.currentState!.validate()) {
+                          OrderInformationModel orderInformationModel =
+                              OrderInformationModel(
+                                  fullName: fullNameController.text,
+                                  fullAddress: fullNameController.text,
+                                  emailAddress: emailAdressController.text,
+                                  phoneNumber: phoneController.text,
+                                  shoppingCardModelList:
+                                      Provider.of<CartListState>(context,
+                                              listen: false)
+                                          .globalCheckedOutList);
+                          Provider.of<OrderProcessState>(context, listen: false)
+                                  .orderInformationModelLocal =
+                              orderInformationModel;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -134,41 +146,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                       )));
                         }
                       },
-                    )
-                    //  MaterialButton(
-                    //   minWidth: double.infinity,
-                    //   height: 50,
-                    //   shape: const RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.all(Radius.circular(20))),
-                    // onPressed: () {
-                    //   if (orderFormKey.currentState!.validate()) {
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => CheckoutScreen(
-                    //                   checkOutValue: widget.checkOutvale,
-                    //                 )));
-                    //   }
-                    //   },
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       Container(),
-                    //       const Text(
-                    //         'Next',
-                    //         style: TextStyle(
-                    //             color: ColorResources.white,
-                    //             fontFamily: Strings.notosansFontFamilly),
-                    //       ),
-                    //       const Icon(
-                    //         Icons.navigate_next,
-                    //         color: ColorResources.white,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   color: ColorResources.orange,
-                    // ),
-                    ),
+                    )),
               ],
             ),
           ),

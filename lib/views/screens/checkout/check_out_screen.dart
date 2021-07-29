@@ -104,7 +104,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             setState(() {
                               isPressed = true;
                               checkOutAmount = 0.0;
-                            });t
+                            });
                             Methods.showLoadingIndicator(
                                 context: context, workTodo: pay());
                             showToast(context, 'Succesfully checked out');

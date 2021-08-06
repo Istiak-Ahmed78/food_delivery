@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/state_management/auth_providers.dart';
-import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +14,7 @@ class AvaterPart extends StatefulWidget {
 class _AvaterPartState extends State<AvaterPart> {
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -26,21 +25,22 @@ class _AvaterPartState extends State<AvaterPart> {
           children: [
             FloatingActionButton(
               mini: true,
-              backgroundColor: ColorResources.orange,
+              backgroundColor: CResources.orange,
               onPressed: () async {},
               child: const Icon(Icons.add),
             ),
             CircleAvatar(
-              backgroundImage: const NetworkImage(Images.avaterImageLink),
+              backgroundImage: NetworkImage(
+                  authProvider.currentUser?.photoURL ?? Images.avaterImageLink),
+              backgroundColor: CResources.blueGrey.withOpacity(0.4),
               radius: 50,
-              child: Center(child: Image.asset(Images.avaterImageLogo)),
             ),
             FloatingActionButton(
               mini: true,
               onPressed: () {
                 Provider.of<AuthProvider>(context, listen: false).logOut();
               },
-              backgroundColor: ColorResources.orange,
+              backgroundColor: CResources.orange,
               child: const Icon(Icons.exit_to_app),
             )
           ],
@@ -52,7 +52,7 @@ class _AvaterPartState extends State<AvaterPart> {
           'Istiak Ahmed',
           style: TextStyle(
               fontSize: 25,
-              color: ColorResources.blueGrey,
+              color: CResources.blueGrey,
               fontFamily: Strings.notosansFontFamilly),
         ),
         const SizedBox(
@@ -61,8 +61,7 @@ class _AvaterPartState extends State<AvaterPart> {
         const Text(
           'Seen Braxson Street Cortland, It 600112',
           style: TextStyle(
-              color: ColorResources.grey,
-              fontFamily: Strings.notosansFontFamilly),
+              color: CResources.grey, fontFamily: Strings.notosansFontFamilly),
         )
       ],
     );

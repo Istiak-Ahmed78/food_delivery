@@ -32,7 +32,7 @@ class VerifyUserEmail extends StatelessWidget {
             const Text(
               'Verify your email',
               style: TextStyle(
-                  color: ColorResources.blueGrey,
+                  color: CResources.blueGrey,
                   fontWeight: FontWeight.bold,
                   fontSize: Dimentions.mediamDimention),
             ),
@@ -51,10 +51,10 @@ class VerifyUserEmail extends StatelessWidget {
                 child: const Text(
                   'Ok',
                   style: TextStyle(
-                      color: ColorResources.white,
+                      color: CResources.white,
                       fontFamily: Strings.notosansFontFamilly),
                 ),
-                buttonColor: ColorResources.orange,
+                buttonColor: CResources.orange,
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                       context,

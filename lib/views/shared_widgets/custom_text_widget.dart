@@ -43,8 +43,7 @@ class _DefaultFormFlieldState extends State<DefaultFormFlield> {
       onChanged: widget.onChanged,
       obscureText: widget.isPassword ? !isVisible : false,
       style: const TextStyle(
-          color: ColorResources.blueGrey,
-          fontFamily: Strings.notosansFontFamilly),
+          color: CResources.blueGrey, fontFamily: Strings.notosansFontFamilly),
       decoration: InputDecoration(
         suffixIcon: widget.isPassword
             ? GestureDetector(
@@ -58,11 +57,11 @@ class _DefaultFormFlieldState extends State<DefaultFormFlield> {
                     Icon(isVisible ? Icons.visibility : Icons.visibility_off))
             : null,
         focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: ColorResources.blueGrey)),
+            borderSide: BorderSide(color: CResources.blueGrey)),
         enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: ColorResources.blueGrey)),
+            borderSide: BorderSide(color: CResources.blueGrey)),
         hintText: widget.hintText,
-        hintStyle: TextStyle(color: ColorResources.grey.withOpacity(0.9)),
+        hintStyle: TextStyle(color: CResources.grey.withOpacity(0.9)),
       ),
     );
   }

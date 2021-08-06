@@ -15,9 +15,9 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorResources.white,
+        backgroundColor: CResources.white,
         drawer: const DefaultDrawer(),
-        drawerScrimColor: ColorResources.black,
+        drawerScrimColor: CResources.black,
         appBar: defaultAppBar(
           title: 'Home',
           context: context,

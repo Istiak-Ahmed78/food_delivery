@@ -35,7 +35,7 @@ class AccountTab extends StatelessWidget {
             ),
             Text(
               dummyText,
-              style: TextStyle(color: ColorResources.blueGrey.withOpacity(0.7)),
+              style: TextStyle(color: CResources.blueGrey.withOpacity(0.7)),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),

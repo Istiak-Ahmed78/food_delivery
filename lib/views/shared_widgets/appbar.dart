@@ -15,15 +15,15 @@ PreferredSizeWidget defaultAppBar(
       title: Text(
         title,
         style: const TextStyle(
-            color: ColorResources.orange,
+            color: CResources.orange,
             fontWeight: FontWeight.bold,
             fontFamily: Strings.notosansFontFamilly),
       ),
       actions: const [AppBarAction()],
       iconTheme: const IconThemeData(
-        color: ColorResources.blueAccent,
+        color: CResources.blueAccent,
       ),
-      backgroundColor: ColorResources.white,
+      backgroundColor: CResources.white,
       elevation: 0.0,
       centerTitle: true,
     );
@@ -52,13 +52,13 @@ class AppBarAction extends StatelessWidget {
             top: 25,
             child: CircleAvatar(
                 radius: 8,
-                backgroundColor: ColorResources.orange,
+                backgroundColor: CResources.orange,
                 child: Consumer<CartListState>(
                   builder: (context, data, _) {
                     return Text(
                       data.cartList.length.toString(),
                       style: const TextStyle(
-                          color: ColorResources.white,
+                          color: CResources.white,
                           fontSize: Dimentions.soSmallDinmention),
                     );
                   },

@@ -17,7 +17,7 @@ class WishListTab extends StatelessWidget {
           context: context,
           cartItemNumber: Provider.of<CartListState>(context).cartList.length),
       drawer: const DefaultDrawer(),
-      drawerScrimColor: ColorResources.black,
+      drawerScrimColor: CResources.black,
       body: Container(
         padding: const EdgeInsets.only(
             top: Dimentions.soSmallDinmention, bottom: kToolbarHeight),

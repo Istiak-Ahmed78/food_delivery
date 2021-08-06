@@ -108,7 +108,7 @@ class TopRestauarentListItem extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: ColorResources.blueGrey),
+                                    color: CResources.blueGrey),
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                                 maxLines: 1,
@@ -121,8 +121,7 @@ class TopRestauarentListItem extends StatelessWidget {
                                 overflow: TextOverflow.fade,
                                 maxLines: 1,
                                 style: TextStyle(
-                                    color:
-                                        ColorResources.grey.withOpacity(0.7)),
+                                    color: CResources.grey.withOpacity(0.7)),
                                 softWrap: false,
                               ),
                               const SizedBox(
@@ -145,7 +144,7 @@ class TopRestauarentListItem extends StatelessWidget {
                           width: 50,
                           margin: const EdgeInsets.only(left: 10),
                           decoration: const BoxDecoration(
-                              color: ColorResources.orangeAccent,
+                              color: CResources.orangeAccent,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5))),
                           alignment: Alignment.center,

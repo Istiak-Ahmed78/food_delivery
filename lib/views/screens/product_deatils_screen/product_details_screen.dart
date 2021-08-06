@@ -52,7 +52,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             Text(
                               trendingFoodModel.title,
                               style: const TextStyle(
-                                  color: ColorResources.blueGrey,
+                                  color: CResources.blueGrey,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: Strings.notosansFontFamilly),
@@ -60,7 +60,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             Text(
                               '\$${trendingFoodModel.price}',
                               style: const TextStyle(
-                                  color: ColorResources.red,
+                                  color: CResources.red,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
                                   fontFamily: Strings.notosansFontFamilly),
@@ -74,8 +74,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: Text(
                             '300 g',
-                            style: TextStyle(
-                                color: ColorResources.grey, fontSize: 12),
+                            style:
+                                TextStyle(color: CResources.grey, fontSize: 12),
                           ),
                         ),
                         const SizedBox(
@@ -83,7 +83,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         const Text(
                           dummyText,
-                          style: TextStyle(color: ColorResources.grey),
+                          style: TextStyle(color: CResources.grey),
                         ),
                         const Padding(
                           padding: EdgeInsets.only(
@@ -94,12 +94,12 @@ class ProductDetailsScreen extends StatelessWidget {
                             title: Text(
                               'Extra',
                               style: TextStyle(
-                                  color: ColorResources.blueGrey,
+                                  color: CResources.blueGrey,
                                   fontFamily: Strings.notosansFontFamilly),
                             ),
                             leading: Icon(
                               Icons.add_circle_outline,
-                              color: ColorResources.blueGrey,
+                              color: CResources.blueGrey,
                             ),
                             subtitle:
                                 Text('Select extra to add them on the food'),
@@ -128,7 +128,7 @@ class ProductDetailsScreen extends StatelessWidget {
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back,
-                color: ColorResources.white,
+                color: CResources.white,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -140,7 +140,7 @@ class ProductDetailsScreen extends StatelessWidget {
             right: 20,
             child: Container(
               decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: ColorResources.orange),
+                  shape: BoxShape.circle, color: CResources.orange),
               height: 50,
               width: 50,
               padding: const EdgeInsets.only(right: 7),
@@ -151,7 +151,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       icon: const Icon(
                         FontAwesomeIcons.shoppingCart,
                         size: 18,
-                        color: ColorResources.white,
+                        color: CResources.white,
                       )),
                   Positioned(
                     right: 2,
@@ -165,14 +165,14 @@ class ProductDetailsScreen extends StatelessWidget {
                       },
                       child: CircleAvatar(
                           radius: 8,
-                          backgroundColor: ColorResources.red,
+                          backgroundColor: CResources.red,
                           child: Text(
                             Provider.of<CartListState>(context)
                                 .cartList
                                 .length
                                 .toString(),
                             style: const TextStyle(
-                                color: ColorResources.white, fontSize: 10),
+                                color: CResources.white, fontSize: 10),
                           )),
                     ),
                   ),
@@ -208,9 +208,9 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
       duration: const Duration(seconds: 1),
       content: Text(
         toastMessage,
-        style: const TextStyle(color: ColorResources.black),
+        style: const TextStyle(color: CResources.black),
       ),
-      backgroundColor: ColorResources.white,
+      backgroundColor: CResources.white,
       elevation: 5,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -233,7 +233,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 style: TextStyle(
                     fontFamily: Strings.notosansFontFamilly,
                     fontSize: 20,
-                    color: ColorResources.grey)),
+                    color: CResources.grey)),
             Row(mainAxisSize: MainAxisSize.min, children: [
               InkWell(
                 onTap: () {
@@ -245,7 +245,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 },
                 child: const Icon(
                   Icons.remove_circle_outline,
-                  color: ColorResources.blueGrey,
+                  color: CResources.blueGrey,
                 ),
               ),
               Padding(
@@ -254,7 +254,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                   productQuantity.toDouble().toString(),
                   style: const TextStyle(
                       fontFamily: Strings.notosansFontFamilly,
-                      color: ColorResources.blueGrey),
+                      color: CResources.blueGrey),
                 ),
               ),
               InkWell(
@@ -263,7 +263,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 }),
                 child: const Icon(
                   Icons.add_circle_outline,
-                  color: ColorResources.blueGrey,
+                  color: CResources.blueGrey,
                 ),
               ),
             ])
@@ -304,11 +304,11 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: ColorResources.orange, width: 1),
+                  border: Border.all(color: CResources.orange, width: 1),
                 ),
                 child: const Icon(
                   Icons.favorite,
-                  color: ColorResources.orange,
+                  color: CResources.orange,
                 ),
               ),
             ),
@@ -318,7 +318,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 height: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: ColorResources.orange,
+                        primary: CResources.orange,
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(24)))),
@@ -362,7 +362,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                         const Text(
                           'Add to Cart',
                           style: TextStyle(
-                              color: ColorResources.white,
+                              color: CResources.white,
                               fontFamily: Strings.notosansFontFamilly,
                               fontSize: 15),
                         ),
@@ -370,7 +370,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                           '\$$checkOutBalance',
                           style: const TextStyle(
                               fontSize: 15,
-                              color: ColorResources.white,
+                              color: CResources.white,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -397,7 +397,7 @@ class NutritionsPart extends StatelessWidget {
           title: Text(
             'Nutritions',
             style: TextStyle(
-              color: ColorResources.blueGrey,
+              color: CResources.blueGrey,
               fontFamily: Strings.notosansFontFamilly,
             ),
           ),
@@ -438,7 +438,7 @@ class GridVeiwItem extends StatelessWidget {
           children: [
             Text(
               nutritionKey,
-              style: TextStyle(color: ColorResources.grey.withOpacity(0.5)),
+              style: TextStyle(color: CResources.grey.withOpacity(0.5)),
             ),
             Text(nutritionValue.toString(),
                 style: const TextStyle(

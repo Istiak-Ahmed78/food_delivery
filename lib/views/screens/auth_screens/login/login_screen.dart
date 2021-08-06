@@ -55,7 +55,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: Text(
                       'Login',
                       style: TextStyle(
-                          color: ColorResources.black,
+                          color: CResources.black,
                           fontFamily: Strings.notosansFontFamilly,
                           fontWeight: FontWeight.bold,
                           fontSize: Dimentions.largeDimention),
@@ -106,7 +106,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 child: const Text(
                                   'Forgot your password?',
                                   style: TextStyle(
-                                      color: ColorResources.grey,
+                                      color: CResources.grey,
                                       fontStyle: FontStyle.italic),
                                 )),
                           ),
@@ -139,9 +139,9 @@ class _LogInScreenState extends State<LogInScreen> {
                                   },
                             child: const Text(
                               'Sign In',
-                              style: TextStyle(color: ColorResources.white),
+                              style: TextStyle(color: CResources.white),
                             ),
-                            buttonColor: ColorResources.orange,
+                            buttonColor: CResources.orange,
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -152,7 +152,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 const Expanded(
                                   child: Divider(
                                     thickness: 1,
-                                    color: ColorResources.grey,
+                                    color: CResources.grey,
                                   ),
                                 ),
                                 Padding(
@@ -161,8 +161,8 @@ class _LogInScreenState extends State<LogInScreen> {
                                   child: Text(
                                     'Social Logings',
                                     style: TextStyle(
-                                        color: ColorResources.black
-                                            .withOpacity(0.6),
+                                        color:
+                                            CResources.black.withOpacity(0.6),
                                         fontFamily:
                                             Strings.notosansFontFamilly),
                                   ),
@@ -170,7 +170,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 const Expanded(
                                   child: Divider(
                                     thickness: 1,
-                                    color: ColorResources.grey,
+                                    color: CResources.grey,
                                   ),
                                 ),
                               ],
@@ -196,7 +196,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ),
                                 GestureDetector(
                                   child: const SocilLogInAvater(
-                                      backGroundColor: ColorResources.blue,
+                                      backGroundColor: CResources.blue,
                                       backGroundImage: Images.facebookLogo),
                                   onTap: Provider.of<AuthProvider>(context)
                                           .isLoading
@@ -215,14 +215,14 @@ class _LogInScreenState extends State<LogInScreen> {
                               TextSpan(
                                   text: 'Don\'t have an account? ',
                                   style: TextStyle(
-                                      color: ColorResources.black
-                                          .withOpacity(0.7))),
+                                      color:
+                                          CResources.black.withOpacity(0.7))),
                               TextSpan(
                                 text: 'SignUp',
                                 style: const TextStyle(
                                     fontFamily: Strings.notosansFontFamilly,
                                     fontWeight: FontWeight.bold,
-                                    color: ColorResources.blueAccent),
+                                    color: CResources.blueAccent),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.push(

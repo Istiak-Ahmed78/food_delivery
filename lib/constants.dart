@@ -10,9 +10,9 @@ void showToast(BuildContext context, String toastMessage) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(
       toastMessage,
-      style: const TextStyle(color: ColorResources.grey),
+      style: const TextStyle(color: CResources.grey),
     ),
-    backgroundColor: ColorResources.white,
+    backgroundColor: CResources.white,
     duration: const Duration(seconds: 2),
   ));
 }

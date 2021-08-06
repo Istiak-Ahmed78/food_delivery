@@ -94,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               padding: const EdgeInsets.symmetric(
                   vertical: Dimentions.soLargeDimention),
               child: DefaultButton(
-                buttonColor: ColorResources.orange,
+                buttonColor: CResources.orange,
                 onPressed: Provider.of<AuthProvider>(context).isLoading
                     ? null
                     : () async {
@@ -113,14 +113,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Methods.showToast(
                                 toastMessage:
                                     authProvider.firebaseErrorMessgase,
-                                backGroundColor: ColorResources.grey);
+                                backGroundColor: CResources.grey);
                           }
                         }
                       },
                 child: const Text(
                   'SignUp',
                   style: TextStyle(
-                      color: ColorResources.white,
+                      color: CResources.white,
                       fontFamily: Strings.notosansFontFamilly,
                       fontWeight: FontWeight.bold),
                 ),
@@ -132,14 +132,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 text: TextSpan(children: [
                   TextSpan(
                       text: 'Already have an account? ',
-                      style: TextStyle(
-                          color: ColorResources.black.withOpacity(0.7))),
+                      style:
+                          TextStyle(color: CResources.black.withOpacity(0.7))),
                   TextSpan(
                     text: 'LogIn',
                     style: const TextStyle(
                         fontFamily: Strings.notosansFontFamilly,
                         fontWeight: FontWeight.bold,
-                        color: ColorResources.blueAccent),
+                        color: CResources.blueAccent),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         Navigator.push(
@@ -165,16 +165,16 @@ class PasswordStrenthContainer extends StatelessWidget {
   PasswordStrenthModel getMessag({double value = 0.0}) {
     if (value <= 0.3) {
       return const PasswordStrenthModel(
-          color: ColorResources.red, message: Strings.weakPassword);
+          color: CResources.red, message: Strings.weakPassword);
     } else if (value <= 0.6 && value > 0.3) {
       return const PasswordStrenthModel(
-          color: ColorResources.orange, message: Strings.mediumPassword);
+          color: CResources.orange, message: Strings.mediumPassword);
     } else if (value > 0.6) {
       return const PasswordStrenthModel(
-          color: ColorResources.green, message: Strings.strongPassword);
+          color: CResources.green, message: Strings.strongPassword);
     } else {
       return const PasswordStrenthModel(
-          color: ColorResources.red, message: Strings.weakPassword);
+          color: CResources.red, message: Strings.weakPassword);
     }
   }
 
@@ -231,8 +231,7 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
       validator: widget.validator,
       obscureText: !isVisible,
       style: const TextStyle(
-          color: ColorResources.blueGrey,
-          fontFamily: Strings.notosansFontFamilly),
+          color: CResources.blueGrey, fontFamily: Strings.notosansFontFamilly),
       decoration: InputDecoration(
         suffixIcon: GestureDetector(
             onTap: () {
@@ -242,11 +241,11 @@ class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
             },
             child: Icon(isVisible ? Icons.visibility : Icons.visibility_off)),
         focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: ColorResources.blueGrey)),
+            borderSide: BorderSide(color: CResources.blueGrey)),
         enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: ColorResources.blueGrey)),
+            borderSide: BorderSide(color: CResources.blueGrey)),
         hintText: 'Re-type your password',
-        hintStyle: TextStyle(color: ColorResources.grey.withOpacity(0.9)),
+        hintStyle: TextStyle(color: CResources.grey.withOpacity(0.9)),
       ),
     );
   }

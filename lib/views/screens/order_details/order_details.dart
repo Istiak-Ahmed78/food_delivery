@@ -41,19 +41,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       appBar: AppBar(
         title: const Text(
           'Order details',
-          style: TextStyle(color: ColorResources.red),
+          style: TextStyle(color: CResources.red),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: ColorResources.black,
+            color: CResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         centerTitle: true,
-        backgroundColor: ColorResources.white,
+        backgroundColor: CResources.white,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -66,7 +66,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 const Text(
                   'Order Information',
                   style: TextStyle(
-                      color: ColorResources.blueGrey,
+                      color: CResources.blueGrey,
                       fontSize: 20,
                       fontFamily: Strings.notosansFontFamilly),
                 ),
@@ -94,14 +94,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 IntlPhoneField(
                   initialCountryCode: 'BD',
                   style: const TextStyle(
-                      color: ColorResources.black,
+                      color: CResources.black,
                       fontFamily: Strings.notosansFontFamilly),
                   decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: ColorResources.blueGrey)),
+                          borderSide: BorderSide(color: CResources.blueGrey)),
                       hintText: 'Phone Number',
-                      helperStyle: TextStyle(color: ColorResources.blueGrey)),
+                      helperStyle: TextStyle(color: CResources.blueGrey)),
                 ),
                 Padding(
                     padding: const EdgeInsets.only(top: 40),
@@ -113,16 +112,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           const Text(
                             'Next',
                             style: TextStyle(
-                                color: ColorResources.white,
+                                color: CResources.white,
                                 fontFamily: Strings.notosansFontFamilly),
                           ),
                           const Icon(
                             Icons.navigate_next,
-                            color: ColorResources.white,
+                            color: CResources.white,
                           ),
                         ],
                       ),
-                      buttonColor: ColorResources.orange,
+                      buttonColor: CResources.orange,
                       onPressed: () {
                         if (orderFormKey.currentState!.validate()) {
                           OrderInformationModel orderInformationModel =

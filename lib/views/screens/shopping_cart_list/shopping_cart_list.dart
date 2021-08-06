@@ -27,17 +27,17 @@ class CartScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back, color: ColorResources.black),
+          icon: const Icon(Icons.arrow_back, color: CResources.black),
         ),
         title: const Text(
           'Cart',
-          style: TextStyle(color: ColorResources.orange),
+          style: TextStyle(color: CResources.orange),
         ),
         centerTitle: true,
-        backgroundColor: ColorResources.white,
+        backgroundColor: CResources.white,
         elevation: 0.0,
       ),
-      backgroundColor: ColorResources.white,
+      backgroundColor: CResources.white,
       body: Container(
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -52,7 +52,7 @@ class CartScreen extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.shopping_bag,
-                        color: ColorResources.blueGrey,
+                        color: CResources.blueGrey,
                       ),
                       const SizedBox(
                         width: 30,
@@ -63,7 +63,7 @@ class CartScreen extends StatelessWidget {
                           const Text(
                             'Shopping Card',
                             style: TextStyle(
-                                color: ColorResources.blueGrey,
+                                color: CResources.blueGrey,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: Strings.notosansFontFamilly),
@@ -71,8 +71,7 @@ class CartScreen extends StatelessWidget {
                           Text(
                             'Verify your quantity and click checkout',
                             style: TextStyle(
-                                color:
-                                    ColorResources.blueGrey.withOpacity(0.6)),
+                                color: CResources.blueGrey.withOpacity(0.6)),
                           )
                         ],
                       )
@@ -86,7 +85,7 @@ class CartScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 112,
-                color: ColorResources.white,
+                color: CResources.white,
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: [
@@ -119,10 +118,10 @@ class CartScreen extends StatelessWidget {
                       height: 10,
                     ),
                     MaterialButton(
-                      color: ColorResources.orange,
+                      color: CResources.orange,
                       minWidth: double.infinity,
                       height: 50,
-                      disabledColor: ColorResources.grey,
+                      disabledColor: CResources.grey,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       onPressed: Provider.of<CartListState>(context).isListEmty
@@ -152,12 +151,12 @@ class CartScreen extends StatelessWidget {
                             'Checkout',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: ColorResources.white),
+                                color: CResources.white),
                           ),
                           Text(
                             '\$${checkOutBalance(subtotal(shoppingCartList))}',
                             style: const TextStyle(
-                                color: ColorResources.white,
+                                color: CResources.white,
                                 fontWeight: FontWeight.bold),
                           )
                         ],
@@ -297,7 +296,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                           softWrap: false,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: ColorResources.blueGrey,
+                              color: CResources.blueGrey,
                               fontSize: 15),
                         ),
                         Text(

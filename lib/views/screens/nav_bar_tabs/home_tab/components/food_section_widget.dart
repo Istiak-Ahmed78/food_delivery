@@ -118,7 +118,7 @@ class TrendingFoods extends StatelessWidget {
                           trendingFoods.title,
                           overflow: TextOverflow.fade,
                           maxLines: 2,
-                          style: const TextStyle(color: ColorResources.grey),
+                          style: const TextStyle(color: CResources.grey),
                         ),
                       )
                     ],
@@ -129,13 +129,13 @@ class TrendingFoods extends StatelessWidget {
                   right: 14,
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: ColorResources.orange,
+                      color: CResources.orange,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     padding: const EdgeInsets.all(5),
                     child: Text(
                       '\$${trendingFoods.price.toString()}',
-                      style: const TextStyle(color: ColorResources.white),
+                      style: const TextStyle(color: CResources.white),
                     ),
                   ),
                 )

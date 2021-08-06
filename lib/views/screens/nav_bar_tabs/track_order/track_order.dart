@@ -44,7 +44,7 @@ class TracOrders extends StatelessWidget {
                     title: Text(
                       orderList[index].foodModel.title,
                       style: const TextStyle(
-                          color: ColorResources.blueGrey,
+                          color: CResources.blueGrey,
                           fontFamily: Strings.notosansFontFamilly),
                     ),
                     subtitle: const Text('State: Proccessing'),

@@ -9,7 +9,7 @@ class DefaultButton extends StatelessWidget {
       {Key? key,
       required this.onPressed,
       required this.child,
-      this.buttonColor = ColorResources.white})
+      this.buttonColor = CResources.white})
       : super(key: key);
 
   @override

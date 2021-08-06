@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 class Methods {
   static void showToast(
       {required String toastMessage,
-      Color backGroundColor = ColorResources.orange,
+      Color backGroundColor = CResources.orange,
       Toast duration = Toast.LENGTH_SHORT}) {
     Fluttertoast.showToast(
         msg: toastMessage,
@@ -22,7 +22,7 @@ class Methods {
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: backGroundColor,
-        textColor: ColorResources.white,
+        textColor: CResources.white,
         fontSize: 16.0);
   }
 

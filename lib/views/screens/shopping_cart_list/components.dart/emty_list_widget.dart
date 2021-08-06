@@ -27,7 +27,7 @@ class EmtyListWidget extends StatelessWidget {
             style: TextStyle(
                 fontFamily: Strings.notosansFontFamilly,
                 fontSize: Dimentions.mediamDimention,
-                color: ColorResources.blueGrey,
+                color: CResources.blueGrey,
                 fontWeight: FontWeight.bold),
           ),
         ],

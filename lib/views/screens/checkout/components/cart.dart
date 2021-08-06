@@ -31,7 +31,7 @@ class _CartState extends State<Cart> {
       width: MediaQuery.of(context).size.width * 0.8,
       padding: const EdgeInsets.all(15),
       decoration: const BoxDecoration(
-          color: ColorResources.white,
+          color: CResources.white,
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,7 @@ class _CartState extends State<Cart> {
                   child: const Text('Edit',
                       style: TextStyle(
                           fontFamily: Strings.notosansFontFamilly,
-                          color: ColorResources.blueGrey)))
+                          color: CResources.blueGrey)))
             ],
           ),
           Column(
@@ -65,15 +65,13 @@ class _CartState extends State<Cart> {
               const Text(
                 'CARD NUMBER',
                 style: TextStyle(
-                    color: ColorResources.grey,
+                    color: CResources.grey,
                     fontFamily: Strings.notosansFontFamilly),
               ),
               Text(
                 cartNumberController.text,
                 style: const TextStyle(
-                    color: ColorResources.blueGrey,
-                    fontSize: 17,
-                    letterSpacing: 2),
+                    color: CResources.blueGrey, fontSize: 17, letterSpacing: 2),
               )
             ],
           ),
@@ -85,13 +83,13 @@ class _CartState extends State<Cart> {
                   Text(
                     'EXPIRY DATE',
                     style: TextStyle(
-                        color: ColorResources.grey,
+                        color: CResources.grey,
                         fontFamily: Strings.notosansFontFamilly),
                   ),
                   Text(
                     'CVV',
                     style: TextStyle(
-                        color: ColorResources.grey,
+                        color: CResources.grey,
                         fontFamily: Strings.notosansFontFamilly),
                   )
                 ],
@@ -102,13 +100,13 @@ class _CartState extends State<Cart> {
                   Text(
                     dateController.text,
                     style: const TextStyle(
-                        color: ColorResources.blueGrey,
+                        color: CResources.blueGrey,
                         fontFamily: Strings.notosansFontFamilly),
                   ),
                   Text(
                     cvvController.text,
                     style: const TextStyle(
-                        color: ColorResources.blueGrey,
+                        color: CResources.blueGrey,
                         fontFamily: Strings.notosansFontFamilly),
                   )
                 ],
@@ -121,13 +119,12 @@ class _CartState extends State<Cart> {
   }
 
   InputDecoration inputDecoration(labeltext) => InputDecoration(
-      focusColor: ColorResources.black,
+      focusColor: CResources.black,
       focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: ColorResources.black)),
+          borderSide: BorderSide(color: CResources.black)),
       labelText: labeltext,
       labelStyle: const TextStyle(
-          color: ColorResources.black,
-          fontFamily: Strings.notosansFontFamilly));
+          color: CResources.black, fontFamily: Strings.notosansFontFamilly));
 
   showEditCartDialog(BuildContext context) {
     return showDialog(
@@ -179,7 +176,7 @@ class _CartState extends State<Cart> {
                       'Cancel',
                       style: TextStyle(
                           fontFamily: Strings.notosansFontFamilly,
-                          color: ColorResources.red),
+                          color: CResources.red),
                     ))
               ],
               title: Row(
@@ -191,7 +188,7 @@ class _CartState extends State<Cart> {
                   Text(
                     'Payment Settings',
                     style: TextStyle(
-                        color: ColorResources.blueGrey,
+                        color: CResources.blueGrey,
                         fontFamily: Strings.notosansFontFamilly),
                   ),
                 ],

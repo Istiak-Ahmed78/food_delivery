@@ -19,7 +19,7 @@ class HeadLine extends StatelessWidget {
         flex: 1,
         child: Icon(
           Icons.stars,
-          color: ColorResources.blueGrey,
+          color: CResources.blueGrey,
         ),
       ),
       Expanded(
@@ -32,7 +32,7 @@ class HeadLine extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: ColorResources.blueAccent,
+                  color: CResources.blueAccent,
                   fontFamily: Strings.notosansFontFamilly),
             ),
             Text(subTitle,

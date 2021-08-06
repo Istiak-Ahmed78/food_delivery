@@ -20,7 +20,7 @@ class ExtraItem extends StatelessWidget {
       title: Text(
         foodModel.title,
         style: const TextStyle(
-            color: ColorResources.blueGrey,
+            color: CResources.blueGrey,
             fontFamily: Strings.notosansFontFamilly),
       ),
       subtitle: Text(
@@ -31,7 +31,7 @@ class ExtraItem extends StatelessWidget {
         '\$${foodModel.price}',
         style: const TextStyle(
             fontFamily: Strings.notosansFontFamilly,
-            color: ColorResources.blueGrey,
+            color: CResources.blueGrey,
             fontSize: 18),
       ),
     );

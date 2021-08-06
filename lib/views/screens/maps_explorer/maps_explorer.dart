@@ -155,8 +155,8 @@ class _MapsExplorerState extends State<MapsExplorer> {
                                                       fontSize: 20,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: ColorResources
-                                                          .blueGrey,
+                                                      color:
+                                                          CResources.blueGrey,
                                                     ),
                                                     overflow: TextOverflow.fade,
                                                     softWrap: false,
@@ -173,8 +173,7 @@ class _MapsExplorerState extends State<MapsExplorer> {
                                                     overflow: TextOverflow.fade,
                                                     maxLines: 1,
                                                     style: TextStyle(
-                                                        color: ColorResources
-                                                            .grey
+                                                        color: CResources.grey
                                                             .withOpacity(0.7)),
                                                     softWrap: false,
                                                   ),
@@ -197,8 +196,7 @@ class _MapsExplorerState extends State<MapsExplorer> {
                                             margin:
                                                 const EdgeInsets.only(left: 10),
                                             decoration: const BoxDecoration(
-                                                color:
-                                                    ColorResources.orangeAccent,
+                                                color: CResources.orangeAccent,
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(5))),
                                             alignment: Alignment.center,
@@ -220,16 +218,15 @@ class _MapsExplorerState extends State<MapsExplorer> {
         title: const Text(
           'Maps Explorer',
           style: TextStyle(
-              color: ColorResources.red,
-              fontFamily: Strings.notosansFontFamilly),
+              color: CResources.red, fontFamily: Strings.notosansFontFamilly),
         ),
-        backgroundColor: ColorResources.white,
+        backgroundColor: CResources.white,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: ColorResources.black,
+            color: CResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -242,7 +239,7 @@ class _MapsExplorerState extends State<MapsExplorer> {
               },
               icon: const Icon(
                 Icons.location_on,
-                color: ColorResources.black,
+                color: CResources.black,
               ))
         ],
       ),

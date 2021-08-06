@@ -62,14 +62,14 @@ class FoodItemTile extends StatelessWidget {
                       softWrap: false,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: ColorResources.blueGrey.withOpacity(0.7)),
+                          color: CResources.blueGrey.withOpacity(0.7)),
                     ),
                     const SizedBox(
                       height: Dimentions.smallDimention,
                     ),
                     Text(
                       orderModel.restaurentListItemModel.subTitle,
-                      style: const TextStyle(color: ColorResources.grey),
+                      style: const TextStyle(color: CResources.grey),
                       maxLines: 1,
                       overflow: TextOverflow.fade,
                       softWrap: false,
@@ -85,7 +85,7 @@ class FoodItemTile extends StatelessWidget {
                     child: Text('\$${orderModel.restaurentListItemModel.price}',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: ColorResources.blueGrey)),
+                            color: CResources.blueGrey)),
                   )
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -99,19 +99,19 @@ class FoodItemTile extends StatelessWidget {
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: Strings.notosansFontFamilly,
-                                color: ColorResources.blueGrey,
+                                color: CResources.blueGrey,
                                 fontSize: 20)),
                       ),
                       Text(
                         '${DateFormat.yMd().format(orderModel.orderTime!)}',
                         style: const TextStyle(
-                            color: ColorResources.grey,
+                            color: CResources.grey,
                             fontFamily: Strings.notosansFontFamilly),
                       ),
                       Text(
                         '${DateFormat.jm().format(orderModel.orderTime!).toString()}',
                         style: const TextStyle(
-                            color: ColorResources.grey,
+                            color: CResources.grey,
                             fontFamily: Strings.notosansFontFamilly),
                       )
                     ],

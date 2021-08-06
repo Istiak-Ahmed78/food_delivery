@@ -34,14 +34,14 @@ class DefaultDrawer extends StatelessWidget {
                     Text(
                       'Istiak Ahmed',
                       style: TextStyle(
-                          color: ColorResources.blueGrey,
+                          color: CResources.blueGrey,
                           fontFamily: Strings.notosansFontFamilly,
                           fontSize: 20),
                     ),
                     Text(
                       'aistiak6@gail.com',
                       style: TextStyle(
-                          color: ColorResources.blueGrey,
+                          color: CResources.blueGrey,
                           fontFamily: Strings.notosansFontFamilly),
                     )
                   ],

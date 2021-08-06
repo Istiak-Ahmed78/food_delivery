@@ -26,7 +26,7 @@ class LoadingShimmerWidget extends StatelessWidget {
                   height: 70,
                   width: 70,
                   decoration: const BoxDecoration(
-                      color: ColorResources.blueGrey,
+                      color: CResources.blueGrey,
                       borderRadius: BorderRadius.all(
                           Radius.circular(Dimentions.soSmallDinmention))),
                   margin: const EdgeInsets.only(
@@ -42,7 +42,7 @@ class LoadingShimmerWidget extends StatelessWidget {
                     child: Container(
                       height: Dimentions.smallDimention,
                       width: 60,
-                      color: ColorResources.grey,
+                      color: CResources.grey,
                     ),
                   ),
                   shimmerWidget(
@@ -51,7 +51,7 @@ class LoadingShimmerWidget extends StatelessWidget {
                           const EdgeInsets.only(top: Dimentions.smallDimention),
                       height: Dimentions.largeDimention,
                       width: 40,
-                      color: ColorResources.grey,
+                      color: CResources.grey,
                     ),
                   )
                 ],
@@ -64,9 +64,7 @@ class LoadingShimmerWidget extends StatelessWidget {
   }
 
   Widget shimmerWidget(
-          {required Widget child, Color baseColor = ColorResources.blueGrey}) =>
+          {required Widget child, Color baseColor = CResources.blueGrey}) =>
       Shimmer.fromColors(
-          child: child,
-          baseColor: baseColor,
-          highlightColor: ColorResources.white);
+          child: child, baseColor: baseColor, highlightColor: CResources.white);
 }

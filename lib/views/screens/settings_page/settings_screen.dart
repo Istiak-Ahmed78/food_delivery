@@ -12,19 +12,19 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Settings',
-          style: TextStyle(color: ColorResources.red),
+          style: TextStyle(color: CResources.red),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: ColorResources.black,
+            color: CResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         centerTitle: true,
-        backgroundColor: ColorResources.white,
+        backgroundColor: CResources.white,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
@@ -47,7 +47,7 @@ class SettingsPage extends StatelessWidget {
                         Text(
                           'Istiak Ahmed',
                           style: TextStyle(
-                              color: ColorResources.blueGrey,
+                              color: CResources.blueGrey,
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                               fontFamily: Strings.notosansFontFamilly),
@@ -55,7 +55,7 @@ class SettingsPage extends StatelessWidget {
                         Text(
                           'aistiak6@gamil.com',
                           style: TextStyle(
-                              color: ColorResources.grey,
+                              color: CResources.grey,
                               fontFamily: Strings.notosansFontFamilly),
                         )
                       ],
@@ -69,7 +69,7 @@ class SettingsPage extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.all(5),
-                color: ColorResources.white,
+                color: CResources.white,
                 child: Column(
                   children: const [
                     ItemHeadline(
@@ -88,7 +88,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               Container(
-                color: ColorResources.white,
+                color: CResources.white,
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Column(
@@ -127,7 +127,7 @@ class ItemTile extends StatelessWidget {
           Text(
             leading,
             style: const TextStyle(
-                color: ColorResources.grey,
+                color: CResources.grey,
                 fontFamily: Strings.notosansFontFamilly),
           ),
           ConstrainedBox(
@@ -136,7 +136,7 @@ class ItemTile extends StatelessWidget {
             child: Text(
               trailing,
               style: const TextStyle(
-                  color: ColorResources.grey,
+                  color: CResources.grey,
                   fontFamily: Strings.notosansFontFamilly),
             ),
           )
@@ -163,21 +163,21 @@ class ItemHeadline extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Icon(
               leadingIcon,
-              color: ColorResources.grey,
+              color: CResources.grey,
             ),
           ),
           Expanded(
               child: Text(
             title,
             style: const TextStyle(
-                color: ColorResources.grey,
+                color: CResources.grey,
                 fontFamily: Strings.notosansFontFamilly,
                 fontWeight: FontWeight.bold,
                 fontSize: 20),
           )),
           const Text('Edit',
               style: TextStyle(
-                  color: ColorResources.grey,
+                  color: CResources.grey,
                   fontFamily: Strings.notosansFontFamilly))
         ],
       ),

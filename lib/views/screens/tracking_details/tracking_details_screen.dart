@@ -13,21 +13,21 @@ class ShowcaseTimelineTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorResources.white,
+      backgroundColor: CResources.white,
       appBar: AppBar(
         title: const Text(
           'Order tracking',
           style: TextStyle(
-              color: ColorResources.blueGrey,
+              color: CResources.blueGrey,
               fontFamily: Strings.notosansFontFamilly),
         ),
-        backgroundColor: ColorResources.white,
+        backgroundColor: CResources.white,
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: ColorResources.black,
+            color: CResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -53,7 +53,7 @@ class ShowcaseTimelineTile extends StatelessWidget {
                           decoration: const BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color: ColorResources.blueGrey,
+                                  color: CResources.blueGrey,
                                   offset: Offset(0, 3),
                                   blurRadius: 7,
                                   spreadRadius: 4),
@@ -68,14 +68,14 @@ class ShowcaseTimelineTile extends StatelessWidget {
                           Text(
                             'Round bread',
                             style: TextStyle(
-                                color: ColorResources.blueGrey,
+                                color: CResources.blueGrey,
                                 fontSize: 20,
                                 fontFamily: Strings.notosansFontFamilly),
                           ),
                           Text('৳ 30',
                               style: TextStyle(
                                 fontFamily: Strings.notosansFontFamilly,
-                                color: ColorResources.red,
+                                color: CResources.red,
                               ))
                         ],
                       ),
@@ -125,7 +125,7 @@ class OrderStatusListWidget extends StatelessWidget {
           drawGap: true,
         ),
         beforeLineStyle: const LineStyle(
-          color: ColorResources.grey,
+          color: CResources.grey,
         ),
         endChild: GestureDetector(
           child: Padding(
@@ -138,7 +138,7 @@ class OrderStatusListWidget extends StatelessWidget {
                     OrderStatusModel.getOrderSatatusList(delivertyStatus)[index]
                         .title,
                     style: const TextStyle(
-                        color: ColorResources.blueGrey,
+                        color: CResources.blueGrey,
                         fontSize: 17,
                         fontFamily: Strings.notosansFontFamilly),
                   ),
@@ -146,7 +146,7 @@ class OrderStatusListWidget extends StatelessWidget {
                     OrderStatusModel.getOrderSatatusList(delivertyStatus)[index]
                         .subTitle,
                     style: const TextStyle(
-                        color: ColorResources.blueGrey,
+                        color: CResources.blueGrey,
                         fontFamily: Strings.notosansFontFamilly),
                   ),
                 ),
@@ -179,12 +179,10 @@ class Indicator extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isDone ? ColorResources.blueGrey : null,
+        color: isDone ? CResources.blueGrey : null,
         border: Border.fromBorderSide(
           BorderSide(
-            color: isDone
-                ? ColorResources.white.withOpacity(0.4)
-                : ColorResources.grey,
+            color: isDone ? CResources.white.withOpacity(0.4) : CResources.grey,
             width: 4,
           ),
         ),
@@ -193,11 +191,11 @@ class Indicator extends StatelessWidget {
           ? const Center(
               child: Icon(
               Icons.check,
-              color: ColorResources.white,
+              color: CResources.white,
             ))
           : Icon(
               undoneIcon,
-              color: ColorResources.blueGrey,
+              color: CResources.blueGrey,
               size: 18,
             ),
     );
@@ -292,7 +290,7 @@ class _TrackingOnTheMapWidgetState extends State<TrackingOnTheMapWidget> {
         Polyline polyline = Polyline(
             polylineId: const PolylineId('Poly'),
             points: poliliensCordinates,
-            color: ColorResources.blueGrey);
+            color: CResources.blueGrey);
         polilines.add(polyline);
       });
     } else {
@@ -314,7 +312,7 @@ class _TrackingOnTheMapWidgetState extends State<TrackingOnTheMapWidget> {
     return Container(
       height: 300,
       width: MediaQuery.of(context).size.width * 0.7,
-      color: ColorResources.green,
+      color: CResources.green,
       child: Center(
         child: GoogleMap(
           onMapCreated: onMapCreated,

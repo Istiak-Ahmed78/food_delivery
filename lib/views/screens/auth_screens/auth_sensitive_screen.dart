@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/state_management/auth_providers.dart';
+import 'package:food_delivery/state_management/cart_list_state.dart';
 import 'package:food_delivery/utils/shared_prefer.dart';
 import 'package:food_delivery/views/screens/auth_screens/login/login_screen.dart';
 import 'package:food_delivery/views/screens/intro_page/intro_screen.dart';

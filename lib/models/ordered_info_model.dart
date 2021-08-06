@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class OrderedInfoModel {
   final String orderId;
   final int orderState;
-  final LatLng? orderDeleveryLatLong;
+  final String? orderDeleveryLatLong;
 
   OrderedInfoModel(
       {required this.orderId,
@@ -14,23 +14,25 @@ class OrderedInfoModel {
     return {
       'Order Id': orderedInfoModel.orderId,
       'Order state': orderedInfoModel.orderState,
-      'LatLog': orderedInfoModel.orderDeleveryLatLong ?? const LatLng(0.0, 0.0)
+      'LatLog': orderedInfoModel.orderDeleveryLatLong ??
+          const LatLng(0.0, 0.0).toString()
     };
   }
 }
 
 //TODO: Implement it
 String getOrderState(int takeInt) {
-  if (takeInt == 0)
+  if (takeInt == 0) {
     return 'Proccessing';
-  else if (takeInt == 1)
+  } else if (takeInt == 1) {
     return 'In the kitchen';
-  else if (takeInt == 2)
+  } else if (takeInt == 2) {
     return 'On the way';
-  else if (takeInt == 3)
+  } else if (takeInt == 3) {
     return 'Delivered';
-  else if (takeInt == 4)
+  } else if (takeInt == 4) {
     return 'Cancelled';
-  else
+  } else {
     return 'Oeder is not completed';
+  }
 }

@@ -7,29 +7,18 @@ import 'package:food_delivery/state_management/cart_list_state.dart';
 import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/screens/order_details/order_details.dart';
+import 'package:food_delivery/views/shared_widgets/shared_widgets.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
 
-class CartScreen extends StatefulWidget {
+import 'components.dart/components.dart';
+
+class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
 
   @override
-  State<CartScreen> createState() => _CartState();
-}
-
-class _CartState extends State<CartScreen> {
-  // double checkOutAmount = 0.0;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPersistentFrameCallback((timeStamp) {
-      Provider.of<CartListState>(context, listen: false).getCartListProducts();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Provider.of<CartListState>(context, listen: false).getCartListProducts();
     List<ShoppingCardModel> shoppingCartList =
         Provider.of<CartListState>(context, listen: false).cartList;
     return Scaffold(
@@ -133,23 +122,28 @@ class _CartState extends State<CartScreen> {
                       color: ColorResources.orange,
                       minWidth: double.infinity,
                       height: 50,
+                      disabledColor: ColorResources.grey,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
-                      onPressed: () {
-                        if (Provider.of<CartListState>(context, listen: false)
-                            .cartList
-                            .isNotEmpty) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OrderDetailsScreen(
-                                        checkOutvale: checkOutBalance(
-                                            subtotal(shoppingCartList)),
-                                      )));
-                        } else {
-                          showToast(context, 'Add at least one Item');
-                        }
-                      },
+                      onPressed: Provider.of<CartListState>(context).isListEmty
+                          ? null
+                          : () {
+                              if (Provider.of<CartListState>(context,
+                                      listen: false)
+                                  .cartList
+                                  .isNotEmpty) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            OrderDetailsScreen(
+                                              checkOutvale: checkOutBalance(
+                                                  subtotal(shoppingCartList)),
+                                            )));
+                              } else {
+                                showToast(context, 'Add at least one Item');
+                              }
+                            },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -203,9 +197,13 @@ class ShoppingCardListWidget extends StatelessWidget {
           (_, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-            return const Text('The list is emty');
+            Provider.of<CartListState>(context, listen: false).isListEmtyLocal =
+                true;
+            return const EmtyListWidget();
           } else {
             var data = Methods.decodeCartListDquerySnap(snapshot.data!);
+            Provider.of<CartListState>(context, listen: false).isListEmtyLocal =
+                false;
             return ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => ShoppingCartItem(
@@ -216,7 +214,7 @@ class ShoppingCardListWidget extends StatelessWidget {
             );
           }
         } else {
-          return const CircularProgressIndicator();
+          return const LoadingShimmerWidget();
         }
       },
     ));

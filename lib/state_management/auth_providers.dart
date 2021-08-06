@@ -34,9 +34,16 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  bool isLoggedIn() =>
-      authRepos.getCurrentUser() != null &&
-      authRepos.getCurrentUser()!.emailVerified;
+  bool isLoggedIn() {
+    if (authRepos.getCurrentUser() == null) {
+      return false;
+    } else if (authRepos.getCurrentUser()!.emailVerified) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   bool isEmailVarified(User user) => authRepos.isEmailVarified(user);
 
   Future<void> sendVerificationEmail(User user) =>

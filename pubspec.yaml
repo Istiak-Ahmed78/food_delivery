@@ -55,6 +55,7 @@ dependencies:
   password_strength: ^0.2.0
   provider: ^5.0.0
   shared_preferences: ^2.0.6
+  shimmer: ^2.0.0
   timeline_tile: ^2.0.0
   timelines: ^0.1.0
 

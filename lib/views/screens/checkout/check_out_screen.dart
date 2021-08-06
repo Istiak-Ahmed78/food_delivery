@@ -151,7 +151,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   Future<void> pay() async {
-    await Provider.of<OrderProcessState>(context)
+    await Provider.of<OrderProcessState>(context, listen: false)
         .compleOrderingProccess(context);
   }
 }

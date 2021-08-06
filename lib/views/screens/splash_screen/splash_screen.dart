@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/di_containers.dart';
-import 'package:food_delivery/state_management/auth_providers.dart';
-import 'package:food_delivery/utils/repos/auth_repo.dart';
-import 'package:food_delivery/utils/repos/firestore_repo.dart';
-
+import 'package:food_delivery/state_management/cart_list_state.dart';
 import 'package:food_delivery/utils/shared_prefer.dart';
 import 'package:food_delivery/views/screens/auth_screens/auth_sensitive_screen.dart';
-
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +20,8 @@ class _SpleshScreenState extends State<SpleshScreen> {
     Future.delayed(const Duration(seconds: 3), () async {
       await Provider.of<SharedPreProvider>(context, listen: false)
           .getIntroBool();
+      await Provider.of<CartListState>(context, listen: false)
+          .getCartListProducts();
       // services<FirestoreRepos>()
       //     .getShoppingCartList(services<AuthRepos>().getCurrentUser()!.uid);
       Navigator.pushAndRemoveUntil(

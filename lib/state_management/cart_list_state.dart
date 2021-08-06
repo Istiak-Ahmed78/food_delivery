@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/utils/methods.dart';
+import 'package:food_delivery/utils/repos/auth_repo.dart';
 import 'package:food_delivery/utils/repos/firestore_repo.dart';
 
 class CartListState extends ChangeNotifier {
@@ -9,6 +10,7 @@ class CartListState extends ChangeNotifier {
     storeInstance = services<FirestoreRepos>();
   }
   bool isLoadingLocal = false;
+  bool isListEmtyLocal = true;
   String? repoErrorMessageLocal;
   late FirestoreRepos storeInstance;
 
@@ -17,6 +19,7 @@ class CartListState extends ChangeNotifier {
   List<ShoppingCardModel> get cartList => shoppingCartList;
   List<ShoppingCardModel> get globalCheckedOutList => shoppingCartList;
   bool get isLoading => isLoadingLocal;
+  bool get isListEmty => isListEmtyLocal;
   int get cartListLegnth => shoppingCartList.length;
 
   String? get repoErrorMessage => repoErrorMessageLocal;
@@ -38,10 +41,12 @@ class CartListState extends ChangeNotifier {
 
   Future<List<ShoppingCardModel>> getCartListProducts() async {
     List<ShoppingCardModel> list = [];
-    list = Methods.decodeCartListDquerySnap(
-        await storeInstance.getShoppingCartList());
-    shoppingCartList = list;
-    notifyListeners();
+    if (services<AuthRepos>().userId != null) {
+      list = Methods.decodeCartListDquerySnap(
+          await storeInstance.getShoppingCartList());
+      shoppingCartList = list;
+      notifyListeners();
+    }
     return list;
   }
 

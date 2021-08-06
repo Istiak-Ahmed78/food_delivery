@@ -64,6 +64,7 @@ class Images {
   static const cooking = 'assets/images/cooking.png';
   static const verifyEmail = 'assets/images/verify_email.png';
   static const avaterImageLogo = 'assets/images/avater.png';
+  static const noItem = 'assets/images/no_item.png';
 
   //Network Images
   static const avaterImageLink =

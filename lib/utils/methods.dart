@@ -105,12 +105,13 @@ class Methods {
     return foodHeadigList;
   }
 
-  static List<ShoppingCardModel> decodeCartListDquerySnap(
-      QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+  static List<ShoppingCardModel> decodeToShoppingList(
+      QuerySnapshot<Map<String, dynamic>>? querySnapshot) {
     List<ShoppingCardModel> shoppingCartList = [];
-
-    for (final item in (querySnapshot).docs) {
-      shoppingCartList.add(ShoppingCardModel.fromMap(item.data()));
+    if (querySnapshot != null) {
+      for (final item in (querySnapshot).docs) {
+        shoppingCartList.add(ShoppingCardModel.fromMap(item.data()));
+      }
     }
     return shoppingCartList;
   }

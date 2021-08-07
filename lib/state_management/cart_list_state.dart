@@ -42,7 +42,7 @@ class CartListState extends ChangeNotifier {
   Future<List<ShoppingCardModel>> getCartListProducts() async {
     List<ShoppingCardModel> list = [];
     if (services<AuthRepos>().userId != null) {
-      list = Methods.decodeCartListDquerySnap(
+      list = Methods.decodeToShoppingList(
           await storeInstance.getShoppingCartList());
       shoppingCartList = list;
       notifyListeners();

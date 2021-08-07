@@ -200,7 +200,7 @@ class ShoppingCardListWidget extends StatelessWidget {
                 true;
             return const EmtyListWidget();
           } else {
-            var data = Methods.decodeCartListDquerySnap(snapshot.data!);
+            var data = Methods.decodeToShoppingList(snapshot.data!);
             Provider.of<CartListState>(context, listen: false).isListEmtyLocal =
                 false;
             return ListView.builder(

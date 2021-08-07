@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/order_status.dart';
+import 'package:food_delivery/views/screens/nav_bar_tabs/order_details_shimmer_screen/order_details_screen_shimmer.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class ShowcaseTimelineTile extends StatelessWidget {
-  const ShowcaseTimelineTile({Key? key}) : super(key: key);
+  final String productID;
+  const ShowcaseTimelineTile({Key? key, required this.productID})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,62 +37,63 @@ class ShowcaseTimelineTile extends StatelessWidget {
           },
         ),
       ),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                const SizedBox(height: 16),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    children: [
-                      Container(
-                          height: 80,
-                          width: 80,
-                          margin: const EdgeInsets.only(right: 30),
-                          decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  color: CResources.blueGrey,
-                                  offset: Offset(0, 3),
-                                  blurRadius: 7,
-                                  spreadRadius: 4),
-                            ],
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            image: DecorationImage(
-                                image: NetworkImage(Images.breadImage)),
-                          )),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Round bread',
-                            style: TextStyle(
-                                color: CResources.blueGrey,
-                                fontSize: 20,
-                                fontFamily: Strings.notosansFontFamilly),
-                          ),
-                          Text('৳ 30',
-                              style: TextStyle(
-                                fontFamily: Strings.notosansFontFamilly,
-                                color: CResources.red,
-                              ))
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const OrderStatusListWidget(
-                    delivertyStatus: DelivertyStatus.onTheWay),
-              ],
-            ),
-          ),
-        ),
-      ),
+      body: const OrderDetailsShimmer(),
+      // body: SafeArea(
+      //   child: Center(
+      //     child: SingleChildScrollView(
+      //       child: Column(
+      //         children: <Widget>[
+      //           const SizedBox(height: 16),
+      //           Container(
+      //             width: double.infinity,
+      //             height: 60,
+      //             padding: const EdgeInsets.symmetric(horizontal: 15),
+      //             child: Row(
+      //               children: [
+      //                 Container(
+      //                     height: 80,
+      //                     width: 80,
+      //                     margin: const EdgeInsets.only(right: 30),
+      //                     decoration: const BoxDecoration(
+      //                       boxShadow: [
+      //                         BoxShadow(
+      //                             color: CResources.blueGrey,
+      //                             offset: Offset(0, 3),
+      //                             blurRadius: 7,
+      //                             spreadRadius: 4),
+      //                       ],
+      //                       borderRadius: BorderRadius.all(Radius.circular(10)),
+      //                       image: DecorationImage(
+      //                           image: NetworkImage(Images.breadImage)),
+      //                     )),
+      //                 Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: const [
+      //                     Text(
+      //                       'Round bread',
+      //                       style: TextStyle(
+      //                           color: CResources.blueGrey,
+      //                           fontSize: 20,
+      //                           fontFamily: Strings.notosansFontFamilly),
+      //                     ),
+      //                     Text('৳ 30',
+      //                         style: TextStyle(
+      //                           fontFamily: Strings.notosansFontFamilly,
+      //                           color: CResources.red,
+      //                         ))
+      //                   ],
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //           const SizedBox(height: 16),
+      //           const OrderStatusListWidget(
+      //               delivertyStatus: DelivertyStatus.onTheWay),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

@@ -14,7 +14,7 @@ class ShoppingCardModel {
     return ShoppingCardModel(
         quantity: mapedData['Quantity'],
         foodModel: FoodModel(
-            imageUrl: mapedData['Image Adress'],
+            imageUrl: mapedData['Image Address'],
             price: (mapedData['Price']) as double,
             weight: mapedData['Weight'],
             title: mapedData['Title'],

@@ -98,11 +98,14 @@ class Methods {
     }
   }
 
-  static List<FoodHeadingModel> decodeFoodHeadignDQsnapshot(
-      List<QueryDocumentSnapshot<Map<String, dynamic>>> querySnapshot) {
-    List<FoodHeadingModel> foodHeadigList = [];
-    for (final item in querySnapshot) {
-      foodHeadigList.add(FoodHeadingModel.fromMap(item.data()));
+  static List<String> decodeFoodHeadignDQsnapshot(
+      QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+    List<String> foodHeadigList = [];
+    for (final item in querySnapshot.docs) {
+      String? data = item.data()['Category'];
+      if (data != null && !foodHeadigList.contains(data)) {
+        foodHeadigList.add(data);
+      }
     }
     return foodHeadigList;
   }

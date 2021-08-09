@@ -16,14 +16,17 @@ class FirestoreRepos {
     return firestoreInstance
         .collection(FiresoreKeys.homeProducts)
         .doc(FiresoreKeys.sectionKey)
-        .collection(collectionId)
+        .collection('Food Items')
+        .where('Category', isEqualTo: collectionId)
         .get();
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>>
       getProductSectionHeadings() async {
     return firestoreInstance
-        .collection(FiresoreKeys.foodHeaderListDetailsKey)
+        .collection(FiresoreKeys.homeProducts)
+        .doc(FiresoreKeys.sectionKey)
+        .collection('Food Items')
         .get();
   }
 

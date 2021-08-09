@@ -25,29 +25,17 @@ class _FoodListWidgetState extends State<FoodListWidget> {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
             if (snapshot.data!.docs.isNotEmpty) {
-              List<FoodHeadingModel> foodHeadingList =
-                  Methods.decodeFoodHeadignDQsnapshot(snapshot.data!.docs);
+              List<String> foodHeadingList =
+                  Methods.decodeFoodHeadignDQsnapshot(snapshot.data!);
+              print(foodHeadingList.length);
               return SizedBox(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    Future<QuerySnapshot<Map<String, dynamic>>> snapshots =
-                        services<FirestoreRepos>().getProductSectionHeadings();
-                    Future.delayed(const Duration(seconds: 5));
-                    setState(() {
-                      foodHeadingList = Methods.decodeFoodHeadignDQsnapshot(
-                          snapshot.data!.docs);
-                    });
-                  },
-                  child: ListView.builder(
-                    itemBuilder: (context, index) => FoodSectionWidget(
-                      collectionId: foodHeadingList[index].id,
-                      title: foodHeadingList[index].title,
-                      subtitle: foodHeadingList[index].subtitle,
-                    ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: foodHeadingList.length,
+                child: ListView.builder(
+                  itemBuilder: (context, index) => FoodSectionWidget(
+                    category: foodHeadingList[index],
                   ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: foodHeadingList.length,
                 ),
               );
               // return const Text('We have some data');

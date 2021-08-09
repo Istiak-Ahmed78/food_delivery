@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/food_model.dart';
 import 'package:food_delivery/utils/methods.dart';
@@ -11,14 +9,12 @@ import 'package:food_delivery/views/styles/colors.dart';
 import 'package:food_delivery/views/styles/paddings.dart';
 
 class FoodSectionWidget extends StatefulWidget {
-  final String collectionId, title, subtitle;
+  final String category;
 
-  const FoodSectionWidget(
-      {Key? key,
-      required this.collectionId,
-      required this.title,
-      required this.subtitle})
-      : super(key: key);
+  const FoodSectionWidget({
+    Key? key,
+    required this.category,
+  }) : super(key: key);
 
   @override
   State<FoodSectionWidget> createState() => _FoodSectionWidgetState();
@@ -33,9 +29,9 @@ class _FoodSectionWidgetState extends State<FoodSectionWidget> {
   }
 
   void getInitData() async {
-    print(widget.collectionId);
+    print('Collecting data for ${widget.category}');
     final qDocSnapShot =
-        await services<FirestoreRepos>().getProduts(widget.collectionId);
+        await services<FirestoreRepos>().getProduts(widget.category);
     foodModelList = Methods.getFoodListFromDQuerySnap(qDocSnapShot.docs);
     setState(() {});
   }
@@ -52,8 +48,8 @@ class _FoodSectionWidgetState extends State<FoodSectionWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             HeadLine(
-              title: widget.title,
-              subTitle: widget.subtitle,
+              title: widget.category,
+              subTitle: 'Trending Foods',
               iconData: Icons.stars,
             ),
             SizedBox(

@@ -12,7 +12,7 @@ class OrderProcessState extends ChangeNotifier {
 
   Future<void> compleOrderingProccess(BuildContext context) async {
     if (orderInformationModelLocal != null) {
-      String orderId = DateTime.now().toString();
+      String orderId = DateTime.now().toString().trim();
       String? userId = services<AuthRepos>().userId;
       var dataToSet = Provider.of<CartListState>(context, listen: false)
           .globalCheckedOutList;

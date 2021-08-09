@@ -6,9 +6,14 @@ import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/screens/nav_bar_tabs/home_tab/components/components.dart';
 
-class FoodListWidget extends StatelessWidget {
+class FoodListWidget extends StatefulWidget {
   const FoodListWidget({Key? key}) : super(key: key);
 
+  @override
+  State<FoodListWidget> createState() => _FoodListWidgetState();
+}
+
+class _FoodListWidgetState extends State<FoodListWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,15 +27,28 @@ class FoodListWidget extends StatelessWidget {
             if (snapshot.data!.docs.isNotEmpty) {
               List<FoodHeadingModel> foodHeadingList =
                   Methods.decodeFoodHeadignDQsnapshot(snapshot.data!.docs);
-              return ListView.builder(
-                itemBuilder: (context, index) => FoodSectionWidget(
-                  collectionId: foodHeadingList[index].id,
-                  title: foodHeadingList[index].title,
-                  subtitle: foodHeadingList[index].subtitle,
+              return SizedBox(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    Future<QuerySnapshot<Map<String, dynamic>>> snapshots =
+                        services<FirestoreRepos>().getProductSectionHeadings();
+                    Future.delayed(const Duration(seconds: 5));
+                    setState(() {
+                      foodHeadingList = Methods.decodeFoodHeadignDQsnapshot(
+                          snapshot.data!.docs);
+                    });
+                  },
+                  child: ListView.builder(
+                    itemBuilder: (context, index) => FoodSectionWidget(
+                      collectionId: foodHeadingList[index].id,
+                      title: foodHeadingList[index].title,
+                      subtitle: foodHeadingList[index].subtitle,
+                    ),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: foodHeadingList.length,
+                  ),
                 ),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: foodHeadingList.length,
               );
               // return const Text('We have some data');
             } else {

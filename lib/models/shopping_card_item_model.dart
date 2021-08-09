@@ -20,12 +20,13 @@ class ShoppingCardModel {
             title: mapedData['Title'],
             productId: mapedData['Product Id']));
   }
-  static Map<String, dynamic> toMap(ShoppingCardModel shoppingCardModel) {
+  static Map<String, dynamic> toMap(
+      ShoppingCardModel shoppingCardModel, productId) {
     return {
       'Quantity': shoppingCardModel.quantity,
       'Price': shoppingCardModel.foodModel.price,
       'Weight': shoppingCardModel.foodModel.weight,
-      'Product Id': shoppingCardModel.foodModel.productId,
+      'Product Id': productId,
       'Image Address': shoppingCardModel.foodModel.imageUrl,
       'Title': shoppingCardModel.foodModel.title
     };

@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/food_heading_model.dart';
 import 'package:food_delivery/models/food_model.dart';
+import 'package:food_delivery/models/ordered_info_model.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/auth_providers.dart';
 import 'package:food_delivery/views/shared_widgets/loading_idicator.dart';
@@ -123,5 +125,26 @@ class Methods {
       foodList.add(FoodModel.fromMap(item.data(), item.id));
     }
     return foodList;
+  }
+
+  static List<OrderedInfoModel> decodeOrderDetailsQuerySnp(
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> queryDocumentSnapshot) {
+    List<OrderedInfoModel> foodList = [];
+    for (final item in queryDocumentSnapshot) {
+      foodList.add(OrderedInfoModel.fromMap(item.data()));
+    }
+    return foodList;
+  }
+
+  static DelivertyStatus getStatusFromInt(int statusCode) {
+    if (statusCode == 3) {
+      return DelivertyStatus.delivered;
+    } else if (statusCode == 1) {
+      return DelivertyStatus.inTheKitchen;
+    } else if (statusCode == 2) {
+      return DelivertyStatus.onTheWay;
+    } else {
+      return DelivertyStatus.orderPlaced;
+    }
   }
 }

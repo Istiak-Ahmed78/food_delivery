@@ -29,7 +29,7 @@ class HomeTab extends StatelessWidget {
             child: Column(children: const [
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: SearchRestaurant()),
+                  child: SearchFoods()),
               SizedBox(
                 height: Dimentions.soSmallDinmention,
               ),

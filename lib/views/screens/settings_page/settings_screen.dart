@@ -34,7 +34,7 @@ class SettingsPage extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
-                child: SearchRestaurant(),
+                child: SearchFoods(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),

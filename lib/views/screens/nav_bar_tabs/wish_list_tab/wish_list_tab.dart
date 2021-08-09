@@ -23,7 +23,7 @@ class WishListTab extends StatelessWidget {
             top: Dimentions.soSmallDinmention, bottom: kToolbarHeight),
         child: Column(
           children: const [
-            SearchRestaurant(),
+            SearchFoods(),
             SizedBox(
               height: Dimentions.smallDimention,
             ),

@@ -36,7 +36,7 @@ class FirestoreRepos {
           .doc(productId)
           .set({
         'Product Id': productId,
-        'Image Adress': shoppingCardModel.foodModel.imageUrl,
+        'Image Address': shoppingCardModel.foodModel.imageUrl,
         'Title': shoppingCardModel.foodModel.title,
         'Price': shoppingCardModel.foodModel.price,
         'Weight': shoppingCardModel.foodModel.weight,
@@ -81,12 +81,14 @@ class FirestoreRepos {
   Future<void> addOrdedList(
       userId, time, List<ShoppingCardModel> dataToSet) async {
     for (final i in dataToSet) {
-      firestoreInstance
+      i.foodModel.productId = time;
+      DocumentReference documentReference = firestoreInstance
           .collection(FiresoreKeys.orderedListKey)
           .doc(userId)
           .collection(FiresoreKeys.indivitualOrderedListKey)
-          .doc(time)
-          .set(ShoppingCardModel.toMap(i));
+          .doc();
+      documentReference.set(ShoppingCardModel.toMap(i, documentReference.id));
+      // .set(ShoppingCardModel.toMap(i));
     }
   }
 
@@ -100,11 +102,21 @@ class FirestoreRepos {
         .set(OrderedInfoModel.toMap(orderInformationModel));
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> getOrderedList() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getOrderedList() {
     return firestoreInstance
         .collection(FiresoreKeys.orderedListKey)
         .doc(services<AuthRepos>().userId)
         .collection(FiresoreKeys.indivitualOrderedListKey)
+        .snapshots();
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getOrderDetailsDtat(
+      String productId) {
+    return firestoreInstance
+        .collection(FiresoreKeys.orderedListKey)
+        .doc(services<AuthRepos>().userId)
+        .collection(FiresoreKeys.orderInfoKey)
+        .doc(productId)
         .get();
   }
 }

@@ -18,6 +18,14 @@ class OrderedInfoModel {
           const LatLng(0.0, 0.0).toString()
     };
   }
+
+  factory OrderedInfoModel.fromMap(Map<String, dynamic> mappedData) {
+    return OrderedInfoModel(
+        orderId: mappedData['Product Id'] ?? '1',
+        orderState: mappedData['Order state'],
+        orderDeleveryLatLong:
+            mappedData['Order state'] == 2 ? mappedData['LatLog'] : null);
+  }
 }
 
 //TODO: Implement it

@@ -12,7 +12,7 @@ class NavBar extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        heroTag: 'l1',
+        heroTag: 'l1uniq',
         backgroundColor: CResources.orange,
         onPressed: () {
           Provider.of<TabIndex>(context, listen: false).setIndex(2);

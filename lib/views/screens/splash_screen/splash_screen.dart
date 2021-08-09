@@ -13,7 +13,6 @@ class SpleshScreen extends StatefulWidget {
 }
 
 class _SpleshScreenState extends State<SpleshScreen> {
-  bool isNotFirstLauch = false;
   @override
   void initState() {
     super.initState();

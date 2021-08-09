@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/utils/search_foods_deligate.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 
-class SearchRestaurant extends StatefulWidget {
-  const SearchRestaurant({Key? key}) : super(key: key);
+class SearchFoods extends StatefulWidget {
+  const SearchFoods({Key? key}) : super(key: key);
 
   @override
-  State<SearchRestaurant> createState() => _SearchRestaurantState();
+  State<SearchFoods> createState() => _SearchFoodsState();
 }
 
-class _SearchRestaurantState extends State<SearchRestaurant> {
+class _SearchFoodsState extends State<SearchFoods> {
   var editingCintroller = TextEditingController();
 
   InputDecoration inputDecoration = InputDecoration(
@@ -31,6 +32,10 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
       child: TextField(
         controller: editingCintroller,
         decoration: inputDecoration,
+        readOnly: true,
+        onTap: () {
+          showSearch(context: context, delegate: SearchFoodsDeleigate());
+        },
       ),
     );
   }

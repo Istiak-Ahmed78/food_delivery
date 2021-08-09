@@ -1,9 +1,9 @@
 import 'package:food_delivery/constants.dart';
 
 class FoodModel {
-  final String imageUrl, title, productId;
+  final String imageUrl, title, weight;
   final double price;
-  final String weight;
+  String productId;
 
   FoodModel(
       {required this.productId,
@@ -17,7 +17,7 @@ class FoodModel {
         productId: productId,
         imageUrl: mapedData[Strings.productImage],
         title: mapedData[Strings.productTitle],
-        weight: mapedData[Strings.weight],
+        weight: mapedData[Strings.weight].toString(),
         price: double.parse(mapedData[Strings.productPrice].toString()));
   }
 

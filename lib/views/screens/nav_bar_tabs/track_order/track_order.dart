@@ -22,8 +22,8 @@ class TracOrders extends StatelessWidget {
       appBar: defaultAppBar(context: context, title: 'Track your order'),
       body: SafeArea(
         child: SingleChildScrollView(
-            child: FutureBuilder(
-          future: services<FirestoreRepos>().getOrderedList(),
+            child: StreamBuilder(
+          stream: services<FirestoreRepos>().getOrderedList(),
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (!snapshot.hasData) {
@@ -36,10 +36,17 @@ class TracOrders extends StatelessWidget {
                   return ListView.builder(
                     itemBuilder: (context, index) => ListTile(
                       onTap: () {
+                        // print();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ShowcaseTimelineTile(
+                                      imageAddress:
+                                          orderedList[index].foodModel.imageUrl,
+                                      productCost:
+                                          orderedList[index].foodModel.price,
+                                      productTitle:
+                                          orderedList[index].foodModel.title,
                                       productID: orderedList[index]
                                           .foodModel
                                           .productId,

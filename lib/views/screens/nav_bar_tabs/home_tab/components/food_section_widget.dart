@@ -33,6 +33,7 @@ class _FoodSectionWidgetState extends State<FoodSectionWidget> {
   }
 
   void getInitData() async {
+    print(widget.collectionId);
     final qDocSnapShot =
         await services<FirestoreRepos>().getProduts(widget.collectionId);
     foodModelList = Methods.getFoodListFromDQuerySnap(qDocSnapShot.docs);
@@ -59,7 +60,8 @@ class _FoodSectionWidgetState extends State<FoodSectionWidget> {
               height: _size.height * 0.02,
             ),
             foodModelList.isEmpty
-                ? const CircularProgressIndicator()
+                ? const Expanded(
+                    child: Center(child: CircularProgressIndicator()))
                 : Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,

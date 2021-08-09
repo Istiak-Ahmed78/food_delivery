@@ -17,7 +17,7 @@ class AccountTab extends StatelessWidget {
       appBar: defaultAppBar(
           title: 'Profile',
           context: context,
-          cartItemNumber: Provider.of<CartList>(context).cartList.length),
+          cartItemNumber: Provider.of<CartListState>(context).cartList.length),
       drawer: const DefaultDrawer(),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -35,7 +35,7 @@ class AccountTab extends StatelessWidget {
             ),
             Text(
               dummyText,
-              style: TextStyle(color: kBlueGrey.withOpacity(0.7)),
+              style: TextStyle(color: CResources.blueGrey.withOpacity(0.7)),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),

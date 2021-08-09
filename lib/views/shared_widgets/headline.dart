@@ -19,7 +19,7 @@ class HeadLine extends StatelessWidget {
         flex: 1,
         child: Icon(
           Icons.stars,
-          color: kBlueGrey,
+          color: CResources.blueGrey,
         ),
       ),
       Expanded(
@@ -32,11 +32,11 @@ class HeadLine extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: kBlueAccent,
-                  fontFamily: kNotosans),
+                  color: CResources.blueAccent,
+                  fontFamily: Strings.notosansFontFamilly),
             ),
-            const Text('Ordered by Nearby first',
-                style: TextStyle(fontFamily: kNotosans))
+            Text(subTitle,
+                style: const TextStyle(fontFamily: Strings.notosansFontFamilly))
           ],
         ),
       )

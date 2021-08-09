@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/state_management/auth_providers.dart';
 import 'package:food_delivery/views/styles/colors.dart';
+import 'package:provider/provider.dart';
 
-class AvaterPart extends StatelessWidget {
+class AvaterPart extends StatefulWidget {
   const AvaterPart({Key? key}) : super(key: key);
 
   @override
+  State<AvaterPart> createState() => _AvaterPartState();
+}
+
+class _AvaterPartState extends State<AvaterPart> {
+  @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -17,19 +25,23 @@ class AvaterPart extends StatelessWidget {
           children: [
             FloatingActionButton(
               mini: true,
-              backgroundColor: kOrange,
-              onPressed: () {},
+              backgroundColor: CResources.orange,
+              onPressed: () async {},
               child: const Icon(Icons.add),
             ),
-            const CircleAvatar(
-              backgroundImage: NetworkImage(avaterImageLink),
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                  authProvider.currentUser?.photoURL ?? Images.avaterImageLink),
+              backgroundColor: CResources.blueGrey.withOpacity(0.4),
               radius: 50,
             ),
             FloatingActionButton(
               mini: true,
-              onPressed: () {},
-              backgroundColor: kOrange,
-              child: const Icon(Icons.message),
+              onPressed: () {
+                Provider.of<AuthProvider>(context, listen: false).logOut();
+              },
+              backgroundColor: CResources.orange,
+              child: const Icon(Icons.exit_to_app),
             )
           ],
         ),
@@ -38,15 +50,18 @@ class AvaterPart extends StatelessWidget {
         ),
         const Text(
           'Istiak Ahmed',
-          style:
-              TextStyle(fontSize: 25, color: kBlueGrey, fontFamily: kNotosans),
+          style: TextStyle(
+              fontSize: 25,
+              color: CResources.blueGrey,
+              fontFamily: Strings.notosansFontFamilly),
         ),
         const SizedBox(
           height: 5,
         ),
         const Text(
           'Seen Braxson Street Cortland, It 600112',
-          style: TextStyle(color: kGrey, fontFamily: kNotosans),
+          style: TextStyle(
+              color: CResources.grey, fontFamily: Strings.notosansFontFamilly),
         )
       ],
     );

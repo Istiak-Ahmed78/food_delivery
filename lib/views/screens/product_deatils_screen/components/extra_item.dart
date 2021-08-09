@@ -19,16 +19,20 @@ class ExtraItem extends StatelessWidget {
       ),
       title: Text(
         foodModel.title,
-        style: const TextStyle(color: kBlueGrey, fontFamily: kNotosans),
+        style: const TextStyle(
+            color: CResources.blueGrey,
+            fontFamily: Strings.notosansFontFamilly),
       ),
       subtitle: Text(
         'Add some ${foodModel.title}',
-        style: const TextStyle(fontFamily: kNotosans),
+        style: const TextStyle(fontFamily: Strings.notosansFontFamilly),
       ),
       trailing: Text(
         '\$${foodModel.price}',
         style: const TextStyle(
-            fontFamily: kNotosans, color: kBlueGrey, fontSize: 18),
+            fontFamily: Strings.notosansFontFamilly,
+            color: CResources.blueGrey,
+            fontSize: 18),
       ),
     );
   }

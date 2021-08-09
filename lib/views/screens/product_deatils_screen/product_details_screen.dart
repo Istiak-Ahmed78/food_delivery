@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/food_model.dart';
 import 'package:food_delivery/models/nutrition.dart';
-import 'package:food_delivery/models/order_model.dart';
-import 'package:food_delivery/models/restaurant_model.dart';
 import 'package:food_delivery/models/shopping_card_item_model.dart';
 import 'package:food_delivery/state_management/cart_list_state.dart';
-import 'package:food_delivery/state_management/favorite_list_state.dart';
+import 'package:food_delivery/utils/methods.dart';
+import 'package:food_delivery/utils/repos/auth_repo.dart';
 import 'package:food_delivery/views/screens/product_deatils_screen/components/components.dart';
 import 'package:food_delivery/views/screens/shopping_cart_list/shopping_cart_list.dart';
 import 'package:food_delivery/views/styles/colors.dart';
@@ -52,18 +52,18 @@ class ProductDetailsScreen extends StatelessWidget {
                             Text(
                               trendingFoodModel.title,
                               style: const TextStyle(
-                                  color: kBlueGrey,
+                                  color: CResources.blueGrey,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: kNotosans),
+                                  fontFamily: Strings.notosansFontFamilly),
                             ),
                             Text(
                               '\$${trendingFoodModel.price}',
                               style: const TextStyle(
-                                  color: kRed,
+                                  color: CResources.red,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
-                                  fontFamily: kNotosans),
+                                  fontFamily: Strings.notosansFontFamilly),
                             )
                           ],
                         ),
@@ -74,7 +74,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           alignment: Alignment.centerRight,
                           child: Text(
                             '300 g',
-                            style: TextStyle(color: kGrey, fontSize: 12),
+                            style:
+                                TextStyle(color: CResources.grey, fontSize: 12),
                           ),
                         ),
                         const SizedBox(
@@ -82,7 +83,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         const Text(
                           dummyText,
-                          style: TextStyle(color: kGrey),
+                          style: TextStyle(color: CResources.grey),
                         ),
                         const Padding(
                           padding: EdgeInsets.only(
@@ -93,11 +94,12 @@ class ProductDetailsScreen extends StatelessWidget {
                             title: Text(
                               'Extra',
                               style: TextStyle(
-                                  color: kBlueGrey, fontFamily: kNotosans),
+                                  color: CResources.blueGrey,
+                                  fontFamily: Strings.notosansFontFamilly),
                             ),
                             leading: Icon(
                               Icons.add_circle_outline,
-                              color: kBlueGrey,
+                              color: CResources.blueGrey,
                             ),
                             subtitle:
                                 Text('Select extra to add them on the food'),
@@ -126,7 +128,7 @@ class ProductDetailsScreen extends StatelessWidget {
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back,
-                color: kWhite,
+                color: CResources.white,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -137,8 +139,8 @@ class ProductDetailsScreen extends StatelessWidget {
             top: 30,
             right: 20,
             child: Container(
-              decoration:
-                  const BoxDecoration(shape: BoxShape.circle, color: kOrange),
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: CResources.orange),
               height: 50,
               width: 50,
               padding: const EdgeInsets.only(right: 7),
@@ -149,7 +151,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       icon: const Icon(
                         FontAwesomeIcons.shoppingCart,
                         size: 18,
-                        color: kWhite,
+                        color: CResources.white,
                       )),
                   Positioned(
                     right: 2,
@@ -163,13 +165,14 @@ class ProductDetailsScreen extends StatelessWidget {
                       },
                       child: CircleAvatar(
                           radius: 8,
-                          backgroundColor: kRed,
+                          backgroundColor: CResources.red,
                           child: Text(
-                            Provider.of<CartList>(context)
+                            Provider.of<CartListState>(context)
                                 .cartList
                                 .length
                                 .toString(),
-                            style: const TextStyle(color: kWhite, fontSize: 10),
+                            style: const TextStyle(
+                                color: CResources.white, fontSize: 10),
                           )),
                     ),
                   ),
@@ -205,15 +208,17 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
       duration: const Duration(seconds: 1),
       content: Text(
         toastMessage,
-        style: const TextStyle(color: kBlack),
+        style: const TextStyle(color: CResources.black),
       ),
-      backgroundColor: kWhite,
+      backgroundColor: CResources.white,
       elevation: 5,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   int productQuantity = 1;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     double checkOutBalance =
@@ -226,7 +231,9 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
           children: [
             const Text('Quantity',
                 style: TextStyle(
-                    fontFamily: kNotosans, fontSize: 20, color: kGrey)),
+                    fontFamily: Strings.notosansFontFamilly,
+                    fontSize: 20,
+                    color: CResources.grey)),
             Row(mainAxisSize: MainAxisSize.min, children: [
               InkWell(
                 onTap: () {
@@ -238,15 +245,16 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 },
                 child: const Icon(
                   Icons.remove_circle_outline,
-                  color: kBlueGrey,
+                  color: CResources.blueGrey,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   productQuantity.toDouble().toString(),
-                  style:
-                      const TextStyle(fontFamily: kNotosans, color: kBlueGrey),
+                  style: const TextStyle(
+                      fontFamily: Strings.notosansFontFamilly,
+                      color: CResources.blueGrey),
                 ),
               ),
               InkWell(
@@ -255,7 +263,7 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 }),
                 child: const Icon(
                   Icons.add_circle_outline,
-                  color: kBlueGrey,
+                  color: CResources.blueGrey,
                 ),
               ),
             ])
@@ -265,27 +273,29 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
           children: [
             InkWell(
               onTap: () {
-                bool isAleadyInTheList =
-                    Provider.of<FavoriteFoodItems>(context, listen: false)
-                        .favList
-                        .where((element) =>
-                            element.restaurentListItemModel.title ==
-                            widget.foodModel.title)
-                        .toList()
-                        .isEmpty;
-                if (isAleadyInTheList) {
-                  Provider.of<FavoriteFoodItems>(context, listen: false).addFav(
-                      OrderModel(
-                          restaurentListItemModel: RestaurentListItemModel(
-                              title: widget.foodModel.title,
-                              price: widget.foodModel.price,
-                              imageAdress: widget.foodModel.imageUrl,
-                              rating: 4,
-                              subTitle: dummyText)));
-                  showToast('This item added to the wishlist');
-                } else {
-                  showToast('This Item already in the wishlist');
-                }
+                Methods.showLoadingIndicator(
+                    context: context, text: 'Checking your data');
+                // bool isAleadyInTheList =
+                //     Provider.of<FavoriteFoodItems>(context, listen: false)
+                //         .favList
+                //         .where((element) =>
+                //             element.restaurentListItemModel.title ==
+                //             widget.foodModel.title)
+                //         .toList()
+                //         .isEmpty;
+                // if (isAleadyInTheList) {
+                //   Provider.of<FavoriteFoodItems>(context, listen: false).addFav(
+                //       OrderModel(
+                //           restaurentListItemModel: RestaurentListItemModel(
+                //               title: widget.foodModel.title,
+                //               price: widget.foodModel.price,
+                //               imageAdress: widget.foodModel.imageUrl,
+                //               rating: 4,
+                //               subTitle: dummyText)));
+                //   showToast('This item added to the wishlist');
+                // } else {
+                //   showToast('This Item already in the wishlist');
+                // }
               },
               child: Container(
                 height: 40,
@@ -294,11 +304,11 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: kOrange, width: 1),
+                  border: Border.all(color: CResources.orange, width: 1),
                 ),
                 child: const Icon(
                   Icons.favorite,
-                  color: kOrange,
+                  color: CResources.orange,
                 ),
               ),
             ),
@@ -308,26 +318,42 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                 height: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: kOrange,
+                        primary: CResources.orange,
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(24)))),
-                    onPressed: () {
-                      bool isAleadyInTheList =
-                          Provider.of<CartList>(context, listen: false)
-                              .cartList
-                              .where((element) =>
-                                  element.trendingFoodModel == widget.foodModel)
-                              .toList()
-                              .isEmpty;
-                      if (isAleadyInTheList) {
-                        Provider.of<CartList>(context, listen: false)
-                            .addCartItem(ShoppingCardModel(
-                                widget.foodModel, productQuantity));
-                        showToast('Added');
+                    onPressed: () async {
+                      final user = services<AuthRepos>().getCurrentUser();
+                      setState(() {
+                        isLoading = true;
+                      });
+                      if (user != null) {
+                        var cartListStateProvider =
+                            Provider.of<CartListState>(context, listen: false);
+                        if (!await cartListStateProvider.aleadyInTheList(
+                            user.uid, widget.foodModel.productId)) {
+                          cartListStateProvider.addCartItem(
+                              ShoppingCardModel(
+                                  foodModel: widget.foodModel,
+                                  quantity: productQuantity),
+                              user.uid,
+                              widget.foodModel.productId);
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showToast('Added');
+                        } else {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showToast('The Item already extists');
+                          print('The Item already extists');
+                        }
                       } else {
-                        showToast('The Item already extists');
-                        print('The Item already extists');
+                        setState(() {
+                          isLoading = false;
+                        });
+                        print('Null user');
                       }
                     },
                     child: Row(
@@ -336,15 +362,15 @@ class _AddtoCardButtonState extends State<AddtoCardButton> {
                         const Text(
                           'Add to Cart',
                           style: TextStyle(
-                              color: kWhite,
-                              fontFamily: kNotosans,
+                              color: CResources.white,
+                              fontFamily: Strings.notosansFontFamilly,
                               fontSize: 15),
                         ),
                         Text(
                           '\$$checkOutBalance',
                           style: const TextStyle(
                               fontSize: 15,
-                              color: kWhite,
+                              color: CResources.white,
                               fontWeight: FontWeight.bold),
                         )
                       ],
@@ -371,8 +397,8 @@ class NutritionsPart extends StatelessWidget {
           title: Text(
             'Nutritions',
             style: TextStyle(
-              color: kBlueGrey,
-              fontFamily: kNotosans,
+              color: CResources.blueGrey,
+              fontFamily: Strings.notosansFontFamilly,
             ),
           ),
         ),
@@ -412,10 +438,11 @@ class GridVeiwItem extends StatelessWidget {
           children: [
             Text(
               nutritionKey,
-              style: TextStyle(color: kGrey.withOpacity(0.5)),
+              style: TextStyle(color: CResources.grey.withOpacity(0.5)),
             ),
             Text(nutritionValue.toString(),
-                style: const TextStyle(fontSize: 20, fontFamily: kNotosans))
+                style: const TextStyle(
+                    fontSize: 20, fontFamily: Strings.notosansFontFamilly))
           ],
         ),
       ),

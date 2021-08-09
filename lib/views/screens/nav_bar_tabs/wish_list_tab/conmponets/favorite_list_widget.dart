@@ -9,12 +9,12 @@ class FavoriteListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: ListView.builder(
-        itemBuilder: (context, index) => FoodItemTile(
-            orderModel: Provider.of<FavoriteFoodItems>(context).favList[index]),
-        itemCount: Provider.of<FavoriteFoodItems>(context).favList.length,
-        shrinkWrap: true,
-      ),
-    );
+        // child: ListView.builder(
+        //   itemBuilder: (context, index) => FoodItemTile(
+        //       orderModel: Provider.of<FavoriteFoodItems>(context).favList[index]),
+        //   itemCount: Provider.of<FavoriteFoodItems>(context).favList.length,
+        //   shrinkWrap: true,
+        // ),
+        );
   }
 }

@@ -15,20 +15,21 @@ class WishListTab extends StatelessWidget {
       appBar: defaultAppBar(
           title: 'Favorites',
           context: context,
-          cartItemNumber: Provider.of<CartList>(context).cartList.length),
+          cartItemNumber: Provider.of<CartListState>(context).cartList.length),
       drawer: const DefaultDrawer(),
-      drawerScrimColor: kBlack,
+      drawerScrimColor: CResources.black,
       body: Container(
-        padding: const EdgeInsets.only(top: kPadding10, bottom: kToolbarHeight),
+        padding: const EdgeInsets.only(
+            top: Dimentions.soSmallDinmention, bottom: kToolbarHeight),
         child: Column(
           children: const [
-            SearchRestaurant(),
+            SearchFoods(),
             SizedBox(
-              height: kPadding15,
+              height: Dimentions.smallDimention,
             ),
             FavoriteTitle(),
             SizedBox(
-              height: kPadding15,
+              height: Dimentions.smallDimention,
             ),
             FavoriteListWidget()
           ],

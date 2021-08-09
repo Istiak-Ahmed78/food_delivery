@@ -23,7 +23,7 @@ class DefaultDrawer extends StatelessWidget {
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: NetworkImage(avaterImageLink)))),
+                            image: NetworkImage(Images.avaterImageLink)))),
                 const SizedBox(
                   width: 30,
                 ),
@@ -34,13 +34,15 @@ class DefaultDrawer extends StatelessWidget {
                     Text(
                       'Istiak Ahmed',
                       style: TextStyle(
-                          color: kBlueGrey,
-                          fontFamily: kNotosans,
+                          color: CResources.blueGrey,
+                          fontFamily: Strings.notosansFontFamilly,
                           fontSize: 20),
                     ),
                     Text(
                       'aistiak6@gail.com',
-                      style: TextStyle(color: kBlueGrey, fontFamily: kNotosans),
+                      style: TextStyle(
+                          color: CResources.blueGrey,
+                          fontFamily: Strings.notosansFontFamilly),
                     )
                   ],
                 )

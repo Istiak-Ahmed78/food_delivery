@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/order_information_model.dart';
+import 'package:food_delivery/state_management/cart_list_state.dart';
+import 'package:food_delivery/state_management/order_process_state.dart';
+import 'package:food_delivery/utils/form_validation.dart';
 import 'package:food_delivery/views/screens/checkout/check_out_screen.dart';
+import 'package:food_delivery/views/shared_widgets/shared_widgets.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -14,11 +20,20 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
-  final formKey = GlobalKey<FormState>();
+  final orderFormKey = GlobalKey<FormState>();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController adressController = TextEditingController();
   TextEditingController emailAdressController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    fullNameController.dispose();
+    phoneController.dispose();
+    adressController.dispose();
+    emailAdressController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +41,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       appBar: AppBar(
         title: const Text(
           'Order details',
-          style: TextStyle(color: kRed),
+          style: TextStyle(color: CResources.red),
         ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: kBlack,
+            color: CResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         centerTitle: true,
-        backgroundColor: kWhite,
+        backgroundColor: CResources.white,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Form(
-          key: formKey,
+          key: orderFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Column(
@@ -51,144 +66,91 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 const Text(
                   'Order Information',
                   style: TextStyle(
-                      color: kBlueGrey, fontSize: 20, fontFamily: kNotosans),
+                      color: CResources.blueGrey,
+                      fontSize: 20,
+                      fontFamily: Strings.notosansFontFamilly),
                 ),
                 DefaultFormFlield(
                   controller: fullNameController,
                   hintText: 'Full name',
                   maxLenth: 25,
-                  validator: (value) {
-                    if (value == null || value == '') {
-                      return 'Full name field requred';
-                    } else if (value.length < 7) {
-                      return 'Enter your full name';
-                    } else {
-                      return null;
-                    }
-                  },
+                  validator: FormValidation.valofateFullName,
                 ),
                 DefaultFormFlield(
                     controller: adressController,
                     hintText: 'Your Full Adress',
                     maxLenth: 50,
                     maxLine: 2,
-                    validator: (value) {
-                      if (value == null || value == '') {
-                        return 'Full name field requred';
-                      } else {
-                        return null;
-                      }
-                    }),
+                    validator: FormValidation.validateAdress),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: DefaultFormFlield(
                     controller: emailAdressController,
                     hintText: 'Your email adress',
-                    validator: (email) {
-                      // if (value == null || value == '') {
-                      //   return 'Email is required';
-                      // }
-                      String pattern =
-                          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                      RegExp regex = RegExp(pattern);
-                      bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(email!);
-                      if (!regex.hasMatch(email)) {
-                        return 'Enter valid email address';
-                      } else if (email == '') {
-                        return 'Email is required';
-                      } else {
-                        return null;
-                      }
-                    },
+                    validator: FormValidation.validateEmail,
                     inputType: TextInputType.emailAddress,
                   ),
                 ),
                 IntlPhoneField(
                   initialCountryCode: 'BD',
-                  style: const TextStyle(color: kBlack, fontFamily: kNotosans),
+                  style: const TextStyle(
+                      color: CResources.black,
+                      fontFamily: Strings.notosansFontFamilly),
                   decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: kBlueGrey)),
+                          borderSide: BorderSide(color: CResources.blueGrey)),
                       hintText: 'Phone Number',
-                      helperStyle: TextStyle(color: kBlueGrey)),
+                      helperStyle: TextStyle(color: CResources.blueGrey)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 40),
-                  child: MaterialButton(
-                    minWidth: double.infinity,
-                    height: 50,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CheckoutScreen(
-                                      checkOutValue: widget.checkOutvale,
-                                    )));
-                      }
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(),
-                        const Text(
-                          'Next',
-                          style:
-                              TextStyle(color: kWhite, fontFamily: kNotosans),
-                        ),
-                        const Icon(
-                          Icons.navigate_next,
-                          color: kWhite,
-                        ),
-                      ],
-                    ),
-                    color: kOrange,
-                  ),
-                )
+                    padding: const EdgeInsets.only(top: 40),
+                    child: DefaultButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(),
+                          const Text(
+                            'Next',
+                            style: TextStyle(
+                                color: CResources.white,
+                                fontFamily: Strings.notosansFontFamilly),
+                          ),
+                          const Icon(
+                            Icons.navigate_next,
+                            color: CResources.white,
+                          ),
+                        ],
+                      ),
+                      buttonColor: CResources.orange,
+                      onPressed: () {
+                        if (orderFormKey.currentState!.validate()) {
+                          OrderInformationModel orderInformationModel =
+                              OrderInformationModel(
+                                  fullName: fullNameController.text,
+                                  fullAddress: fullNameController.text,
+                                  emailAddress: emailAdressController.text,
+                                  phoneNumber: phoneController.text,
+                                  shoppingCardModelList:
+                                      Provider.of<CartListState>(context,
+                                              listen: false)
+                                          .globalCheckedOutList);
+                          Provider.of<OrderProcessState>(context, listen: false)
+                                  .orderInformationModelLocal =
+                              orderInformationModel;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CheckoutScreen(
+                                        checkOutValue: widget.checkOutvale,
+                                      )));
+                        }
+                      },
+                    )),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class DefaultFormFlield extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final int? maxLenth;
-  final TextInputType inputType;
-  final int? maxLine;
-  final FormFieldValidator<String>? validator;
-  const DefaultFormFlield(
-      {Key? key,
-      required this.controller,
-      required this.hintText,
-      this.maxLenth,
-      required this.validator,
-      this.maxLine = 1,
-      this.inputType = TextInputType.text})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      style: const TextStyle(color: kBlueGrey, fontFamily: kNotosans),
-      maxLength: maxLenth,
-      maxLines: maxLine,
-      keyboardType: inputType,
-      decoration: InputDecoration(
-          focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: kBlueGrey)),
-          hintText: hintText,
-          helperStyle: const TextStyle(color: kBlueGrey)),
-      validator: validator,
     );
   }
 }

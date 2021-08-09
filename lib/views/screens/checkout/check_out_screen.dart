@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/state_management/cart_list_state.dart';
+import 'package:food_delivery/state_management/order_process_state.dart';
+import 'package:food_delivery/utils/methods.dart';
 import 'package:food_delivery/views/screens/nav_bar/nav_bar.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 import 'package:provider/provider.dart';
@@ -28,17 +29,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kWhite,
+        backgroundColor: CResources.white,
         elevation: 0.0,
         title: const Text(
           'Checkout',
-          style: TextStyle(color: kRed, fontFamily: kNotosans),
+          style: TextStyle(
+              color: CResources.red, fontFamily: Strings.notosansFontFamilly),
         ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: kBlack,
+            color: CResources.black,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -58,7 +60,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
             const Text(
               'Or Checkout With',
-              style: TextStyle(color: kGrey, fontFamily: kNotosans),
+              style: TextStyle(
+                  color: CResources.grey,
+                  fontFamily: Strings.notosansFontFamilly),
             ),
             const SizedBox(
               height: 20,
@@ -74,7 +78,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     onPressed: isPressed ? null : () {},
                     height: 50,
                     minWidth: double.infinity,
-                    color: kWhite,
+                    color: CResources.white,
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: Container(
@@ -88,7 +92,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     height: 40,
                   ),
                   MaterialButton(
-                    color: kOrange,
+                    color: CResources.orange,
                     minWidth: double.infinity,
                     height: 50,
                     shape: const RoundedRectangleBorder(
@@ -100,9 +104,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               isPressed = true;
                               checkOutAmount = 0.0;
                             });
+                            Methods.showLoadingIndicator(
+                                context: context, workTodo: pay());
                             showToast(context, 'Succesfully checked out');
-                            Provider.of<CartList>(context, listen: false)
-                                .chechedOut();
+
                             Future.delayed(const Duration(seconds: 2), () {
                               setState(() {
                                 isPressed = false;
@@ -110,7 +115,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const NavBar()));
+                                      builder: (_) => const NavBar()));
                             });
                           },
                     child: Row(
@@ -119,13 +124,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         Container(),
                         const Text(
                           'Pay',
-                          style:
-                              TextStyle(color: kWhite, fontFamily: kNotosans),
+                          style: TextStyle(
+                              color: CResources.white,
+                              fontFamily: Strings.notosansFontFamilly),
                         ),
                         Text(
                           '\$$checkOutAmount',
                           style: const TextStyle(
-                              color: kWhite, fontFamily: kNotosans),
+                              color: CResources.white,
+                              fontFamily: Strings.notosansFontFamilly),
                         )
                       ],
                     ),
@@ -140,5 +147,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> pay() async {
+    await Provider.of<OrderProcessState>(context, listen: false)
+        .compleOrderingProccess(context);
   }
 }

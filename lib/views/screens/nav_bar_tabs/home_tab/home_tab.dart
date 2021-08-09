@@ -7,6 +7,7 @@ import 'package:food_delivery/views/styles/colors.dart';
 import 'package:food_delivery/views/styles/paddings.dart';
 import 'package:provider/provider.dart';
 import 'components/components.dart';
+import 'components/food_list_widget.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -14,29 +15,30 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: kWhite,
+        backgroundColor: CResources.white,
         drawer: const DefaultDrawer(),
-        drawerScrimColor: kBlack,
+        drawerScrimColor: CResources.black,
         appBar: defaultAppBar(
           title: 'Home',
           context: context,
-          cartItemNumber: Provider.of<CartList>(context).cartList.length,
+          cartItemNumber: Provider.of<CartListState>(context).cartList.length,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, bottom: kToolbarHeight),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 10, bottom: kToolbarHeight),
+          child: SingleChildScrollView(
             child: Column(children: const [
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: SearchRestaurant()),
+                  child: SearchFoods()),
               SizedBox(
-                height: kPadding10,
+                height: Dimentions.soSmallDinmention,
               ),
               TopRestaurentsWiget(),
               SizedBox(
-                height: kPadding15,
+                height: Dimentions.smallDimention,
               ),
-              TreddingFoodListWidget()
+              // FoodListSectionWidget()
+              FoodListWidget()
             ]),
           ),
         ));

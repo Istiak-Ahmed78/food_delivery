@@ -15,13 +15,13 @@ class FoodTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
-      drawerScrimColor: kBlueGrey,
+      backgroundColor: CResources.white,
+      drawerScrimColor: CResources.blueGrey,
       drawer: const DefaultDrawer(),
       appBar: defaultAppBar(
           title: 'My Orders',
           context: context,
-          cartItemNumber: Provider.of<CartList>(context).cartList.length),
+          cartItemNumber: Provider.of<CartListState>(context).cartList.length),
       body: SingleChildScrollView(
         child: Column(
           children: const [ExpensionList()],

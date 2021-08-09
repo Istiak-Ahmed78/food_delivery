@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/utils/search_foods_deligate.dart';
 import 'package:food_delivery/views/styles/colors.dart';
 
-class SearchRestaurant extends StatefulWidget {
-  const SearchRestaurant({Key? key}) : super(key: key);
+class SearchFoods extends StatefulWidget {
+  const SearchFoods({Key? key}) : super(key: key);
 
   @override
-  State<SearchRestaurant> createState() => _SearchRestaurantState();
+  State<SearchFoods> createState() => _SearchFoodsState();
 }
 
-class _SearchRestaurantState extends State<SearchRestaurant> {
+class _SearchFoodsState extends State<SearchFoods> {
   var editingCintroller = TextEditingController();
 
   InputDecoration inputDecoration = InputDecoration(
       hintText: 'Search for restaurant or foods',
-      hintStyle: const TextStyle(color: kGrey),
+      hintStyle: const TextStyle(color: CResources.grey),
       prefixIcon: const Icon(
         Icons.search,
-        color: kOrange,
+        color: CResources.orange,
       ),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kGrey.withOpacity(0.6))),
+          borderSide: BorderSide(color: CResources.grey.withOpacity(0.6))),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kGrey.withOpacity(0.2))));
+          borderSide: BorderSide(color: CResources.grey.withOpacity(0.2))));
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,10 @@ class _SearchRestaurantState extends State<SearchRestaurant> {
       child: TextField(
         controller: editingCintroller,
         decoration: inputDecoration,
+        readOnly: true,
+        onTap: () {
+          showSearch(context: context, delegate: SearchFoodsDeleigate());
+        },
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/di_containers.dart';
 import 'package:food_delivery/models/restaurant_model.dart';
+import 'package:food_delivery/utils/repos/firestore_repo.dart';
 import 'package:food_delivery/views/screens/maps_explorer/maps_explorer.dart';
 import 'package:food_delivery/views/screens/nav_bar_tabs/home_tab/components/components.dart';
 import 'package:food_delivery/views/shared_widgets/headline.dart';
@@ -62,7 +64,7 @@ class TopRestauarentListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.only(right: kPadding30),
+      padding: const EdgeInsets.only(right: Dimentions.soLargeDimention),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -92,7 +94,7 @@ class TopRestauarentListItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(kPadding10),
+                  padding: const EdgeInsets.all(Dimentions.soSmallDinmention),
                   child: Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -106,7 +108,7 @@ class TopRestauarentListItem extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: kBlueGrey),
+                                    color: CResources.blueGrey),
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                                 maxLines: 1,
@@ -118,7 +120,8 @@ class TopRestauarentListItem extends StatelessWidget {
                                 restaurentListItemModel.subTitle,
                                 overflow: TextOverflow.fade,
                                 maxLines: 1,
-                                style: TextStyle(color: kGrey.withOpacity(0.7)),
+                                style: TextStyle(
+                                    color: CResources.grey.withOpacity(0.7)),
                                 softWrap: false,
                               ),
                               const SizedBox(
@@ -129,15 +132,24 @@ class TopRestauarentListItem extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: 50,
-                        margin: const EdgeInsets.only(left: 10),
-                        decoration: const BoxDecoration(
-                            color: kOrangeAccent,
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                        alignment: Alignment.center,
-                        child: const Icon(Icons.directions),
+                      GestureDetector(
+                        onTap: () async {
+                          // var data = (await services<FirestoreRepos>()
+                          //     .completeOrderProcess());
+
+                          // print(data.data());
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 50,
+                          margin: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                              color: CResources.orangeAccent,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          alignment: Alignment.center,
+                          child: const Icon(Icons.directions),
+                        ),
                       )
                     ],
                   ),

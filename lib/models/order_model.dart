@@ -4,7 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class OrderModel {
   final DateTime? orderTime;
   final RestaurentListItemModel restaurentListItemModel;
+
   OrderModel({this.orderTime, required this.restaurentListItemModel});
+
   static List<OrderModel> orderModelList = [
     OrderModel(
         restaurentListItemModel: RestaurentListItemModel(

@@ -31,7 +31,8 @@ class _CartState extends State<Cart> {
       width: MediaQuery.of(context).size.width * 0.8,
       padding: const EdgeInsets.all(15),
       decoration: const BoxDecoration(
-          color: kWhite, borderRadius: BorderRadius.all(Radius.circular(10))),
+          color: CResources.white,
+          borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,8 +54,9 @@ class _CartState extends State<Cart> {
                     showEditCartDialog(context);
                   },
                   child: const Text('Edit',
-                      style:
-                          TextStyle(fontFamily: kNotosans, color: kBlueGrey)))
+                      style: TextStyle(
+                          fontFamily: Strings.notosansFontFamilly,
+                          color: CResources.blueGrey)))
             ],
           ),
           Column(
@@ -62,12 +64,14 @@ class _CartState extends State<Cart> {
             children: [
               const Text(
                 'CARD NUMBER',
-                style: TextStyle(color: kGrey, fontFamily: kNotosans),
+                style: TextStyle(
+                    color: CResources.grey,
+                    fontFamily: Strings.notosansFontFamilly),
               ),
               Text(
                 cartNumberController.text,
                 style: const TextStyle(
-                    color: kBlueGrey, fontSize: 17, letterSpacing: 2),
+                    color: CResources.blueGrey, fontSize: 17, letterSpacing: 2),
               )
             ],
           ),
@@ -78,11 +82,15 @@ class _CartState extends State<Cart> {
                 children: const [
                   Text(
                     'EXPIRY DATE',
-                    style: TextStyle(color: kGrey, fontFamily: kNotosans),
+                    style: TextStyle(
+                        color: CResources.grey,
+                        fontFamily: Strings.notosansFontFamilly),
                   ),
                   Text(
                     'CVV',
-                    style: TextStyle(color: kGrey, fontFamily: kNotosans),
+                    style: TextStyle(
+                        color: CResources.grey,
+                        fontFamily: Strings.notosansFontFamilly),
                   )
                 ],
               ),
@@ -92,12 +100,14 @@ class _CartState extends State<Cart> {
                   Text(
                     dateController.text,
                     style: const TextStyle(
-                        color: kBlueGrey, fontFamily: kNotosans),
+                        color: CResources.blueGrey,
+                        fontFamily: Strings.notosansFontFamilly),
                   ),
                   Text(
                     cvvController.text,
                     style: const TextStyle(
-                        color: kBlueGrey, fontFamily: kNotosans),
+                        color: CResources.blueGrey,
+                        fontFamily: Strings.notosansFontFamilly),
                   )
                 ],
               )
@@ -109,11 +119,12 @@ class _CartState extends State<Cart> {
   }
 
   InputDecoration inputDecoration(labeltext) => InputDecoration(
-      focusColor: kBlack,
-      focusedBorder:
-          const UnderlineInputBorder(borderSide: BorderSide(color: kBlack)),
+      focusColor: CResources.black,
+      focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: CResources.black)),
       labelText: labeltext,
-      labelStyle: const TextStyle(color: kBlack, fontFamily: kNotosans));
+      labelStyle: const TextStyle(
+          color: CResources.black, fontFamily: Strings.notosansFontFamilly));
 
   showEditCartDialog(BuildContext context) {
     return showDialog(
@@ -155,14 +166,17 @@ class _CartState extends State<Cart> {
                       Navigator.pop(context);
                     },
                     child: const Text('Save',
-                        style: TextStyle(fontFamily: kNotosans))),
+                        style: TextStyle(
+                            fontFamily: Strings.notosansFontFamilly))),
                 TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: const Text(
                       'Cancel',
-                      style: TextStyle(fontFamily: kNotosans, color: kRed),
+                      style: TextStyle(
+                          fontFamily: Strings.notosansFontFamilly,
+                          color: CResources.red),
                     ))
               ],
               title: Row(
@@ -173,7 +187,9 @@ class _CartState extends State<Cart> {
                   ),
                   Text(
                     'Payment Settings',
-                    style: TextStyle(color: kBlueGrey, fontFamily: kNotosans),
+                    style: TextStyle(
+                        color: CResources.blueGrey,
+                        fontFamily: Strings.notosansFontFamilly),
                   ),
                 ],
               ),
